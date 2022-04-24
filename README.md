@@ -53,3 +53,15 @@ OBS: both client and vendors login in the same page and the validation is made i
 ![alt text](home_page.png)
 
 If the client and vendor are logged in, both are able to see the same home page. The thing that will differ for them is when they click in the drink name. This event should redirect them to the edditing page or the page with more details of the product, depending on the user type that is logged in.
+
+### Product Page
+
+![alt text](product_page.png)
+
+This is the product page, it is possible to see a brief description of the product and a button for the functionality to add this item to client's cart.
+
+### Cart Page
+
+![alt text](cart_page.jpeg)
+
+This is the cart page, it is possible to see the functionality of removing item from cart and checkout (the function that leads to the payment page).

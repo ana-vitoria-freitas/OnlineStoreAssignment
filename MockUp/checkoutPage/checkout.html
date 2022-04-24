@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BD - Checkout</title>
+  <link rel="shortcut icon" href="https://material.io/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <link rel="stylesheet" href="bundle-checkout.css">
+  <style>
+    .button-container .mdc-button.mdc-button--raised{
+      background-color: #6200ee;
+      color: #ffffff;
+    }
+    .button-container .mdc-button{
+      color: #6200ee;
+    }
+  </style>
+</head>
+
+<body class="checkout">
+  <aside class="mdc-drawer shrine-drawer" style="background:linear-gradient(to bottom,#7f7fd5 30%,#86a8e7,#91eae4);">
+    <div class="mdc-drawer__header">
+      <img src="./assets/home_logo.gif" width="100%; margin-top: 10px">
+
+    </div>
+    <div class="mdc-drawer__content">
+      <nav class="mdc-list">
+        <a class="mdc-list-item mdc-list-item" aria-selected="true" tabindex="0" href="#">
+          <span class="mdc-list-item__text">My Account</span>
+        </a>
+        <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" tabindex="0" href="#">
+          <span class="mdc-list-item__text">My cart</span>
+        </a>
+        <a class="mdc-list-item" aria-selected="true" tabindex="0" href="#">
+          <span class="mdc-list-item__text">Home</span>
+        </a>
+        <a class="mdc-list-item" href="#">
+          <span class="mdc-list-item__text">Logout</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="shrine-body"> 
+    <h4>Checkout</h4>
+    <p class="checkout-info">Complete your payment information so we can finalize your purchase. The shipping address will be the one registered on your account.</p>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="number">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label" id="name-label">Credit Card Number</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="exp">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label" id="name-label">Exp Date</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="cvv">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label" id="name-label">CVV</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="button-container">
+      <button type="button" class="mdc-button cancel" >
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">
+          Back to cart
+        </span>
+      </button>
+      <button class="mdc-button mdc-button--raised next">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">
+          Purchase
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <script src="bundle-client-account.js" async></script>
+</body>
+
+</html>

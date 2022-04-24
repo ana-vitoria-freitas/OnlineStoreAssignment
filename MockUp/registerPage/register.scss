@@ -1,0 +1,65 @@
+@import "./common";
+@import "@material/textfield/mdc-text-field";
+@import "@material/button/mdc-button";
+
+.header {
+  text-align: center;
+}
+
+.shrine-logo {
+  width: 150px;
+  height: 150px;
+  padding-top: 80px;
+  fill: currentColor;
+}
+
+.username,
+.password {
+  display: flex;
+  width: 300px;
+  margin: 20px auto;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 30px auto;
+}
+
+.button-container button {
+  margin: 3px;
+}
+
+.shrine-body {
+
+  overflow: auto;
+  padding: 0px 400px 0;
+  justify-content: center;
+  @include mdc-typography(headline5);
+  font-family: unquote("Roboto");
+  text-align: center;
+}
+
+.h4{
+  justify-content: center; 
+}
+
+.mdc-text-field--outlined{
+  margin: 20px auto;
+
+  #name,
+  #email,
+  #address1,
+  #address2{
+    width: 400px;
+  }
+
+  #cpf,
+  #telephone,
+  #city,
+  #state,
+  #country,
+  #postcode {
+    width: 180px;
+  }
+}

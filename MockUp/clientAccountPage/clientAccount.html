@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BD - Client Account</title>
+  <link rel="shortcut icon" href="https://material.io/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <link rel="stylesheet" href="bundle-client-account.css">
+
+</head>
+
+<body class="client-account">
+  <aside class="mdc-drawer shrine-drawer" style="background:linear-gradient(to bottom,#7f7fd5 30%,#86a8e7,#91eae4);">
+    <div class="mdc-drawer__header">
+      <img src="./assets/home_logo.gif" width="100%; margin-top: 10px">
+
+    </div>
+    <div class="mdc-drawer__content">
+      <nav class="mdc-list">
+        <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" tabindex="0" href="#">
+          <span class="mdc-list-item__text">My Account</span>
+        </a>
+        <a class="mdc-list-item" aria-selected="true" tabindex="0" href="#">
+          <span class="mdc-list-item__text">My cart</span>
+        </a>
+        <a class="mdc-list-item" aria-selected="true" tabindex="0" href="#">
+          <span class="mdc-list-item__text">Home</span>
+        </a>
+        <a class="mdc-list-item" href="#">
+          <span class="mdc-list-item__text">Logout</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="shrine-body"> 
+    <h4>Personal Details</h4>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="name">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label" id="name-label">Name</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="cpf">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label" id="name-label">CPF</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="telephone">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label" id="name-label">Mobile phone</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="email">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label">Email</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="address1">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label">Address 1</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="address2">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label">Address 2</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="city">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label">City</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="state">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label">State</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="country">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label">Country</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input class="mdc-text-field__input" id="postcode">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label">Post Code</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="button-container">
+      <button type="button" class="mdc-button mdc-button--raised" >
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">
+          Save
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <script src="bundle-client-account.js" async></script>
+</body>
+
+</html>

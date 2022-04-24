@@ -1,0 +1,82 @@
+@import "./common";
+@import "@material/drawer/mdc-drawer";
+@import "@material/list/mdc-list";
+@import "@material/image-list/mdc-image-list";
+@import "@material/ripple/mdc-ripple";
+@import "@material/typography/mdc-typography";
+@import "@material/elevation/mdc-elevation";
+@import "@material/textfield/mdc-text-field";
+@import "@material/button/mdc-button";
+
+.client-account {
+  display: flex; // Flexbox is used to easily arrange the persistent drawer and content side-by-side
+}
+
+
+.shrine-drawer {
+  @include mdc-drawer-fill-color-accessible(primary);
+  // Drawer defaults to a higher z-index, but we aren't overlaying it over anything
+  @include mdc-drawer-z-index(0);
+
+  text-transform: uppercase;
+
+  .mdc-list {
+    margin: 70px 5px auto 5px;
+  }
+
+  .mdc-list-item {
+    border-radius: 6px;
+    justify-content: center;
+  }
+
+  // This needs 3-class specificity to override MDC Drawer styles
+  .mdc-list .mdc-list-item {
+    @include mdc-states-activated(#fff);
+  }
+}
+
+
+// This needs 2-class specificity to override MDC Drawer styles
+.shrine-drawer .shrine-select-item-divider {
+  margin: 0 auto;
+}
+
+.shrine-body {
+
+  overflow: auto;
+  padding: 20px 300px 0;
+  justify-content: center;
+  @include mdc-typography(headline4);
+  font-family: unquote("Roboto"),
+}
+
+.mdc-text-field--outlined{
+  margin: 20px auto;
+
+  #name,
+  #email,
+  #address1,
+  #address2{
+    width: 400px;
+  }
+
+  #cpf,
+  #telephone,
+  #city,
+  #state,
+  #country,
+  #postcode {
+    width: 180px;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  margin: 20px auto;
+}
+
+.button-container button {
+  margin: 3px;
+}

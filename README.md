@@ -42,6 +42,14 @@ Our store sells drinks in all types: hot, cold and alcoholic. It will have all o
 
 In order to attend those requirements, the store has the following pages:
 
+### Register Page
+
+![alt text](register_page_1.png)
+![alt text](register_page_2.png)
+
+This is the register page, where the clients create their accounts to be able to navigate and buy products.
+
+
 ### Login Page
 
 ![alt text](login_page.png)
@@ -65,3 +73,42 @@ This is the product page, it is possible to see a brief description of the produ
 ![alt text](cart_page.jpeg)
 
 This is the cart page, it is possible to see the functionality of removing item from cart and checkout (the function that leads to the payment page).
+
+### Checkout Page
+
+![alt text](checkout_page.png)
+
+This is the checkout page, where the client can finalize their purchase.
+
+### Account Page
+
+![alt text](account_page.png)
+![alt text](account_page_2.png)
+
+This is the account page, where the user can see/edit their details.
+
+
+## Navigation diagram
+
+![alt text](diagram.png)
+
+
+## How to run it
+
+To run the pages, you need to have the 12.13.0 node version. If you already have node installed, you can do the downgrade by doing
+
+```
+$ sudo npm install -g n
+$ sudo n 12.13.0
+```
+
+1. Clone the repo using the following command: `git clone https://github.com/ana-vitoria-freitas/OnlineStoreAssignment.git`
+
+2. Go inside the folder of the page you want to open
+
+3. Run `npm install` to install all the dependencies
+   
+4. Run `npm start` and then go to http://localhost:8080
+
+We will make all the pages open in the same localhost in the next project delivery.
+

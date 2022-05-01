@@ -44,52 +44,56 @@ In order to attend those requirements, the store has the following pages:
 
 ### Register Page
 
-![alt text](register_page_1.png)
-![alt text](register_page_2.png)
+![alt text](Images/register_page_1.png)
+![alt text](Images/register_page_2.png)
 
 This is the register page, where the clients create their accounts to be able to navigate and buy products.
 
 
 ### Login Page
 
-![alt text](login_page.png)
+![alt text](Images/login_page.png)
 
 OBS: both client and vendors login in the same page and the validation is made inside the backend.
 
 ### Home Page
 
-![alt text](home_page.png)
+![alt text](Images/home_page.png)
 
 If the client and vendor are logged in, both are able to see the same home page. The thing that will differ for them is when they click in the drink name. This event should redirect them to the edditing page or the page with more details of the product, depending on the user type that is logged in.
 
 ### Product Page
 
-![alt text](product_page.png)
+![alt text](Images/client_product_page.png)
 
-This is the product page, it is possible to see a brief description of the product and a button for the functionality to add this item to client's cart.
+This is the client product page, it is possible to see a brief description of the product and a button for the functionality to add this item to client's cart.
+
+![alt text](Images/seller_product_page.png)
+
+This is the seller product page, where the seller can add, edit or remove a product.
 
 ### Cart Page
 
-![alt text](cart_page.jpeg)
+![alt text](Images/cart_page.jpeg)
 
 This is the cart page, it is possible to see the functionality of removing item from cart and checkout (the function that leads to the payment page).
 
 ### Checkout Page
 
-![alt text](checkout_page.png)
+![alt text](Images/checkout_page.png)
 
 This is the checkout page, where the client can finalize their purchase.
 
 ### Account Page
 
-![alt text](account_page.png)
-![alt text](account_page_2.png)
+![alt text](Images/account_page.png)
+![alt text](Images/account_page_2.png)
 
 This is the account page, where the user can see/edit their details.
 
 ## Navigation diagram
 
-![alt text](diagram.png)
+![alt text](Images/diagram.png)
 
 ## How to run it
 

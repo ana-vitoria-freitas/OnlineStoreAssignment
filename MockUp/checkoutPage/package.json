@@ -21,10 +21,13 @@
   },
   "dependencies": {
     "@material/button": "^6.0.0",
+    "@material/card": "^6.0.0",
     "@material/drawer": "^6.0.0",
+    "@material/elevation": "^6.0.0",
     "@material/image-list": "^6.0.0",
     "@material/list": "^6.0.0",
     "@material/ripple": "^6.0.0",
-    "@material/textfield": "^6.0.0"
+    "@material/textfield": "^6.0.0",
+    "@material/typography": "^6.0.0"
   }
 }

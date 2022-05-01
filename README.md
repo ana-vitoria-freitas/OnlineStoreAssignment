@@ -87,6 +87,10 @@ This is the checkout page, where the client can finalize their purchase.
 
 This is the account page, where the user can see/edit their details.
 
+## Navigation diagram
+
+![alt text](diagram.png)
+
 ## How to run it
 
 To run the pages, you need to have the 12.13.0 node version. If you already have node installed, you can do the downgrade by doing

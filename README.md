@@ -105,7 +105,8 @@ $ sudo n 12.13.0
 2. Go inside the folder of the page you want to open
 
 3. Run `npm install` to install all the dependencies
-
+   
 4. Run `npm start` and then go to http://localhost:8080
 
 We will make all the pages open in the same localhost in the next project delivery.
+

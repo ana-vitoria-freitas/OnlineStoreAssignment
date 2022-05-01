@@ -20,7 +20,8 @@
   margin: 20px auto;
 }
 
-.button-container {
+.button-container,
+.link-container {
   display: flex;
   justify-content: flex-end;
   width: 300px;
@@ -29,4 +30,12 @@
 
 .button-container button {
   margin: 3px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #000;
 }

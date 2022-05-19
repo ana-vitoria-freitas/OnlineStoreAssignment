@@ -74,7 +74,7 @@ This is the seller product page, where the seller can add, edit or remove a prod
 
 ### Cart Page
 
-![alt text](Images/cart_page.jpeg)
+![alt text](Images/cart_page.png)
 
 This is the cart page, it is possible to see the functionality of removing item from cart and checkout (the function that leads to the payment page).
 

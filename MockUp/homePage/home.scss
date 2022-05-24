@@ -27,6 +27,7 @@
 
 .product-list {
   @include mdc-image-list-masonry-columns(4);
+   min-width: 500px;
 
   overflow: auto;
   padding: 80px 100px 0;
@@ -37,6 +38,9 @@
 
   .mdc-image-list__item {
     padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px #22446038;
+    min-width: 100px;
   }
 
   .mdc-image-list__label {

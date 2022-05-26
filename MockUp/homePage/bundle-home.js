@@ -10,7 +10,7 @@ link2.addEventListener("click", () =>{
     if(localStorage.getItem("username") == "admin"){
         location.href = '../sellerAccountPage/index.html';
     }else if (localStorage.getItem("username") == "user"){
-        location.href = '../clientProductPage/index.html';
+        location.href = '../clientAccountPage/index.html';
     }else{
         location.href = '../loginPage/index.html';
     }

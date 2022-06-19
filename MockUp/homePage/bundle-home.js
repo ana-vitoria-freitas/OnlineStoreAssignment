@@ -1,7 +1,8 @@
 let link1 = document.getElementById("link-1")
 
 link1.addEventListener("click", () =>{
-    location.href = '../clientProductPage/index.html';
+    console.log('aqui')
+    location.href = '../clientProductPage';
 })
 
 let link2 = document.getElementById("link-2")
@@ -14,4 +15,11 @@ link2.addEventListener("click", () =>{
     }else{
         location.href = '../loginPage/index.html';
     }
+})
+
+let button1 = document.getElementById("button-1")
+
+button1.addEventListener("click", () =>{
+    console.log('aqui')
+    location.href = '/cartPage';
 })

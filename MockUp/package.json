@@ -28,6 +28,7 @@
     "@material/list": "^6.0.0",
     "@material/ripple": "^6.0.0",
     "@material/textfield": "^6.0.0",
-    "@material/typography": "^6.0.0"
+    "@material/typography": "^6.0.0",
+    "vue": "^3.2.37"
   }
 }

@@ -5,15 +5,18 @@
 @import "@material/ripple/mdc-ripple";
 @import "@material/typography/mdc-typography";
 @import "@material/elevation/mdc-elevation";
+@import "@material/button/mdc-button";
+
+#list {
+  display: flex;
+  z-index: 0;
+}
 
 .home {
   display: flex; // Flexbox is used to easily arrange the persistent drawer and content side-by-side
 }
 
 .shrine-logo-drawer {
-  display: block;
-  width: 48px;
-  padding: 40px 0 0;
   margin: 0 auto;
   fill: currentColor;
 }
@@ -84,10 +87,64 @@
   margin: 0 auto;
 }
 
-.shrine-body {
+.shrine-body-home {
   @include mdc-elevation(4);
 
   display: block;
   overflow: auto;
   z-index: 0; // Elevate over the drawer
 }
+
+.shrine-body-product {
+
+  z-index: 0; // Elevate over the drawer
+  display: block;
+  overflow: auto;
+  width: 100%;
+
+  ul {
+    list-style-type: none;
+    li + li{
+      padding: 5px 0 0 0;
+    }
+    padding-left: 5px ;
+  }
+}
+
+
+#product_list {
+  list-style-type: none;
+    li + li{
+      padding: 5px 0 0 0;
+    }
+    padding-left: 5px ;
+}
+
+#drink_img{
+  border-radius: 0.5rem;
+  display: inline-block;
+  min-width: 300px;
+}
+
+#div-left{
+  display: inline-block;
+  max-width: 400px;
+  min-width: 200px;
+  padding-right: 20px;
+}
+
+#div-left-out{
+  height: 100%;
+}
+
+#div-out{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 3% 5% 3% 5%;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 2px 10px #22446038;
+}
+

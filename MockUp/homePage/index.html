@@ -36,17 +36,17 @@
             <span class="mdc-list-item__text">Featured</span>
           </a>
           <div class="shrine-select-item-divider mdc-list-divider" role="separator"></div>
-          <a class="mdc-list-item" href="#">
+          <a class="mdc-list-item" href="/homePage/#/hot">
             <span class="mdc-list-item__text">Hot drinks</span>
-          </a>
-          <a class="mdc-list-item" href="#">
+          </router-link>
+          <a class="mdc-list-item" href="/homePage/#/cold">
             <span class="mdc-list-item__text">Cold drinks</span>
           </a>
-          <a class="mdc-list-item" href="#">
+          <a class="mdc-list-item" href="/homePage/#/alcoholic">
             <span class="mdc-list-item__text">Alcoholic</span>
           </a>
 
-          <a id="link-2" class="mdc-list-item">
+          <a id="link-2" class="mdc-list-item" href="/clientAccountPage">
             <span class="mdc-list-item__text">My Account</span>
           </a>
         </nav>
@@ -58,8 +58,8 @@
   <template id="home_id">
     <div class="shrine-body-home">
       <ul class="mdc-image-list mdc-image-list--masonry product-list">
-        <div v-for="(item, index) in products">
-          <router-link :to="{name:'product',params:{id:index} }">
+        <div v-for="(item) in products">
+          <router-link :to="{name:'product',params:{id:item.id} }">
             <li class="mdc-image-list__item">
               <img class="mdc-image-list__image" :src="item.image">
               <div id="link-1" class="mdc-image-list__supporting">
@@ -109,7 +109,7 @@
                       US$ 7,90
                     </span>
                   </button>
-                  <button id="button-1" class="mdc-button mdc-button--raised next">
+                  <button v-on:click="goToCart" id="button-1" class="mdc-button mdc-button--raised next">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">
                       Add to cart
@@ -139,66 +139,98 @@
       {
         name: "Ginger scarf",
         image: "assets/blue_orange.jpg",
+        types: ["alcoholic"],
+        id: 0,
       },
       {
         name: "Blue stone mug",
         image: "assets/colorful.jpeg",
+        types: ["alcoholic"],
+        id: 1,
       },
       {
         name: "Cerise scallop tee",
         image: "assets/orange4.jpeg",
+        types: ["hot"],
+        id: 2,
       },
       {
         name: "Chambray napkins",
         image: "assets/yellow.jpeg",
+        types: ["cold"],
+        id: 3,
       },
       {
         name: "Fine lines tee",
         image: "assets/yellow.jpg",
+        types: ["cold"],
+        id: 4,
       },
       {
         name: "Garden strand",
         image: "assets/red.jpg",
+        types: ["alcoholic"],
+        id: 5,
       },
       {
         name: "Gatsby hat",
         image: "assets/lemon.jpeg",
+        types: ["cold"],
+        id: 6,
       },
       {
         name: "Gilt desk trio",
         image: "assets/hot.jpeg",
+        types: ["hot"],
+        id: 7,
       },
       {
         name: "Kitchen quattro",
         image: "assets/cap.jpg",
+        types: ["hot"],
+        id: 8,
       },
       {
         name: "Seabreeze sweater",
         image: "assets/orange1.jpg",
+        types: ["alcoholic", "cold"], 
+        id: 9,
       },
       {
         name: "Shrug bag",
         image: "assets/blue_drink.jpg",
+        types: ["alcoholic", "cold"],
+        id: 10,
       },
       {
         name: "Stella sunglasses",
         image: "assets/shadow_drink.jpg",
+        types: ["alcoholic"],
+        id: 11,
       },
       {
         name: "Surf and perf shirt",
         image: "assets/summer_drink.jpg",
+        types: ["cold"],
+        id: 12,
       },
       {
         name: "Vagabond sack",
         image: "assets/pink_drink.jpg",
+        types: ["cold"],
+        id: 13,
       },
       {
         name: "Walter henley (white)",
         image: "assets/green_drink.jpg",
+        types: ["cold"],
+        id: 14,
       },
       {
         name: "Weave keyring",
         image: "assets/gas_drink.jpg",
+        types: ["alcoholic"],
+        id: 15,
       },
     ]
 
@@ -210,12 +242,42 @@
           products
         }
       },
+      methods: {
+        goToCart(){
+          console.log('aqui')
+          location.href = '/cartPage';
+        }
+      }
     });
-    const Home = Vue.component('home_component', {
+    const Home_featured = Vue.component('home_component', {
       template: '#home_id',
       data() {
         return {
           products
+        }
+      },
+    });
+    const Home_hot_drinks = Vue.component('home_component', {
+      template: '#home_id',
+      data() {
+        return {
+          products: products.filter( p => (p.types.includes('hot')))
+        }
+      },
+    });
+    const Home_cold_drinks = Vue.component('home_component', {
+      template: '#home_id',
+      data() {
+        return {
+          products: products.filter( p => (p.types.includes("cold")))
+        }
+      },
+    });
+    const Home_alcoholic = Vue.component('home_component', {
+      template: '#home_id',
+      data() {
+        return {
+          products: products.filter( p => (p.types.includes("alcoholic")))
         }
       },
     });
@@ -224,7 +286,10 @@
     var router = new VueRouter({
       routes: [
         { path: 'product/:id', name: 'product', component: Product, props: true },
-        { path: '/', component: Home },
+        { path: '/', component: Home_featured },
+        { path: '/hot', component: Home_hot_drinks },
+        { path: '/cold', component: Home_cold_drinks },
+        { path: '/alcoholic', component: Home_alcoholic },
       ]
     })
 

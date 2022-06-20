@@ -8,6 +8,12 @@
 @import "@material/card";
 @import "@material/button/mdc-button";
 
+
+#cart-app {
+  display: flex;
+  z-index: 0;
+}
+
 .cart {
   display: flex; // Flexbox is used to easily arrange the persistent drawer and content side-by-side
   // background:linear-gradient(to left,#7f7fd5 30%,#86a8e7,#91eae4);

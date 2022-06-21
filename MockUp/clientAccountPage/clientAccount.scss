@@ -50,26 +50,6 @@
   font-family: unquote("Roboto"),
 }
 
-.mdc-text-field--outlined{
-  margin: 20px auto;
-
-  #name,
-  #email,
-  #address1,
-  #address2{
-    width: 400px;
-  }
-
-  #cpf,
-  #telephone,
-  #city,
-  #state,
-  #country,
-  #postcode {
-    width: 180px;
-  }
-}
-
 .button-container {
   display: flex;
   justify-content: center;
@@ -79,4 +59,22 @@
 
 .button-container button {
   margin: 3px;
+}
+
+input {
+  border: none;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 2px;
+  padding-left: 5px;
+  outline: none;
+  font-size: 18px;
+  line-height: 36px;
+  font-family: 'Spartan';
+  width: 400px;
+}
+
+label {
+  font-size: 18px;
+  font-family: 'Spartan';
+  
 }

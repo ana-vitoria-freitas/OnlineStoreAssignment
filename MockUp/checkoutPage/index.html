@@ -88,7 +88,7 @@
           Back to cart
         </span>
       </button>
-      <button class="mdc-button mdc-button--raised next">
+      <button v-on:click="purchaseOrder" class="mdc-button mdc-button--raised next">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">
           Purchase
@@ -112,6 +112,10 @@
       methods: {
         goToCart(){
           location.href = '/cartPage';
+        },
+        purchaseOrder(){
+          localStorage.setItem("cart", JSON.stringify([]))
+          location.href = '/homePage';
         }
       }
     });

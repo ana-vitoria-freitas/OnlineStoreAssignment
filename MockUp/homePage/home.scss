@@ -95,7 +95,7 @@
   z-index: 0; // Elevate over the drawer
 }
 
-.shrine-body-product {
+.shrine-body-client-product {
 
   z-index: 0; // Elevate over the drawer
   display: block;
@@ -109,42 +109,136 @@
     }
     padding-left: 5px ;
   }
+
+  #product_list {
+    list-style-type: none;
+      li + li{
+        padding: 5px 0 0 0;
+      }
+      padding-left: 5px ;
+  }
+  
+  #drink_img{
+    border-radius: 0.5rem;
+    display: inline-block;
+    min-width: 300px;
+  }
+  
+  #div-left{
+    display: inline-block;
+    max-width: 400px;
+    min-width: 200px;
+    padding-right: 20px;
+  }
+  
+  #div-left-out{
+    height: 100%;
+  }
+  
+  #div-out{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 3% 5% 3% 5%;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 2px 10px #22446038;
+  }
 }
 
 
-#product_list {
-  list-style-type: none;
+
+.shrine-body-admin-product {
+
+  z-index: 0; // Elevate over the drawer
+  display: block;
+  overflow: auto;
+  width: 100%;
+
+  ul {
+    list-style-type: none;
     li + li{
       padding: 5px 0 0 0;
     }
     padding-left: 5px ;
-}
+  }
 
-#drink_img{
-  border-radius: 0.5rem;
-  display: inline-block;
-  min-width: 300px;
+  .mdc-image-list__image{
+    border-radius: 0.5rem;
+    display: inline-block;
+    min-width: 300px;
+  }
+  
+  #div-left{
+    display: inline-block;
+    max-width: 400px;
+    min-width: 300px;
+    padding-right: 20px;
+  }
+  
+  #div-left-out{
+    height: 100%;
+  }
+  
+  #div-out{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 3% 5% 3% 5%;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 2px 10px #22446038;
+  }
+  
+  
+  .campo {
+    margin-bottom: 1em;
+  }
+  
+  .campo label {
+    margin-bottom: 0.2em;
+    color: #666;
+    display: block;
+  }
+  
+  #ingredients, #nutrition {
+    height: 80px;
+  }
+  
+  #fun-fact{
+    height: 50px;
+  }
+  
+  textarea, input{
+    width: 250px;
+  }
+  
+  .image-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image-container:hover {
+    
+    img{
+      filter: blur(10px);
+    }
+  
+    #edit-image {
+      display: block;
+    }
+  }
+  
+  #edit-image {
+    position: absolute;
+    display: none;
+    text-align: center;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color:#fff;
+    font-size: 1em;
+    font-weight: 900;
+  }
 }
-
-#div-left{
-  display: inline-block;
-  max-width: 400px;
-  min-width: 200px;
-  padding-right: 20px;
-}
-
-#div-left-out{
-  height: 100%;
-}
-
-#div-out{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 3% 5% 3% 5%;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0px 2px 10px #22446038;
-}
-

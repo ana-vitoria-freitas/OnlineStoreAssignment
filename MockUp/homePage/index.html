@@ -38,17 +38,17 @@
           <div class="shrine-select-item-divider mdc-list-divider" role="separator"></div>
           <a class="mdc-list-item" href="/homePage/#/hot">
             <span class="mdc-list-item__text">Hot drinks</span>
-          </router-link>
-          <a class="mdc-list-item" href="/homePage/#/cold">
-            <span class="mdc-list-item__text">Cold drinks</span>
-          </a>
-          <a class="mdc-list-item" href="/homePage/#/alcoholic">
-            <span class="mdc-list-item__text">Alcoholic</span>
-          </a>
+            </router-link>
+            <a class="mdc-list-item" href="/homePage/#/cold">
+              <span class="mdc-list-item__text">Cold drinks</span>
+            </a>
+            <a class="mdc-list-item" href="/homePage/#/alcoholic">
+              <span class="mdc-list-item__text">Alcoholic</span>
+            </a>
 
-          <a id="link-2" class="mdc-list-item" href="/clientAccountPage">
-            <span class="mdc-list-item__text">My Account</span>
-          </a>
+            <a v-on:click="goToAccount" id="link-2" class="mdc-list-item">
+              <span class="mdc-list-item__text">My Account</span>
+            </a>
         </nav>
       </div>
     </aside>
@@ -58,8 +58,8 @@
   <template id="home_id">
     <div class="shrine-body-home">
       <ul class="mdc-image-list mdc-image-list--masonry product-list">
-        <div v-for="(item) in products">
-          <router-link :to="{name:'product',params:{id:item.id} }">
+        <div v-for="(item) in products" v-if="!(item.removed)">
+          <router-link :to="{name:product_type,params:{id:item.id} }">
             <li class="mdc-image-list__item">
               <img class="mdc-image-list__image" :src="item.image">
               <div id="link-1" class="mdc-image-list__supporting">
@@ -72,8 +72,8 @@
     </div>
   </template>
 
-  <template id="product_template">
-    <div class="shrine-body-product">
+  <template id="client_product_template">
+    <div class="shrine-body-client-product">
       <div id="div-out">
         <div id="div-left-out">
           <div id="div-left">
@@ -81,22 +81,16 @@
             <div class="div-body">
               <ul id="product_list">
                 <li>
-                  <strong>Fun fact:</strong> The cold version of cappucino is called Freddo.
+                  <strong>Fun fact:</strong> {{ products[id].fun_fact }}
                 </li>
                 <li>
-                  <strong>Ingredients:</strong> Milk, coffee and cinnamon
+                  <strong>Ingredients:</strong> {{ products[id].ingredients }}
                 </li>
                 <li>
-                  <strong>Nutrition: </strong> Lorem Ipsum is simply dummy text of the printing and typesetting
-                  industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                  unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
-                  not only five centuries, but also the leap into electronic typesetting, remaining essentially
-                  unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software like Aldus PageMaker including versions
-                  of Lorem Ipsum..
+                  <strong>Nutrition: </strong> {{ products[id].nutrition }}
                 </li>
                 <li>
-                  <strong>Recipe link: </strong> <a href="#">Fun recipe</a>
+                  <strong>Recipe link: </strong> <a href="#">{{ products[id].recipe_link }}</a>
                 </li>
               </ul>
             </div>
@@ -106,10 +100,10 @@
                   <button type="button" class="mdc-button cancel">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">
-                      US$ 7,90
+                      US$ {{ products[id].price }}
                     </span>
                   </button>
-                  <button v-on:click="goToCart" id="button-1" class="mdc-button mdc-button--raised next">
+                  <button v-on:click="addToCart(id)" id="button-1" class="mdc-button mdc-button--raised next">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">
                       Add to cart
@@ -127,6 +121,66 @@
     </div>
   </template>
 
+  <template id="admin_product_template">
+    <div class="shrine-body-admin-product">
+      <div id="div-out">
+        <div id="div-left-out">
+          <div id="div-left">
+            <div class="div-body">
+              <form name="product_form" action="#" method="post">
+                <div class="campo">
+                  <label for="fun-fact">Name:</label>
+                  <input type="text" id="name" :value="products[id].name">
+                </div>
+                <div class="campo">
+                  <label for="fun-fact">Fun fact:</label>
+                  <textarea maxlength="200" id="fun-fact" :value="products[id].fun_fact"></textarea>
+                </div>
+                <div class="campo">
+                  <label for="ingredients">Ingredients:</label>
+                  <textarea maxlength="500" id="ingredients" :value="products[id].ingredients"></textarea>
+                </div>
+                <div class="campo">
+                  <label for="nutrition">Nutrition:</label>
+                  <textarea maxlength="500" id="nutrition" :value="products[id].nutrition"></textarea>
+                </div>
+                <div class="campo">
+                  <label for="recipe">Recipe link:</label>
+                  <input type="text" id="recipe" :value="products[id].recipe_link">
+                </div>
+                <div class="campo">
+                  <label for="price">US$:</label>
+                  <input type="text" id="price" :value="products[id].price">
+                </div>
+              </form>
+            </div>
+            <div class="mdc-card__actions">
+              <div class="mdc-card__action-buttons">
+                <div class="button-container">
+                  <button v-on:click="removeProduct(id)" type="button" class="mdc-button cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">
+                      Remove product
+                    </span>
+                  </button>
+                  <button v-on:click="updateProduct(id)" class="mdc-button mdc-button--raised next">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">
+                      Save
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="image-container">
+          <img class="mdc-image-list__image" :src="products[id].image">
+          <div id="edit-image">EDIT IMAGE</div>
+        </div>
+      </div>
+    </div>
+  </template>
 
   <script src="bundle-home.js" async></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -135,125 +189,65 @@
 
   <script type="module">
 
-    var products = [
-      {
-        name: "Ginger scarf",
-        image: "assets/blue_orange.jpg",
-        types: ["alcoholic"],
-        id: 0,
-      },
-      {
-        name: "Blue stone mug",
-        image: "assets/colorful.jpeg",
-        types: ["alcoholic"],
-        id: 1,
-      },
-      {
-        name: "Cerise scallop tee",
-        image: "assets/orange4.jpeg",
-        types: ["hot"],
-        id: 2,
-      },
-      {
-        name: "Chambray napkins",
-        image: "assets/yellow.jpeg",
-        types: ["cold"],
-        id: 3,
-      },
-      {
-        name: "Fine lines tee",
-        image: "assets/yellow.jpg",
-        types: ["cold"],
-        id: 4,
-      },
-      {
-        name: "Garden strand",
-        image: "assets/red.jpg",
-        types: ["alcoholic"],
-        id: 5,
-      },
-      {
-        name: "Gatsby hat",
-        image: "assets/lemon.jpeg",
-        types: ["cold"],
-        id: 6,
-      },
-      {
-        name: "Gilt desk trio",
-        image: "assets/hot.jpeg",
-        types: ["hot"],
-        id: 7,
-      },
-      {
-        name: "Kitchen quattro",
-        image: "assets/cap.jpg",
-        types: ["hot"],
-        id: 8,
-      },
-      {
-        name: "Seabreeze sweater",
-        image: "assets/orange1.jpg",
-        types: ["alcoholic", "cold"], 
-        id: 9,
-      },
-      {
-        name: "Shrug bag",
-        image: "assets/blue_drink.jpg",
-        types: ["alcoholic", "cold"],
-        id: 10,
-      },
-      {
-        name: "Stella sunglasses",
-        image: "assets/shadow_drink.jpg",
-        types: ["alcoholic"],
-        id: 11,
-      },
-      {
-        name: "Surf and perf shirt",
-        image: "assets/summer_drink.jpg",
-        types: ["cold"],
-        id: 12,
-      },
-      {
-        name: "Vagabond sack",
-        image: "assets/pink_drink.jpg",
-        types: ["cold"],
-        id: 13,
-      },
-      {
-        name: "Walter henley (white)",
-        image: "assets/green_drink.jpg",
-        types: ["cold"],
-        id: 14,
-      },
-      {
-        name: "Weave keyring",
-        image: "assets/gas_drink.jpg",
-        types: ["alcoholic"],
-        id: 15,
-      },
-    ]
+    var products = JSON.parse(localStorage.getItem("products"))
 
-    const Product = Vue.component('product_component', {
+    const Client_product = Vue.component('client_product_component', {
       props: ['id'],
-      template: '#product_template',
+      template: '#client_product_template',
       data() {
         return {
           products
         }
       },
       methods: {
-        goToCart(){
-          console.log('aqui')
-          location.href = '/cartPage';
+        addToCart(id) {
+
+          if (localStorage.getItem("username") != "user") {
+            location.href = '../loginPage';
+          }
+          else {
+            var cart = JSON.parse(localStorage.getItem("cart"))
+            cart.push(products[id])
+            localStorage.setItem("cart", JSON.stringify(cart))
+            location.href = '/cartPage';
+          }
         }
       }
     });
+
+    const Admin_product = Vue.component('admin_product_component', {
+      props: ['id'],
+      template: '#admin_product_template',
+      data() {
+        return {
+          products
+        }
+      },
+      methods: {
+        updateProduct(id) {
+          products[id].name = document.product_form.elements.item(0).value
+          products[id].fun_fact = document.product_form.elements.item(1).value
+          products[id].ingredients = document.product_form.elements.item(2).value
+          products[id].nutrition = document.product_form.elements.item(3).value
+          products[id].recipe_link = document.product_form.elements.item(4).value
+          products[id].price = document.product_form.elements.item(5).value
+          localStorage.setItem("products", JSON.stringify(products))
+          location.href = '/homePage';
+        },
+        removeProduct(id) {
+          products[id].removed = true
+          localStorage.setItem("products", JSON.stringify(products))
+          location.href = '/homePage';
+        }
+      }
+    });
+
     const Home_featured = Vue.component('home_component', {
       template: '#home_id',
       data() {
         return {
-          products
+          products,
+          product_type: localStorage.getItem("product_type")
         }
       },
     });
@@ -261,7 +255,8 @@
       template: '#home_id',
       data() {
         return {
-          products: products.filter( p => (p.types.includes('hot')))
+          products: products.filter(p => (p.types.includes('hot'))),
+          product_type: localStorage.getItem("product_type")
         }
       },
     });
@@ -269,7 +264,8 @@
       template: '#home_id',
       data() {
         return {
-          products: products.filter( p => (p.types.includes("cold")))
+          products: products.filter(p => (p.types.includes("cold"))),
+          product_type: localStorage.getItem("product_type")
         }
       },
     });
@@ -277,7 +273,8 @@
       template: '#home_id',
       data() {
         return {
-          products: products.filter( p => (p.types.includes("alcoholic")))
+          products: products.filter(p => (p.types.includes("alcoholic"))),
+          product_type: localStorage.getItem("product_type")
         }
       },
     });
@@ -285,7 +282,8 @@
 
     var router = new VueRouter({
       routes: [
-        { path: 'product/:id', name: 'product', component: Product, props: true },
+        { path: 'product/:id', name: 'client_product', component: Client_product, props: true },
+        { path: 'product/:id', name: 'admin_product', component: Admin_product, props: true },
         { path: '/', component: Home_featured },
         { path: '/hot', component: Home_hot_drinks },
         { path: '/cold', component: Home_cold_drinks },
@@ -298,6 +296,19 @@
       el: "#list",
       router,
       data: {
+        products,
+        user_admin: (localStorage.getItem("username") == "admin"),
+      },
+      methods: {
+        goToAccount: function () {
+          {
+            if (localStorage.getItem("username") == "user" || localStorage.getItem("username") == "admin") {
+              location.href = '../clientAccountPage';
+            } else {
+              location.href = '../loginPage';
+            }
+          }
+        }
       }
     });
   </script>

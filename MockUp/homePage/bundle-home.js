@@ -1,17 +1,216 @@
-let link1 = document.getElementById("link-1")
 
-link1.addEventListener("click", () =>{
-    location.href = '../clientProductPage/index.html';
-})
+var products = [
+    {
+      name: "Ginger scarf",
+      image: "assets/blue_orange.jpg",
+      types: ["alcoholic"],
+      id: 0,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "2,00",
+    },
+    {
+      name: "Blue stone mug",
+      image: "assets/colorful.jpeg",
+      types: ["alcoholic"],
+      id: 1,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "2,00",
+    },
+    {
+      name: "Cerise scallop tee",
+      image: "assets/orange4.jpeg",
+      types: ["hot"],
+      id: 2,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Chambray napkins",
+      image: "assets/yellow.jpeg",
+      types: ["cold"],
+      id: 3,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Fine lines tee",
+      image: "assets/yellow.jpg",
+      types: ["cold"],
+      id: 4,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Garden strand",
+      image: "assets/red.jpg",
+      types: ["alcoholic", "hot"],
+      id: 5,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Gatsby hat",
+      image: "assets/lemon.jpeg",
+      types: ["cold"],
+      id: 6,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Kitchen quattro",
+      image: "assets/cap.jpg",
+      types: ["hot"],
+      id: 7,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Seabreeze sweater",
+      image: "assets/orange1.jpg",
+      types: ["alcoholic", "cold"], 
+      id: 8,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Shrug bag",
+      image: "assets/blue_drink.jpg",
+      types: ["alcoholic", "cold"],
+      id: 9,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Stella sunglasses",
+      image: "assets/shadow_drink.jpg",
+      types: ["alcoholic"],
+      id: 10,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Surf and perf shirt",
+      image: "assets/summer_drink.jpg",
+      types: ["cold"],
+      id: 11,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Vagabond sack",
+      image: "assets/pink_drink.jpg",
+      types: ["cold"],
+      id: 12,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Walter henley (white)",
+      image: "assets/green_drink.jpg",
+      types: ["cold"],
+      id: 13,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+    {
+      name: "Weave keyring",
+      image: "assets/gas_drink.jpg",
+      types: ["alcoholic"],
+      id: 14,
+      fun_fact: "exemplo de fun_fact",
+      ingredients: "agua, limao",
+      nutrition: "teste",
+      recipe_link: "teste.com",
+      price: "12,00",
+    },
+ ]
 
-let link2 = document.getElementById("link-2")
+var users = [
+    {
+        username: "user",
+        name: "fulano de tal",
+        cpf: "12345678",
+        mobile: "98765543",
+        email: "user@gmail.com",
+        address1: "rua tal",
+        address2: "bairro etc",
+        city: "cidadelandia",
+        state: "MG",
+        country: "Brasil",
+        postcode: "123456543",
+    },
+    {
+        username: "admin",
+        name: "fulano de tal",
+        cpf: "12345678",
+        mobile: "98765543",
+        email: "user@gmail.com",
+        address1: "rua tal",
+        address2: "bairro etc",
+        city: "cidadelandia",
+        state: "MG",
+        country: "Brasil",
+        postcode: "123456543",
+    },
+]
 
-link2.addEventListener("click", () =>{
-    if(localStorage.getItem("username") == "admin"){
-        location.href = '../sellerAccountPage/index.html';
-    }else if (localStorage.getItem("username") == "user"){
-        location.href = '../clientAccountPage/index.html';
-    }else{
-        location.href = '../loginPage/index.html';
-    }
-})
+if(localStorage.getItem("made_setup") != "true"){
+
+    localStorage.setItem("users", JSON.stringify(users))
+    localStorage.setItem("products", JSON.stringify(products))
+    localStorage.setItem("counter_products", 14)
+    localStorage.setItem("counter_cart", 0)
+    localStorage.setItem("cart", JSON.stringify([]))
+    localStorage.setItem("made_setup", true)
+    console.log("setou")
+}
+
+if(localStorage.getItem("username") == "admin"){
+    localStorage.setItem("product_type", "admin_product")
+}
+else{
+    localStorage.setItem("product_type", "client_product")
+}
+

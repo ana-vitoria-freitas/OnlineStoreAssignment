@@ -23,6 +23,8 @@
 
 
 <body class="checkout">
+
+  <div id="checkout-app">
   <aside class="mdc-drawer shrine-drawer" style="background:linear-gradient(to bottom,#7f7fd5 30%,#86a8e7,#91eae4);">
     <div class="mdc-drawer__header">
       <img src="./assets/home_logo.gif" width="100%; margin-top: 10px">
@@ -30,16 +32,16 @@
     </div>
     <div class="mdc-drawer__content">
       <nav class="mdc-list">
-        <a class="mdc-list-item mdc-list-item--activated" href="#">
+        <a class="mdc-list-item mdc-list-item--activated" href="/cartPage/">
           <span class="mdc-list-item__text">My cart</span>
         </a>
-        <a class="mdc-list-item"  href="#">
+        <a class="mdc-list-item"  href="/homePage/">
           <span class="mdc-list-item__text">Home</span>
         </a>
-        <a class="mdc-list-item mdc-list-item" aria-selected="true" tabindex="0" href="#">
+        <a class="mdc-list-item mdc-list-item" aria-selected="true" tabindex="0" href="/clientAccountPage/">
           <span class="mdc-list-item__text">My Account</span>
         </a>
-        <a class="mdc-list-item" href="#">
+        <a class="mdc-list-item" href="/homePage/">
           <span class="mdc-list-item__text">Logout</span>
         </a>
       </nav>
@@ -80,13 +82,13 @@
       </div>
     </div>
     <div class="button-container">
-      <button type="button" class="mdc-button cancel" >
+      <button v-on:click="goToCart" type="button" class="mdc-button cancel" >
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">
           Back to cart
         </span>
       </button>
-      <button class="mdc-button mdc-button--raised next">
+      <button v-on:click="purchaseOrder" class="mdc-button mdc-button--raised next">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">
           Purchase
@@ -94,8 +96,31 @@
       </button>
     </div>
   </div>
+  </div>
 
   <script src="bundle-client-account.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://unpkg.com/vue-router@2"></script>
+  <script src="https://unpkg.com/http-vue-loader"></script>
+
+  <script type="module">
+
+    var checkout_app = new Vue({
+      el: "#checkout-app",
+      data: {
+      },
+      methods: {
+        goToCart(){
+          location.href = '/cartPage';
+        },
+        purchaseOrder(){
+          localStorage.setItem("cart", JSON.stringify([]))
+          location.href = '/homePage';
+        }
+      }
+    });
+
+  </script>
 </body>
 
 </html>

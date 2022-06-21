@@ -9,172 +9,310 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
   <link rel="stylesheet" href="bundle-home.css">
+  <style>
+    .button-container .mdc-button.mdc-button--raised {
+      background-color: #6200ee;
+      color: #ffffff;
+    }
+
+    .button-container .mdc-button {
+      color: #6200ee;
+    }
+  </style>
 
 </head>
 
 <body class="home">
-  <aside class="mdc-drawer shrine-drawer" style="background:linear-gradient(to bottom,#7f7fd5 30%,#86a8e7,#91eae4);">
-    <div class="mdc-drawer__header">
-      <img src="./assets/home_logo.gif" width="100%; margin-top: 10px">
 
-    </div>
-    <div class="mdc-drawer__content">
-      <nav class="mdc-list">
-        <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" tabindex="0" href="#">
-          <span class="mdc-list-item__text">Featured</span>
-        </a>
-        <div class="shrine-select-item-divider mdc-list-divider" role="separator"></div>
-        <a class="mdc-list-item" href="#">
-          <span class="mdc-list-item__text">Hot drinks</span>
-        </a>
-        <a class="mdc-list-item" href="#">
-          <span class="mdc-list-item__text">Cold drinks</span>
-        </a>
-        <a class="mdc-list-item" href="#">
-          <span class="mdc-list-item__text">Alcoholic</span>
-        </a>
+  <div id="list">
+    <aside class="mdc-drawer shrine-drawer" style="background:linear-gradient(to bottom,#7f7fd5 30%,#86a8e7,#91eae4);">
+      <div class="mdc-drawer__header">
+        <img src="./assets/home_logo.gif" width="100%; margin-top: 10px">
 
-        <a id="link-2" class="mdc-list-item" >
-          <span class="mdc-list-item__text">My Account</span>
-        </a>
-      </nav>
-    </div>
-  </aside>
-  <div class="shrine-body">
-    <ul class="mdc-image-list mdc-image-list--masonry product-list">
-      <a href="#">
-        <li class="mdc-image-list__item">
-          <img class="mdc-image-list__image" src="assets/blue_orange.jpg">
-          <div class="mdc-image-list__supporting container">
-            <span class="mdc-image-list__label">Ginger scarf</span>
-          </div>
-        </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/colorful.jpeg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Blue stone mug</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/orange4.jpeg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Cerise scallop tee</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/yellow.jpeg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Chambray napkins</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/yellow.jpg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Fine lines tee</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/red.jpg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Garden strand</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/lemon.jpeg">
+      </div>
+      <div class="mdc-drawer__content">
+        <nav class="mdc-list">
+          <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" tabindex="0" href="/homePage">
+            <span class="mdc-list-item__text">Featured</span>
+          </a>
+          <div class="shrine-select-item-divider mdc-list-divider" role="separator"></div>
+          <a class="mdc-list-item" href="/homePage/#/hot">
+            <span class="mdc-list-item__text">Hot drinks</span>
+            </router-link>
+            <a class="mdc-list-item" href="/homePage/#/cold">
+              <span class="mdc-list-item__text">Cold drinks</span>
+            </a>
+            <a class="mdc-list-item" href="/homePage/#/alcoholic">
+              <span class="mdc-list-item__text">Alcoholic</span>
+            </a>
 
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Gatsby hat</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/hot.jpeg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Gilt desk trio</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/cap.jpg">
-        <div id="link-1" class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Kitchen quattro</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/orange1.jpg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Seabreeze sweater</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/blue_drink.jpg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Shrug bag</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/shadow_drink.jpg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Stella sunglasses</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/summer_drink.jpg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Surf and perf shirt</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/pink_drink.jpg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Vagabond sack</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/green_drink.jpg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Walter henley (white)</span>
-        </div>
-      </li>
-      </a>
-      <a href="#">
-      <li class="mdc-image-list__item">
-        <img class="mdc-image-list__image" src="assets/gas_drink.jpg">
-        <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">Weave keyring</span>
-        </div>
-      </li>
-      </a>
-    </ul>
+            <a v-on:click="goToAccount" id="link-2" class="mdc-list-item">
+              <span class="mdc-list-item__text">My Account</span>
+            </a>
+        </nav>
+      </div>
+    </aside>
+    <router-view></router-view>
   </div>
 
+  <template id="home_id">
+    <div class="shrine-body-home">
+      <ul class="mdc-image-list mdc-image-list--masonry product-list">
+        <div v-for="(item) in products" v-if="!(item.removed)">
+          <router-link :to="{name:product_type,params:{id:item.id} }">
+            <li class="mdc-image-list__item">
+              <img class="mdc-image-list__image" :src="item.image">
+              <div id="link-1" class="mdc-image-list__supporting">
+                <span class="mdc-image-list__label">{{ item.name }}</span>
+              </div>
+            </li>
+          </router-link>
+        </div>
+      </ul>
+    </div>
+  </template>
+
+  <template id="client_product_template">
+    <div class="shrine-body-client-product">
+      <div id="div-out">
+        <div id="div-left-out">
+          <div id="div-left">
+            <h2>{{ products[id].name }}</h2>
+            <div class="div-body">
+              <ul id="product_list">
+                <li>
+                  <strong>Fun fact:</strong> {{ products[id].fun_fact }}
+                </li>
+                <li>
+                  <strong>Ingredients:</strong> {{ products[id].ingredients }}
+                </li>
+                <li>
+                  <strong>Nutrition: </strong> {{ products[id].nutrition }}
+                </li>
+                <li>
+                  <strong>Recipe link: </strong> <a href="#">{{ products[id].recipe_link }}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="mdc-card__actions">
+              <div class="mdc-card__action-buttons">
+                <div class="button-container">
+                  <button type="button" class="mdc-button cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">
+                      US$ {{ products[id].price }}
+                    </span>
+                  </button>
+                  <button v-on:click="addToCart(id)" id="button-1" class="mdc-button mdc-button--raised next">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">
+                      Add to cart
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="image-container">
+          <img id="drink_img" class="mdc-image-list__image" :src="products[id].image">
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="admin_product_template">
+    <div class="shrine-body-admin-product">
+      <div id="div-out">
+        <div id="div-left-out">
+          <div id="div-left">
+            <div class="div-body">
+              <form name="product_form" action="#" method="post">
+                <div class="campo">
+                  <label for="fun-fact">Name:</label>
+                  <input type="text" id="name" :value="products[id].name">
+                </div>
+                <div class="campo">
+                  <label for="fun-fact">Fun fact:</label>
+                  <textarea maxlength="200" id="fun-fact" :value="products[id].fun_fact"></textarea>
+                </div>
+                <div class="campo">
+                  <label for="ingredients">Ingredients:</label>
+                  <textarea maxlength="500" id="ingredients" :value="products[id].ingredients"></textarea>
+                </div>
+                <div class="campo">
+                  <label for="nutrition">Nutrition:</label>
+                  <textarea maxlength="500" id="nutrition" :value="products[id].nutrition"></textarea>
+                </div>
+                <div class="campo">
+                  <label for="recipe">Recipe link:</label>
+                  <input type="text" id="recipe" :value="products[id].recipe_link">
+                </div>
+                <div class="campo">
+                  <label for="price">US$:</label>
+                  <input type="text" id="price" :value="products[id].price">
+                </div>
+              </form>
+            </div>
+            <div class="mdc-card__actions">
+              <div class="mdc-card__action-buttons">
+                <div class="button-container">
+                  <button v-on:click="removeProduct(id)" type="button" class="mdc-button cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">
+                      Remove product
+                    </span>
+                  </button>
+                  <button v-on:click="updateProduct(id)" class="mdc-button mdc-button--raised next">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">
+                      Save
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="image-container">
+          <img class="mdc-image-list__image" :src="products[id].image">
+          <div id="edit-image">EDIT IMAGE</div>
+        </div>
+      </div>
+    </div>
+  </template>
+
   <script src="bundle-home.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://unpkg.com/vue-router@2"></script>
+  <script src="https://unpkg.com/http-vue-loader"></script>
+
+  <script type="module">
+
+    var products = JSON.parse(localStorage.getItem("products"))
+
+    const Client_product = Vue.component('client_product_component', {
+      props: ['id'],
+      template: '#client_product_template',
+      data() {
+        return {
+          products
+        }
+      },
+      methods: {
+        addToCart(id) {
+
+          if (localStorage.getItem("username") != "user") {
+            location.href = '../loginPage';
+          }
+          else {
+            var cart = JSON.parse(localStorage.getItem("cart"))
+            cart.push(products[id])
+            localStorage.setItem("cart", JSON.stringify(cart))
+            location.href = '/cartPage';
+          }
+        }
+      }
+    });
+
+    const Admin_product = Vue.component('admin_product_component', {
+      props: ['id'],
+      template: '#admin_product_template',
+      data() {
+        return {
+          products
+        }
+      },
+      methods: {
+        updateProduct(id) {
+          products[id].name = document.product_form.elements.item(0).value
+          products[id].fun_fact = document.product_form.elements.item(1).value
+          products[id].ingredients = document.product_form.elements.item(2).value
+          products[id].nutrition = document.product_form.elements.item(3).value
+          products[id].recipe_link = document.product_form.elements.item(4).value
+          products[id].price = document.product_form.elements.item(5).value
+          localStorage.setItem("products", JSON.stringify(products))
+          location.href = '/homePage';
+        },
+        removeProduct(id) {
+          products[id].removed = true
+          localStorage.setItem("products", JSON.stringify(products))
+          location.href = '/homePage';
+        }
+      }
+    });
+
+    const Home_featured = Vue.component('home_component', {
+      template: '#home_id',
+      data() {
+        return {
+          products,
+          product_type: localStorage.getItem("product_type")
+        }
+      },
+    });
+    const Home_hot_drinks = Vue.component('home_component', {
+      template: '#home_id',
+      data() {
+        return {
+          products: products.filter(p => (p.types.includes('hot'))),
+          product_type: localStorage.getItem("product_type")
+        }
+      },
+    });
+    const Home_cold_drinks = Vue.component('home_component', {
+      template: '#home_id',
+      data() {
+        return {
+          products: products.filter(p => (p.types.includes("cold"))),
+          product_type: localStorage.getItem("product_type")
+        }
+      },
+    });
+    const Home_alcoholic = Vue.component('home_component', {
+      template: '#home_id',
+      data() {
+        return {
+          products: products.filter(p => (p.types.includes("alcoholic"))),
+          product_type: localStorage.getItem("product_type")
+        }
+      },
+    });
+
+
+    var router = new VueRouter({
+      routes: [
+        { path: 'product/:id', name: 'client_product', component: Client_product, props: true },
+        { path: 'product/:id', name: 'admin_product', component: Admin_product, props: true },
+        { path: '/', component: Home_featured },
+        { path: '/hot', component: Home_hot_drinks },
+        { path: '/cold', component: Home_cold_drinks },
+        { path: '/alcoholic', component: Home_alcoholic },
+      ]
+    })
+
+
+    var products_list = new Vue({
+      el: "#list",
+      router,
+      data: {
+        products,
+        user_admin: (localStorage.getItem("username") == "admin"),
+      },
+      methods: {
+        goToAccount: function () {
+          {
+            if (localStorage.getItem("username") == "user" || localStorage.getItem("username") == "admin") {
+              location.href = '../clientAccountPage';
+            } else {
+              location.href = '../loginPage';
+            }
+          }
+        }
+      }
+    });
+  </script>
+
 </body>
 
 </html>

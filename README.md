@@ -64,13 +64,13 @@ If the client and vendor are logged in, both are able to see the same home page.
 
 ### Product Page
 
-![alt text](Images/client_product_page.png)
+![alt text](Images/client_product.png)
 
 This is the client product page, it is possible to see a brief description of the product and a button for the functionality to add this item to client's cart.
 
-![alt text](Images/seller_product_page.png)
+![alt text](Images/admin_product.png)
 
-This is the seller product page, where the seller can add, edit or remove a product.
+This is the admin product page, where the admin can add, edit or remove a product.
 
 ### Cart Page
 
@@ -87,7 +87,6 @@ This is the checkout page, where the client can finalize their purchase.
 ### Account Page
 
 ![alt text](Images/account_page.png)
-![alt text](Images/account_page_2.png)
 
 This is the account page, where the user can see/edit their details.
 
@@ -106,11 +105,26 @@ $ sudo n 12.13.0
 
 1. Clone the repo using the following command: `git clone https://github.com/ana-vitoria-freitas/OnlineStoreAssignment.git`
 
-2. Go inside the folder of the page you want to open
-
-3. Run `npm install` to install all the dependencies
+2. Run `npm install` to install all the dependencies
    
-4. Run `npm start` and then go to http://localhost:8080
+3. Run `npm start` and then go to http://localhost:8080/homePage
 
-We will make all the pages open in the same localhost in the next project delivery.
+## How to test it
+
+For now, we have two mocked-up users: user and admin. To login in one of them, you can
+
+1. Click on "My Account" at the home page. If you are not logged in, you will be redirected to the login page.
+
+or
+
+2. Go to http://localhost:8080/loginPage
+
+Then, you can choose one of the two usernames "user" or "admin" to login. You can use any password.
+
+With "admin", you will be able to edit and remove products.
+
+With "user", you will be able to add products in the cart, remove them from the cart and make the checkout.
+
+With both users you are able to edit the user information.
+
 

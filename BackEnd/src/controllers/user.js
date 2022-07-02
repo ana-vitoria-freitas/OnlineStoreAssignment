@@ -4,18 +4,22 @@ const express = require('express');
 const router = express.Router();
 
 
-router.get('/user/:username', (req, res, next) => {
+router.post('/user', (req, res, next) => {
 
   const dbConnect = dbo.getDb();
+  const matchDocument = {
+    username: req.body.username,
+    password: req.body.password,
+  };
 
   dbConnect
     .collection('users')
-    .find({ username: req.params.username })
+    .find({$and: [{ username: matchDocument.username}, {password: matchDocument.password}]})
     .toArray(function (err, result) {
-      if (err) {
+      if (result.length == 0) {
         res.status(400).send('Error fetching user!');
       } else {
-        res.json(result);
+        res.status(200).json(result);
       }
     });
 });

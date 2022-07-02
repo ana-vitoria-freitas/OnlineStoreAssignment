@@ -1,22 +1,39 @@
-let button1 = document.getElementById("button-1")
-let button2 = document.getElementById("button-2")
+Vue.createApp({
+    el: "#app",
+    data() {
+        return {
+            username: null,
+            password: null,
+        }
+    },
+    methods: {
+        validate: async function (e) {
+
+            try {
+                let resp = await fetch("http://localhost:3000/user", {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'POST',
+                    body: JSON.stringify({
+                        'username': `${this.username}`,
+                        'password': `${this.password}`,
+                    })
+                });
 
 
-let input1 = document.getElementById("input-1")
+                if (resp.status == 200) {
+                    window.location.href = '../homePage/index.html';
+                    console.log("usuario existe");
+                } else {
+                    console.log("usuario nao existe");
+                }
 
-button2.addEventListener("click", () =>{
-    let input1Value = input1.value;
-    
-    if(input1Value == "admin"){
-        localStorage.setItem("username", "admin");
-    }else if(input1Value == "user"){
-        localStorage.setItem("username", "user");
+            }
+            catch (e) { alert("Error: " + e); }
+        },
+        back: () =>{
+            window.history.go(-1);
+        }
     }
-
-})
-
-button1.addEventListener("click", () =>{
-    window.history.back()
-})
-
-
+}).mount("#app");

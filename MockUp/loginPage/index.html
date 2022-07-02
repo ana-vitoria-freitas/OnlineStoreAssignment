@@ -15,27 +15,27 @@ width: 100%;">
 
   </section>
 
-  <form action="../homePage">
+  <div action="../homePage" id="app">
     <label class="mdc-text-field mdc-text-field--filled username">
       <span class="mdc-text-field__ripple"></span>
-      <input id="input-1" type="text" class="mdc-text-field__input" aria-labelledby="username-label" name="username" required>
+      <input  v-model="username"  id="input-1" type="text" class="mdc-text-field__input" aria-labelledby="username-label" name="username" required>
       <span >Username</span>
       <span class="mdc-line-ripple"></span>
     </label>
     <label class="mdc-text-field mdc-text-field--filled password">
       <span class="mdc-text-field__ripple"></span>
-      <input id="input-2" type="password" class="mdc-text-field__input" aria-labelledby="password-label" name="password" required minlength="8">
+      <input  v-model="password"  id="input-2" type="password" class="mdc-text-field__input" aria-labelledby="password-label" name="password" required minlength="8">
       <span >Password</span>
       <span class="mdc-line-ripple"></span>
     </label>
     <div class="button-container">
-      <button id="button-1" type="button" class="mdc-button cancel" >
+      <button v-on:click="back" id="button-1" type="button" class="mdc-button cancel" >
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">
           Get Back
         </span>
       </button>
-      <button id="button-2" class="mdc-button mdc-button--raised next">
+      <button v-on:click="validate" id="button-2" class="mdc-button mdc-button--raised next">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">
           Next
@@ -47,8 +47,10 @@ width: 100%;">
         Register
       </a>
     </div>
-  </form>
+  </div>
+  <script src="https://unpkg.com/vue-router@2"></script>
+  <script src="https://unpkg.com/vue@3"></script>
 
-  <script src="bundle-login.js" async></script>
+  <script src="bundle-login.js"></script>
 </body>
 </html>

@@ -124,7 +124,19 @@ function getStyleUse(bundleFilename) {
         }]
       },
     },
-  
+    {
+      entry: './userManagementPage/user.scss',
+      output: {
+        // This is necessary for webpack to compile, but we never reference this js file.
+        filename: './userManagementPage/style-bundle-user.js',
+      },
+      module: {
+        rules: [{
+          test: /user.scss$/,
+          use: getStyleUse('./userManagementPage/bundle-user.css')
+        }]
+      },
+    },
   
   ];
   

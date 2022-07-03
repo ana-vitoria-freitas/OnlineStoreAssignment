@@ -3,7 +3,7 @@ const dbo = require('../db/connection');
 const express = require('express');
 const router = express.Router();
 
-
+//ROTA QUE VERIFICA SE O USUÁRIO ESTÁ CASTRADO PARA LOGGAR NA PÁGINA
 router.post('/findUser', (req, res, next) => {
 
   const dbConnect = dbo.getDb();
@@ -24,6 +24,7 @@ router.post('/findUser', (req, res, next) => {
     });
 });
 
+//ROTA QUE CRIA NOVO USUÁRIO, CASO SEU CPF E SEU EMAIL AINDA NAO ESTEJAM CADASTRADOS
 router.post('/user', (req, res, next) => {
   const dbConnect = dbo.getDb();
   const matchDocument = {
@@ -62,6 +63,7 @@ router.post('/user', (req, res, next) => {
 
 });
 
+//ROTA QUE ATUALIZA CADASTRO DO USUÁRIO
 router.put('/user/:username', (req, res, next) => {
   const dbConnect = dbo.getDb();
   const user = req.params.username;
@@ -82,6 +84,26 @@ router.put('/user/:username', (req, res, next) => {
   dbConnect
     .collection('users')
     .update({ username: user }, matchDocument, function (err, result) {
+      if (err) {
+        res.status(400).send('Error updating user!');
+      } else {
+        res.status(200).send();
+      }
+    });
+});
+
+//ROTA QUE TRANSORMA USUÁRIO COMUM EM ADMIN
+router.put('/user/admin/:username', (req, res, next) => {
+  const dbConnect = dbo.getDb();
+  const user = req.params.username;
+
+  const matchDocument = {
+    user_type: "admin"
+  };  
+
+  dbConnect
+    .collection('users')
+    .update({ username: user }, {$set : matchDocument}, function (err, result) {
       if (err) {
         res.status(400).send('Error updating user!');
       } else {

@@ -1,0 +1,129 @@
+@import "./common";
+@import "@material/drawer/mdc-drawer";
+@import "@material/list/mdc-list";
+@import "@material/image-list/mdc-image-list";
+@import "@material/ripple/mdc-ripple";
+@import "@material/typography/mdc-typography";
+@import "@material/elevation/mdc-elevation";
+@import "@material/button/mdc-button";
+
+#add-product-app {
+  display: flex;
+  z-index: 0;
+  width: 100%;
+}
+
+.add-product {
+  display: flex; // Flexbox is used to easily arrange the persistent drawer and content side-by-side
+}
+
+.shrine-logo-drawer {
+  margin: 0 auto;
+  fill: currentColor;
+}
+
+.shrine-title {
+  @include mdc-typography(headline6);
+
+  text-align: center;
+  margin: 5px auto;
+}
+
+
+.shrine-drawer {
+  @include mdc-drawer-fill-color-accessible(primary);
+  // Drawer defaults to a higher z-index, but we aren't overlaying it over anything
+  @include mdc-drawer-z-index(0);
+
+  text-transform: uppercase;
+
+  .mdc-list {
+    margin: 70px 5px auto 5px;
+  }
+
+  .mdc-list-item {
+    border-radius: 6px;
+    justify-content: center;
+  }
+
+  // This needs 3-class specificity to override MDC Drawer styles
+  .mdc-list .mdc-list-item {
+    @include mdc-states-activated(#fff);
+  }
+}
+
+.shrine-select-item-divider {
+  display: block;
+  border-bottom-color: #EAA4A4;
+  border-bottom-width: 2px;
+  width: 50px;
+  position: relative;
+  top: -8px;
+}
+
+// This needs 2-class specificity to override MDC Drawer styles
+.shrine-drawer .shrine-select-item-divider {
+  margin: 0 auto;
+}
+
+
+.shrine-body-admin-product {
+
+  z-index: 0; // Elevate over the drawer
+  display: block;
+  overflow: auto;
+  width: 100%;
+
+  ul {
+    list-style-type: none;
+    li + li{
+      padding: 5px 0 0 0;
+    }
+    padding-left: 5px ;
+  }
+  
+  #div-out{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3% 5% 3% 5%;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 2px 10px #22446038;
+  }
+  
+  
+  .campo {
+    margin-bottom: 1em;
+    width: 100%;
+  }
+  
+  .campo label {
+    margin-bottom: 0.2em;
+    color: #666;
+    display: block;
+  }
+  
+  #ingredients, #nutrition {
+    height: 80px;
+  }
+  
+  #fun-fact{
+    height: 50px;
+  }
+  
+  textarea, input{
+    width: 100%;
+  }
+
+  form{
+    width: 30%;
+  }
+
+}
+
+img{
+  width: 100%;
+  margin-top: 10px;
+}

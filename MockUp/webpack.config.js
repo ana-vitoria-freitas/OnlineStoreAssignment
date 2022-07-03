@@ -137,6 +137,18 @@ function getStyleUse(bundleFilename) {
         }]
       },
     },
-  
+    {
+      entry: './addProductPage/add-product.scss',
+      output: {
+        // This is necessary for webpack to compile, but we never reference this js file.
+        filename: './addProductPage/style-bundle-add-product.js',
+      },
+      module: {
+        rules: [{
+          test: /add-product.scss$/,
+          use: getStyleUse('./addProductPage/bundle-add-product.css')
+        }]
+      },
+    },
   ];
   

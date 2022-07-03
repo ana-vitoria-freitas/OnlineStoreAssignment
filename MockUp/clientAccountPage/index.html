@@ -41,53 +41,52 @@
       </nav>
     </div>
   </aside>
-
-  <div class="shrine-body"> 
+  <div  id="app" class="shrine-body"> 
     <h4>Personal Details</h4>
-    <form name="personal_details_form" action="#" method="post">
-      <div class="campo">
-        <label for="name">NAME &#x2a;</label>
-        <input type="text" id="name">
+      <div name="personal_details_form">
+        <div class="campo">
+          <label for="name">NAME &#x2a;</label>
+          <input data-value="{{ name }}" v-bind="name" type="text" id="name">
+        </div>
+        <div class="campo">
+          <label for="cpf">CPF</label>
+          <input  v-bind="cpf" type="text" id="cpf">
+        </div>
+        <div class="campo">
+          <label for="mobile">MOBILE</label>
+          <input  v-bind="phone"  type="text" id="mobile">
+        </div>
+        <div class="campo">
+          <label for="email">EMAIL &#x2a;</label>
+          <input  v-bind="username" type="text" id="email">
+        </div>
+        <div class="campo">
+          <label for="address1">ADDRESS 1</label>
+          <input  v-bind="address1" type="text" id="address1">
+        </div>
+        <div class="campo">
+          <label for="address2">ADDRESS 2</label>
+          <input  v-bind="address2" type="text" id="address2">
+        </div>
+        <div class="campo">
+          <label for="city">CITY</label>
+          <input v-bind="city"  type="text" id="city">
+        </div>
+        <div class="campo">
+          <label for="state">STATE</label>
+          <input  v-bind="state" type="text" id="state">
+        </div>
+        <div class="country">
+          <label for="country">COUNTRY</label>
+          <input  v-bind="country" type="text" id="country">
+        </div>
+        <div class="postcode">
+          <label for="country">POST CODE</label>
+          <input  v-bind="postal_code" :value="postal_code" type="text" id="postcode">
+        </div>
       </div>
-      <div class="campo">
-        <label for="cpf">CPF</label>
-        <input type="text" id="cpf">
-      </div>
-      <div class="campo">
-        <label for="mobile">MOBILE</label>
-        <input type="text" id="mobile">
-      </div>
-      <div class="campo">
-        <label for="email">EMAIL &#x2a;</label>
-        <input type="text" id="email">
-      </div>
-      <div class="campo">
-        <label for="address1">ADDRESS 1</label>
-        <input type="text" id="address1">
-      </div>
-      <div class="campo">
-        <label for="address2">ADDRESS 2</label>
-        <input type="text" id="address2">
-      </div>
-      <div class="campo">
-        <label for="city">CITY</label>
-        <input type="text" id="city">
-      </div>
-      <div class="campo">
-        <label for="state">STATE</label>
-        <input type="text" id="state">
-      </div>
-      <div class="country">
-        <label for="country">COUNTRY</label>
-        <input type="text" id="country">
-      </div>
-      <div class="postcode">
-        <label for="country">POST CODE</label>
-        <input type="text" id="postcode">
-      </div>
-    </form>
     <div class="button-container">
-      <button id="save-button" type="button" class="mdc-button mdc-button--raised" >
+      <button v-on:click="validate" id="save-button" type="button" class="mdc-button mdc-button--raised" >
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">
           Save
@@ -96,7 +95,8 @@
     </div>
   </div>
 
-  <script src="bundle-client-account.js" async></script>
 </body>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="bundle-client-account.js" async></script>
 
 </html>

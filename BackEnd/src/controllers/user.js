@@ -3,6 +3,23 @@ const dbo = require('../db/connection');
 const express = require('express');
 const router = express.Router();
 
+//ROTA QUE RETORNA OS DADOS DO USUARIO COM O USERNAME ESPECIFICADO  
+router.get('/user/:username', (req, res, next) => {
+
+  const dbConnect = dbo.getDb();
+
+  dbConnect
+    .collection('users')
+    .findOne({ username: req.params.username}, function (err, result) {
+      console.log(result)
+      if (result.length == 0) {
+        res.status(400).send('Error fetching user!');
+      } else {
+        res.send(result);
+      }
+    });
+});
+
 //ROTA QUE VERIFICA SE O USUÁRIO ESTÁ CASTRADO PARA LOGGAR NA PÁGINA
 router.post('/findUser', (req, res, next) => {
 
@@ -67,23 +84,25 @@ router.post('/user', (req, res, next) => {
 router.put('/user/:username', (req, res, next) => {
   const dbConnect = dbo.getDb();
   const user = req.params.username;
+  console.log(user)
+  console.log(req.body);
 
   const matchDocument = {
     name: req.body.name,
     cpf: req.body.cpf,
     phone: req.body.phone,
-    username: req.body.username,
-    password: req.body.password,
     address1: req.body.address1,
     address2: req.body.address2,
     city: req.body.city,
+    state: req.body.state,
     country: req.body.country,
     postal_code: req.body.postal_code,
+    username: req.body.username
   };  
 
   dbConnect
     .collection('users')
-    .update({ username: user }, matchDocument, function (err, result) {
+    .updateOne({ username: user }, {$set: matchDocument}, function (err, result) {
       if (err) {
         res.status(400).send('Error updating user!');
       } else {

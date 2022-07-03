@@ -18,114 +18,36 @@ width: 100%;">
 
   <div  id="app" class="shrine-body"> 
     <h4>CREATE NEW ACCOUNT</h4>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input v-model="name" class="mdc-text-field__input" id="name">
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <div class="mdc-notched-outline__notch">
-          <label for="text-field-hero-input" class="mdc-floating-label" id="name-label">Name</label>
-        </div>
-        <div class="mdc-notched-outline__trailing"></div>
+    <div name="register_form">
+      <div class="campo">
+        <input type="text" id="name" placeholder="Name">
       </div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input v-model="cpf" class="mdc-text-field__input" id="cpf">
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <div class="mdc-notched-outline__notch">
-          <label for="text-field-hero-input" class="mdc-floating-label" id="name-label">CPF</label>
-        </div>
-        <div class="mdc-notched-outline__trailing"></div>
+      <div class="campo">
+        <input type="text" id="username" placeholder="Username">
       </div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input v-model="phone" class="mdc-text-field__input" id="telephone">
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <div class="mdc-notched-outline__notch">
-          <label for="text-field-hero-input" class="mdc-floating-label" id="name-label">Mobile phone</label>
-        </div>
-        <div class="mdc-notched-outline__trailing"></div>
+      <div class="campo">
+        <input type="text" id="password" placeholder="Password">
       </div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input v-model="username" class="mdc-text-field__input" id="email">
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <div class="mdc-notched-outline__notch">
-          <label for="text-field-hero-input" class="mdc-floating-label">Email</label>
-        </div>
-        <div class="mdc-notched-outline__trailing"></div>
+      <div class="campo">
+        <input type="text" id="cpf" placeholder="CPF">
       </div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input v-model="password" class="mdc-text-field__input" id="email">
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <div class="mdc-notched-outline__notch">
-          <label for="text-field-hero-input" class="mdc-floating-label">Password</label>
-        </div>
-        <div class="mdc-notched-outline__trailing"></div>
+      <div class="campo">
+        <input type="text" id="mobile" placeholder="Mobile phone">
       </div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input v-model="address1" class="mdc-text-field__input" id="address1">
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <div class="mdc-notched-outline__notch">
-          <label for="text-field-hero-input" class="mdc-floating-label">Address 1</label>
-        </div>
-        <div class="mdc-notched-outline__trailing"></div>
+      <div class="campo">
+        <input type="text" id="email" placeholder="Email">
       </div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input v-model="address2" class="mdc-text-field__input" id="address2">
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <div class="mdc-notched-outline__notch">
-          <label for="text-field-hero-input" class="mdc-floating-label">Address 2</label>
-        </div>
-        <div class="mdc-notched-outline__trailing"></div>
+      <div class="campo">
+        <input type="text" id="address1" placeholder="Address 1">
       </div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input v-model="city" class="mdc-text-field__input" id="city">
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <div class="mdc-notched-outline__notch">
-          <label for="text-field-hero-input" class="mdc-floating-label">City</label>
-        </div>
-        <div class="mdc-notched-outline__trailing"></div>
+      <div class="campo">
+        <input type="text" id="address2" placeholder="Address 2">
       </div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input v-model="state" class="mdc-text-field__input" id="state">
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <div class="mdc-notched-outline__notch">
-          <label for="text-field-hero-input" class="mdc-floating-label">State</label>
-        </div>
-        <div class="mdc-notched-outline__trailing"></div>
+      <div class="campo">
+        <input type="text" id="city" placeholder="City">
       </div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input v-model="country" class="mdc-text-field__input" id="country">
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <div class="mdc-notched-outline__notch">
-          <label for="text-field-hero-input" class="mdc-floating-label">Country</label>
-        </div>
-        <div class="mdc-notched-outline__trailing"></div>
-      </div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined">
-      <input v-model="postal_code" class="mdc-text-field__input" id="postcode">
-      <div class="mdc-notched-outline">
-        <div class="mdc-notched-outline__leading"></div>
-        <div class="mdc-notched-outline__notch">
-          <label for="text-field-hero-input" class="mdc-floating-label">Post Code</label>
-        </div>
-        <div class="mdc-notched-outline__trailing"></div>
+      <div class="campo">
+        <input type="text" id="country" placeholder="Post Code">
       </div>
     </div>
     <div class="button-container">

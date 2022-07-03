@@ -44,22 +44,17 @@
   justify-content: center; 
 }
 
-.mdc-text-field--outlined{
-  margin: 20px auto;
-
-  #name,
-  #email,
-  #address1,
-  #address2{
-    width: 400px;
-  }
-
-  #cpf,
-  #telephone,
-  #city,
-  #state,
-  #country,
-  #postcode {
-    width: 180px;
-  }
+input {
+  
+  margin-bottom: 5px;
+  border: 1px solid;
+  border-radius: 0.5rem;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  outline: none;
+  font-size: 18px;
+  line-height: 36px;
+  font-family: 'Spartan';
+  width: 400px;
 }
+

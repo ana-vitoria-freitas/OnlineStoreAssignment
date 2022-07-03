@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 
-router.post('/user', (req, res, next) => {
+router.post('/findUser', (req, res, next) => {
 
   const dbConnect = dbo.getDb();
   const matchDocument = {
@@ -27,32 +27,57 @@ router.post('/user', (req, res, next) => {
 router.post('/user', (req, res, next) => {
   const dbConnect = dbo.getDb();
   const matchDocument = {
+    name: req.body.name,
+    cpf: req.body.cpf,
+    phone: req.body.phone,
     username: req.body.username,
     password: req.body.password,
-    email: req.body.email,
-    address: req.body.address
+    address1: req.body.address1,
+    address2: req.body.address2,
+    city: req.body.city,
+    country: req.body.country,
+    postal_code: req.body.postal_code,
+    user_type: "client"
   };
 
   dbConnect
-    .collection('users')
-    .insertOne(matchDocument, function (err, result) {
-      if (err) {
-        res.status(400).send({ result: "error" });
-      } else {
-        res.status(200).send({ result: "success" });
-      }
-    });
+  .collection('users')
+  .find({$or: [{ username: matchDocument.username}, {cpf: matchDocument.cpf}]})
+  .toArray(function (err, result) {
+    if (result.length == 0) {
+      dbConnect
+      .collection('users')
+      .insertOne(matchDocument, function (err, result) {
+        if (err) {
+          res.status(400).send({ result: "error" });
+        } else {
+          res.status(200).send({ result: "success" });
+        }
+      });
+    } else {
+      res.status(400).json({result: "user already exists"});
+    }
+  });
+
+
 });
 
 router.put('/user/:username', (req, res, next) => {
   const dbConnect = dbo.getDb();
   const user = req.params.username;
+
   const matchDocument = {
+    name: req.body.name,
+    cpf: req.body.cpf,
+    phone: req.body.phone,
     username: req.body.username,
     password: req.body.password,
-    email: req.body.email,
-    address: req.body.address
-  };
+    address1: req.body.address1,
+    address2: req.body.address2,
+    city: req.body.city,
+    country: req.body.country,
+    postal_code: req.body.postal_code,
+  };  
 
   dbConnect
     .collection('users')
@@ -60,35 +85,11 @@ router.put('/user/:username', (req, res, next) => {
       if (err) {
         res.status(400).send('Error updating user!');
       } else {
-        console.log(`Updated a user with id ${result._id}`);
         res.status(200).send();
       }
     });
 });
 
-router.delete('/user/:username', (req, res, next) => {
-  const dbConnect = dbo.getDb();
-
-
-  dbConnect
-    .collection('users')
-    .deleteOne({ username: req.params.username }, (err, result) => {
-      if (err) {
-        res.status(400).send('Error deleting user!');
-      } else {
-        let json = result;
-        if(json.deletedCount == 0){
-          res.status(400).send("User not found");
-        }else{
-          res.status(200).send("user deleted successfully");
-        }
-      }
-  });
-
-
-
-
-});
 
 module.exports = router;
 

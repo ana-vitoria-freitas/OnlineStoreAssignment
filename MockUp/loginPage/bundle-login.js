@@ -10,7 +10,7 @@ Vue.createApp({
         validate: async function (e) {
 
             try {
-                let resp = await fetch("http://localhost:3000/user", {
+                let resp = await fetch("http://localhost:3000/findUser", {
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -23,6 +23,7 @@ Vue.createApp({
 
 
                 if (resp.status == 200) {
+                    localStorage.setItem("username", this.username);
                     window.location.href = '../homePage/index.html';
                     console.log("usuario existe");
                 } else {

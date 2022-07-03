@@ -16,10 +16,10 @@ width: 100%;">
 
   </section>
 
-  <div class="shrine-body"> 
+  <div  id="app" class="shrine-body"> 
     <h4>CREATE NEW ACCOUNT</h4>
     <div class="mdc-text-field mdc-text-field--outlined">
-      <input class="mdc-text-field__input" id="name">
+      <input v-model="name" class="mdc-text-field__input" id="name">
       <div class="mdc-notched-outline">
         <div class="mdc-notched-outline__leading"></div>
         <div class="mdc-notched-outline__notch">
@@ -29,7 +29,7 @@ width: 100%;">
       </div>
     </div>
     <div class="mdc-text-field mdc-text-field--outlined">
-      <input class="mdc-text-field__input" id="cpf">
+      <input v-model="cpf" class="mdc-text-field__input" id="cpf">
       <div class="mdc-notched-outline">
         <div class="mdc-notched-outline__leading"></div>
         <div class="mdc-notched-outline__notch">
@@ -39,7 +39,7 @@ width: 100%;">
       </div>
     </div>
     <div class="mdc-text-field mdc-text-field--outlined">
-      <input class="mdc-text-field__input" id="telephone">
+      <input v-model="phone" class="mdc-text-field__input" id="telephone">
       <div class="mdc-notched-outline">
         <div class="mdc-notched-outline__leading"></div>
         <div class="mdc-notched-outline__notch">
@@ -49,7 +49,7 @@ width: 100%;">
       </div>
     </div>
     <div class="mdc-text-field mdc-text-field--outlined">
-      <input class="mdc-text-field__input" id="email">
+      <input v-model="username" class="mdc-text-field__input" id="email">
       <div class="mdc-notched-outline">
         <div class="mdc-notched-outline__leading"></div>
         <div class="mdc-notched-outline__notch">
@@ -59,7 +59,17 @@ width: 100%;">
       </div>
     </div>
     <div class="mdc-text-field mdc-text-field--outlined">
-      <input class="mdc-text-field__input" id="address1">
+      <input v-model="password" class="mdc-text-field__input" id="email">
+      <div class="mdc-notched-outline">
+        <div class="mdc-notched-outline__leading"></div>
+        <div class="mdc-notched-outline__notch">
+          <label for="text-field-hero-input" class="mdc-floating-label">Password</label>
+        </div>
+        <div class="mdc-notched-outline__trailing"></div>
+      </div>
+    </div>
+    <div class="mdc-text-field mdc-text-field--outlined">
+      <input v-model="address1" class="mdc-text-field__input" id="address1">
       <div class="mdc-notched-outline">
         <div class="mdc-notched-outline__leading"></div>
         <div class="mdc-notched-outline__notch">
@@ -69,7 +79,7 @@ width: 100%;">
       </div>
     </div>
     <div class="mdc-text-field mdc-text-field--outlined">
-      <input class="mdc-text-field__input" id="address2">
+      <input v-model="address2" class="mdc-text-field__input" id="address2">
       <div class="mdc-notched-outline">
         <div class="mdc-notched-outline__leading"></div>
         <div class="mdc-notched-outline__notch">
@@ -79,7 +89,7 @@ width: 100%;">
       </div>
     </div>
     <div class="mdc-text-field mdc-text-field--outlined">
-      <input class="mdc-text-field__input" id="city">
+      <input v-model="city" class="mdc-text-field__input" id="city">
       <div class="mdc-notched-outline">
         <div class="mdc-notched-outline__leading"></div>
         <div class="mdc-notched-outline__notch">
@@ -89,7 +99,7 @@ width: 100%;">
       </div>
     </div>
     <div class="mdc-text-field mdc-text-field--outlined">
-      <input class="mdc-text-field__input" id="state">
+      <input v-model="state" class="mdc-text-field__input" id="state">
       <div class="mdc-notched-outline">
         <div class="mdc-notched-outline__leading"></div>
         <div class="mdc-notched-outline__notch">
@@ -99,7 +109,7 @@ width: 100%;">
       </div>
     </div>
     <div class="mdc-text-field mdc-text-field--outlined">
-      <input class="mdc-text-field__input" id="country">
+      <input v-model="country" class="mdc-text-field__input" id="country">
       <div class="mdc-notched-outline">
         <div class="mdc-notched-outline__leading"></div>
         <div class="mdc-notched-outline__notch">
@@ -109,7 +119,7 @@ width: 100%;">
       </div>
     </div>
     <div class="mdc-text-field mdc-text-field--outlined">
-      <input class="mdc-text-field__input" id="postcode">
+      <input v-model="postal_code" class="mdc-text-field__input" id="postcode">
       <div class="mdc-notched-outline">
         <div class="mdc-notched-outline__leading"></div>
         <div class="mdc-notched-outline__notch">
@@ -119,13 +129,13 @@ width: 100%;">
       </div>
     </div>
     <div class="button-container">
-      <button type="button" class="mdc-button cancel" >
+      <button v-on:click="back" type="button" class="mdc-button cancel" >
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">
           Get Back
         </span>
       </button>
-      <button class="mdc-button mdc-button--raised next">
+      <button v-on:click="validate" class="mdc-button mdc-button--raised next">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">
           Save
@@ -134,6 +144,7 @@ width: 100%;">
     </div>
   </div>
 
+  <script src="https://unpkg.com/vue@3"></script>
   <script src="bundle-register.js" async></script>
 </body>
 </html>

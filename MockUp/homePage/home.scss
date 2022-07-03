@@ -93,6 +93,32 @@
   display: block;
   overflow: auto;
   z-index: 0; // Elevate over the drawer
+
+  input{
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid;
+    border-radius: 0.5rem;
+    float: right;
+    width: 30%;
+    margin-top: 15px;
+  }
+
+  button {
+    float: right;
+    width: 8%;
+    padding: 10px;
+    background: #6200ee;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none; /* Prevent double borders */
+    cursor: pointer;
+    border-radius: 0.5rem;
+    margin-right: 100px;
+    margin-top: 15px;
+
+  }
 }
 
 .shrine-body-client-product {

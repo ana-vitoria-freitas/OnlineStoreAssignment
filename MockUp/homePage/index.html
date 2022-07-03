@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
   <link rel="stylesheet" href="bundle-home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
     .button-container .mdc-button.mdc-button--raised {
       background-color: #6200ee;
@@ -57,6 +58,8 @@
 
   <template id="home_id">
     <div class="shrine-body-home">
+      <button type="submit"><i class="fa fa-search"></i></button>
+      <input type="text" placeholder="Search..">
       <ul class="mdc-image-list mdc-image-list--masonry product-list">
         <div v-for="(item) in products" v-if="!(item.removed)">
           <router-link :to="{name:product_type,params:{id:item.id} }">

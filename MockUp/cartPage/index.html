@@ -27,7 +27,7 @@
   <div id="cart-app">
     <aside class="mdc-drawer shrine-drawer" style="background:linear-gradient(to bottom,#7f7fd5 30%,#86a8e7,#91eae4);">
       <div class="mdc-drawer__header">
-        <img src="./assets/home_logo.gif" width="100%; margin-top: 10px">
+        <img id="logo" src="./assets/home_logo.gif">
 
       </div>
       <div class="mdc-drawer__content">
@@ -110,39 +110,10 @@
     </div>
   </div>
 
-  <script src="bundle-cart.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <script src="https://unpkg.com/vue-router@2"></script>
-  <script src="https://unpkg.com/http-vue-loader"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="bundle-cart.js" async></script>
 
-  <script type="module">
-
-    var cart = JSON.parse(localStorage.getItem("cart"))
-    var products = JSON.parse(localStorage.getItem("products"))
-
-    var cart_app = new Vue({
-      el: "#cart-app",
-      data: {
-        cart,
-        products
-      },
-      methods: {
-        goToCheckout(){
-          location.href = '/checkoutPage';
-        },
-        removeFromCart(index){
-          cart.splice(index, 1)
-          localStorage.setItem("cart", JSON.stringify(cart))
-          location.href = '/cartPage';
-        },
-        logout(){
-          localStorage.removeItem("username")
-          location.href = "../homePage"
-        }
-      }
-    });
-
-  </script>
 </body>
 
 </html>

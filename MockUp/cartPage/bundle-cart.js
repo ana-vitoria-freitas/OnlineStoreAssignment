@@ -1,20 +1,34 @@
-console.log("aqui")
-let link1 = document.getElementById("link-1")
+var cart = JSON.parse(localStorage.getItem("cart"))
+var products = JSON.parse(localStorage.getItem("products")) 
 
-link1.addEventListener("click", () =>{
-    location.href = '../homePage';
-})
+if(cart == null){
+    cart = []
+}
+ 
+if(products == null){
+    products = []
+}
 
-
-let link2 = document.getElementById("link-2")
-
-link2.addEventListener("click", () =>{
-    location.href = "../clientAccountPage"
-})
-
-let link3 = document.getElementById("link-3")
-
-link3.addEventListener("click", () =>{
-    localStorage.removeItem("username")
-    location.href = "../homePage"
-})
+Vue.createApp({
+    el: "#cart-app",
+    data() {
+        return {
+            cart,
+            products
+        }
+    },
+    methods: {
+        goToCheckout: () =>{
+            location.href = '/checkoutPage';
+        },
+        removeFromCart: (index) =>{
+            cart.splice(index, 1)
+            localStorage.setItem("cart", JSON.stringify(cart))
+            location.href = '/cartPage';
+        },
+        logout: () =>{
+            localStorage.removeItem("username")
+            location.href = "../homePage"
+        }
+    }
+}).mount("#cart-app");

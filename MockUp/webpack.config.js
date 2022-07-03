@@ -60,19 +60,6 @@ function getStyleUse(bundleFilename) {
       },
     },
     {
-      entry: './sellerProductPage/product.scss',
-      output: {
-        // This is necessary for webpack to compile, but we never reference this js file.
-        filename: './sellerProductPage/style-bundle-product.js',
-      },
-      module: {
-        rules: [{
-          test: /product.scss$/,
-          use: getStyleUse('./sellerProductPage/bundle-product.css')
-        }]
-      },
-    },
-    {
       entry: './sellerAccountPage/sellerAccount.scss',
       output: {
         // This is necessary for webpack to compile, but we never reference this js file.

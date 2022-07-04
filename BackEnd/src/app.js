@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const app = express();
 
 const user = require('./controllers/user');
+const product = require('./controllers/product');
 const index = require('./routes/index');
 
 app.use(bodyParser.json());
@@ -15,6 +16,7 @@ app.use(cors());
 dotenv.config();
 
 app.use('/', user);
+app.use('/', product);
 app.use('/', index);
 
 

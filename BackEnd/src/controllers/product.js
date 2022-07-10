@@ -1,7 +1,25 @@
 'use strict';
 const dbo = require('../db/connection');
+const multer = require('multer');
+const path = require('path');
 const express = require('express');
 const router = express.Router();
+
+const storage = multer.diskStorage({
+
+    destination: function (req, file, cb) {
+ 
+       cb(null, path.join(__dirname, '../../img'));
+ 
+    },
+
+    filename: function (req, file, cb){
+        cb(null, req.params.fileName);
+    }
+     
+});
+
+const upload = multer({ storage: storage });
 
 //ROTA QUE EXTRAI OS PRODUTOS DE UM DETERMINADO CLIENTE
 router.get('/product/:username', (req, res, next) => {
@@ -20,6 +38,12 @@ router.get('/product/:username', (req, res, next) => {
         });
 });
 
+
+router.post('/product/upload/:fileName', upload.single('foto'), (req, res) =>{
+    return res.sendFile(`${path.join(__dirname, '../../img')}/${req.params.fileName}`);
+      
+})
+
 //ROTA QUE CRIA UM PRODUTO
 router.post('/product', (req, res, next) => {
     const dbConnect = dbo.getDb();
@@ -30,9 +54,7 @@ router.post('/product', (req, res, next) => {
         ingredients: req.body.ingredients,
         nutrition: req.body.nutrition,
         recipe_link: req.body.recipe_link,
-        image_link: req.body.image_link,
         username: req.body.username,
-        inventory: req.body.inventory
     };
 
 

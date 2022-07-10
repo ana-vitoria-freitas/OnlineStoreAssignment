@@ -45,44 +45,44 @@
     <h4>Personal Details</h4>
       <div name="personal_details_form">
         <div class="campo">
-          <label for="name">NAME &#x2a;</label>
-          <input data-value="{{ name }}" v-bind="name" type="text" id="name">
+          <label for="name">NAME </label>
+          <input :value="name" v-bind="name" type="text" id="name">
         </div>
         <div class="campo">
           <label for="cpf">CPF</label>
-          <input  v-bind="cpf" type="text" id="cpf">
+          <input  :value="cpf"  v-bind="cpf" type="text" id="cpf" >
         </div>
         <div class="campo">
           <label for="mobile">MOBILE</label>
-          <input  v-bind="phone"  type="text" id="mobile">
+          <input  :value="phone"  v-bind="phone"  type="text" id="mobile">
         </div>
         <div class="campo">
-          <label for="email">EMAIL &#x2a;</label>
-          <input  v-bind="username" type="text" id="email">
+          <label for="email">EMAIL </label>
+          <input  :value="username"  v-bind="username" type="text" id="email">
         </div>
         <div class="campo">
           <label for="address1">ADDRESS 1</label>
-          <input  v-bind="address1" type="text" id="address1">
+          <input  :value="address1"  v-bind="address1" type="text" id="address1">
         </div>
         <div class="campo">
           <label for="address2">ADDRESS 2</label>
-          <input  v-bind="address2" type="text" id="address2">
+          <input  :value="address2"  v-bind="address2" type="text" id="address2">
         </div>
         <div class="campo">
           <label for="city">CITY</label>
-          <input v-bind="city"  type="text" id="city">
+          <input :value="city"  v-bind="city"  type="text" id="city">
         </div>
         <div class="campo">
           <label for="state">STATE</label>
-          <input  v-bind="state" type="text" id="state">
+          <input  :value="state"  v-bind="state" type="text" id="state">
         </div>
         <div class="country">
           <label for="country">COUNTRY</label>
-          <input  v-bind="country" type="text" id="country">
+          <input  :value="country"  v-bind="country" type="text" id="country">
         </div>
         <div class="postcode">
           <label for="country">POST CODE</label>
-          <input  v-bind="postal_code" :value="postal_code" type="text" id="postcode">
+          <input  :value="postal_code"  v-bind="postal_code" type="text" id="postcode">
         </div>
       </div>
     <div class="button-container">

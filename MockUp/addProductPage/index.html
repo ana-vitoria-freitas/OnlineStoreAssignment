@@ -55,31 +55,31 @@
         <form name="product_form" action="#" method="post">
           <div class="campo">
             <label for="fun-fact">Name:</label>
-            <input type="text" id="name">
+            <input v-on:change="setFlag" type="text" id="name" v-model="name" required>
           </div>
           <div class="campo">
             <label for="fun-fact">Fun fact:</label>
-            <textarea maxlength="200" id="fun-fact"></textarea>
+            <textarea maxlength="200" id="fun-fact" v-model="fun_fact"></textarea>
           </div>
           <div class="campo">
             <label for="ingredients">Ingredients:</label>
-            <textarea maxlength="500" id="ingredients"></textarea>
+            <textarea maxlength="500" id="ingredients" v-model="ingredients"></textarea>
           </div>
           <div class="campo">
             <label for="nutrition">Nutrition:</label>
-            <textarea maxlength="500" id="nutrition"></textarea>
+            <textarea maxlength="500" id="nutrition" v-model="nutrition"></textarea>
           </div>
           <div class="campo">
             <label for="recipe">Recipe link:</label>
-            <input type="text" id="recipe">
+            <input type="text" id="recipe" v-model="recipe_link">
           </div>
           <div class="campo">
             <label for="price">US$:</label>
-            <input type="text" id="price">
+            <input type="text" id="price" v-model="price">
           </div>
-          <div class="campo">
+          <div v-if="nameCompleted" class="campo">
             <label for="image">Product image:</label>
-            <input type="file" id="image" name="filename">
+            <input  type="file" id="image" name="filename" v-on:change="addPicture">
           </div>
         </form>
         <div class="mdc-card__actions">
@@ -91,7 +91,7 @@
                   Cancel
                 </span>
               </button>
-              <button v-on:click="addProduct" class="mdc-button mdc-button--raised next">
+              <button @click="addProduct" class="mdc-button mdc-button--raised next">
                 <div class="mdc-button__ripple"></div>
                 <span class="mdc-button__label">
                   Save

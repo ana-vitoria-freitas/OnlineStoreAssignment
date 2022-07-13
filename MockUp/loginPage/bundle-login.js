@@ -8,7 +8,7 @@ Vue.createApp({
     },
     methods: {
         validate: async function (e) {
-
+            
             try {
                 let resp = await fetch("http://localhost:3000/findUser", {
                     headers: {
@@ -27,6 +27,7 @@ Vue.createApp({
                     window.location.href = '../homePage/index.html';
                     console.log("usuario existe");
                 } else {
+                    alert("User or password invalid.");
                     console.log("usuario nao existe");
                 }
 

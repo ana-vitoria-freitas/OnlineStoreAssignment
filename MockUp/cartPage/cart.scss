@@ -28,7 +28,6 @@
 .demo-card{
   overflow: auto;
   padding: 40px 400px 0;
-  height: 550px;
 }
 
 
@@ -114,4 +113,26 @@
   display: block;
   overflow: auto;
   z-index: 0; // Elevate over the drawer
+}
+
+#quantity::-webkit-inner-spin-button {
+  opacity: 1;
+}
+
+#quantity {
+  width: 50px;
+  margin: 0px 10px;
+}
+
+#checkout-button{
+  display: flex;
+  overflow: auto;
+  padding: 40px 0px 40px;
+  justify-content: center;
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
 }

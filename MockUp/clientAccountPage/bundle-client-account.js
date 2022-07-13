@@ -108,6 +108,21 @@ Vue.createApp({
         },
         back: () => {
             window.history.go(-1);
+        },
+        logout: () => {
+            localStorage.removeItem("username");
+            window.location.href = '../homePage';
+        },
+        goToCart: () => {
+            if (localStorage.getItem("username") == null) {
+                location.href = '../loginPage';
+            }
+            else {
+                location.href = '/cartPage';
+            }
+        },
+        goToHome: () => {
+            window.location.href = '../homePage';
         }
     },
 

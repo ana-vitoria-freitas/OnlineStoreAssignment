@@ -13,6 +13,7 @@ Vue.createApp({
             postal_code: null,
             username: null,
             password: null,
+            email: null,
         }
     },
     methods: {
@@ -42,8 +43,10 @@ Vue.createApp({
 
                 if (resp.status == 200) {
                     window.location.href = '../loginPage/index.html';
+                    alert("User created! You can already login.")
                     console.log("usuario criado");
                 } else {
+                    alert("This username is already being used. Please choose another one.");
                     console.log("usuario já existe");
                 }
 

@@ -14,21 +14,21 @@
       background-color: #6200ee;
       color: #ffffff;
     }
-
+    
     .button-container .mdc-button {
       color: #6200ee;
     }
   </style>
-
+  
 </head>
 
 <body class="cart">
-
+  
   <div id="cart-app">
     <aside class="mdc-drawer shrine-drawer" style="background:linear-gradient(to bottom,#7f7fd5 30%,#86a8e7,#91eae4);">
       <div class="mdc-drawer__header">
         <img id="logo" src="./assets/home_logo.gif">
-
+        
       </div>
       <div class="mdc-drawer__content">
         <nav class="mdc-list">
@@ -45,12 +45,12 @@
           <a v-on:click="logout" id="link-3" class="mdc-list-item" >
             <span class="mdc-list-item__text">Logout</span>
           </a>
-
+          
         </nav>
       </div>
     </aside>
     <div class="shrine-body">
-
+      
       <div v-if="cart.length == 0">
         <div class="mdc-card demo-card demo-basic-with-text-over-media">
           <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
@@ -64,56 +64,59 @@
           </div>
         </div>
       </div>
-
+      
       <ul class="mdc-image-list ">
         <div v-for="(item, index) in cart">
-        <div class="mdc-card demo-card demo-basic-with-text-over-media">
-          <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-            <div class="mdc-card__media mdc-card__media demo-card__media mdc-card__media--square">
-              <li class="mdc-image-list__item">
-                <img class="mdc-image-list__image" :src="products[item.id].image">
-
-              </li>
-              <div class="mdc-card__media-content demo-card__media-content">
-                <div class="demo-card__primary">
-                  <h2 class="demo-card__title mdc-typography mdc-typography--headline6">{{ products[item.id].name }}</h2>
+          <div class="mdc-card demo-card demo-basic-with-text-over-media">
+            <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+              <div class="mdc-card__media mdc-card__media demo-card__media mdc-card__media--square">
+                <li class="mdc-image-list__item">
+                  <img class="mdc-image-list__image" :src="products[item.id].image">
+                  
+                </li>
+                <div class="mdc-card__media-content demo-card__media-content">
+                  <div class="demo-card__primary">
+                    <h2 class="demo-card__title mdc-typography mdc-typography--headline6">{{ products[item.id].name }}</h2>
+                  </div>
                 </div>
               </div>
+              
+              <div class="demo-card__secondary mdc-typography mdc-typography--body2">{{ products[item.id].fun_fact }}</div>
             </div>
-
-            <div class="demo-card__secondary mdc-typography mdc-typography--body2">{{ products[item.id].fun_fact }}</div>
-          </div>
-          <div class="mdc-card__actions">
-            <div class="mdc-card__action-buttons">
-              <div class="button-container">
-                <button v-on:click="removeFromCart(index)" type="button" class="mdc-button cancel">
-                  <div class="mdc-button__ripple"></div>
-                  <span class="mdc-button__label">
-                    Remove
-                  </span>
-                </button>
-                <button v-on:click="goToCheckout" class="mdc-button mdc-button--raised next">
-                  <div class="mdc-button__ripple"></div>
-                  <span class="mdc-button__label">
-                    Checkout
-                  </span>
-                </button>
+            <div class="mdc-card__actions">
+              <div class="mdc-card__action-buttons">
+                <div class="button-container">
+                  <button v-on:click="removeFromCart(index)" type="button" class="mdc-button cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">
+                      Remove
+                    </span>
+                  </button>
+                  <input type="number" id="quantity" min="1" max="10">
+                </div>
+                
               </div>
-
+              <hr size="#">
             </div>
-
           </div>
         </div>
-      </div>
+        <div id="checkout-button" v-if="cart.length !== 0">
+        <button v-on:click="goToCheckout" class="mdc-button mdc-button--raised next">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">
+            Checkout
+          </span>
+        </button>
+        </div>
       </ul>
-
+      
     </div>
   </div>
-
+  
   <script src="https://unpkg.com/vue-router@2"></script>
   <script src="https://unpkg.com/vue@3"></script>
   <script src="bundle-cart.js" async></script>
-
+  
 </body>
 
 </html>

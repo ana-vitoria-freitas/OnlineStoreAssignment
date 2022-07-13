@@ -205,7 +205,7 @@
       methods: {
         addToCart(id) {
 
-          if (localStorage.getItem("username") != "user") {
+          if (localStorage.getItem("username") == null) {
             location.href = '../loginPage';
           }
           else {
@@ -305,10 +305,11 @@
       methods: {
         goToAccount: function () {
           {
-            if (localStorage.getItem("username") == "user" || localStorage.getItem("username") == "admin") {
-              location.href = '../clientAccountPage';
-            } else {
+            const hasUsername = localStorage.getItem("username")
+            if (hasUsername == null) {
               location.href = '../loginPage';
+            } else {
+              location.href = '../clientAccountPage';
             }
           }
         }

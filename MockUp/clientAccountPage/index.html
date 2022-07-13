@@ -19,9 +19,10 @@
 </head>
 
 <body class="client-account">
+  <div id="app" >
   <aside class="mdc-drawer shrine-drawer" style="background:linear-gradient(to bottom,#7f7fd5 30%,#86a8e7,#91eae4);">
     <div class="mdc-drawer__header">
-      <img src="./assets/home_logo.gif" width="100%; margin-top: 10px">
+      <img src="./assets/home_logo.gif">
 
     </div>
     <div class="mdc-drawer__content">
@@ -29,28 +30,28 @@
         <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" tabindex="0" href="#">
           <span class="mdc-list-item__text">My Account</span>
         </a>
-        <a id="link-1" class="mdc-list-item" aria-selected="true" tabindex="0" href="#">
+        <a v-on:click="goToCart" id="link-1" class="mdc-list-item" aria-selected="true" tabindex="0" href="#">
           <span class="mdc-list-item__text">My cart</span>
         </a>
-        <a id="link-2" class="mdc-list-item" aria-selected="true" tabindex="0" href="#">
+        <a v-on:click="goToHome" id="link-2" class="mdc-list-item" aria-selected="true" tabindex="0" href="#">
           <span class="mdc-list-item__text">Home</span>
         </a>
-        <a id="link-3" class="mdc-list-item" href="#">
+        <a v-on:click="logout" id="link-3" class="mdc-list-item" href="#">
           <span class="mdc-list-item__text">Logout</span>
         </a>
       </nav>
     </div>
   </aside>
-  <div  id="app" class="shrine-body"> 
+  <form class="shrine-body"> 
     <h4>Personal Details</h4>
       <div name="personal_details_form">
         <div class="campo">
           <label for="name">NAME </label>
-          <input :value="name" v-bind="name" type="text" id="name">
+          <input :value="name" v-bind="name" minlength="5" type="text" id="name" readonly>
         </div>
         <div class="campo">
           <label for="cpf">CPF</label>
-          <input  :value="cpf"  v-bind="cpf" type="text" id="cpf" >
+          <input  :value="cpf"  v-bind="cpf" type="text" id="cpf" readonly>
         </div>
         <div class="campo">
           <label for="mobile">MOBILE</label>
@@ -58,7 +59,7 @@
         </div>
         <div class="campo">
           <label for="email">EMAIL </label>
-          <input  :value="username"  v-bind="username" type="text" id="email">
+          <input  :value="username"  v-bind="username" type="text" id="email" readonly>
         </div>
         <div class="campo">
           <label for="address1">ADDRESS 1</label>
@@ -93,6 +94,7 @@
         </span>
       </button>
     </div>
+  </form>
   </div>
 
 </body>

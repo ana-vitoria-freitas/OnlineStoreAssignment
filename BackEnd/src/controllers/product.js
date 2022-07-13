@@ -28,7 +28,7 @@ router.get('/product/:username', (req, res, next) => {
 
     dbConnect
         .collection('products')
-        .findOne({ username: req.params.username }, function (err, result) {
+        .findAll({ username: req.params.username }, function (err, result) {
             console.log(result)
             if (result.length == 0) {
                 res.status(400).send('Error fetching products!');
@@ -48,13 +48,13 @@ router.post('/product/upload/:fileName', upload.single('foto'), (req, res) =>{
 router.post('/product', (req, res, next) => {
     const dbConnect = dbo.getDb();
     const matchDocument = {
-        id: req.body.id,
         name: req.body.name,
         fun_fact: req.body.fun_fact,
         ingredients: req.body.ingredients,
         nutrition: req.body.nutrition,
         recipe_link: req.body.recipe_link,
         username: req.body.username,
+        isAvailable: 'true'
     };
 
 
@@ -73,23 +73,20 @@ router.post('/product', (req, res, next) => {
 
 
 //ROTA QUE EDITA UM PRODUTO
-router.put('/product/:id', (req, res, next) => {
+router.put('/product', (req, res, next) => {
     const dbConnect = dbo.getDb();
     const matchDocument = {
-        id: req.body.id,
         name: req.body.name,
         fun_fact: req.body.fun_fact,
         ingredients: req.body.ingredients,
         nutrition: req.body.nutrition,
         recipe_link: req.body.recipe_link,
-        image_link: req.body.image_link,
         username: req.body.username,
-        inventory: req.body.inventory
     };
 
     dbConnect
     .collection('products')
-    .updateOne({ id: req.params.id }, {$set: matchDocument}, function (err, result) {
+    .updateOne({$and: [{ name: req.body.name }, {username: req.body.username}]}, {$set: matchDocument}, function (err, result) {
       if (err) {
         res.status(400).send('Error updating product!');
       } else {
@@ -100,40 +97,6 @@ router.put('/product/:id', (req, res, next) => {
 
 });
 
-//ROTA QUE EDITA ESTOQUE
-router.put('/product/:id/:quantity', (req, res, next) => {
-    const dbConnect = dbo.getDb();
-    const matchDocument = {
-        username: req.body.username,
-    };
-
-    let product = {};
-
-    dbConnect
-    .collection('products')
-    .find({$and: [{ username: req.params.username }, {id: req.params.id}]}, function (err, result) {
-        console.log(result)
-        if (result.length != 0) {
-            product = result;
-        }
-    });
-
-    const update = {
-        inventory: product.inventory - req.params.quantity
-    }
-
-    dbConnect
-    .collection('products')
-    .updateOne({ id: req.params.id }, {$set: update}, function (err, result) {
-      if (err) {
-        res.status(400).send('Error updating product!');
-      } else {
-        res.status(200).send();
-      }
-    });
-
-
-});
 
 
 module.exports = router;

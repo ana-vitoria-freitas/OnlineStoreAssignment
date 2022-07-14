@@ -60,7 +60,7 @@ router.post('/user', (req, res, next) => {
     address2: req.body.address2,
     city: req.body.city,
     postal_code: req.body.postal_code,
-    user_type: "client"
+    user_type: "user"
   };
   console.log(matchDocument)
 

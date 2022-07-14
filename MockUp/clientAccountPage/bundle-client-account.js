@@ -67,6 +67,7 @@ Vue.createApp({
             country: null,
             postal_code: null,
             username: null,
+            user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
         }
     },
     methods: {
@@ -111,6 +112,7 @@ Vue.createApp({
         },
         logout: () => {
             localStorage.removeItem("username");
+            localStorage.setItem("user_type", 'user')
             window.location.href = '../homePage';
         },
         goToCart: () => {

@@ -98,7 +98,6 @@
   </div>
   </div>
 
-  <script src="bundle-client-account.js" async></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <script src="https://unpkg.com/vue-router@2"></script>
   <script src="https://unpkg.com/http-vue-loader"></script>
@@ -113,8 +112,8 @@
         goToCart(){
           location.href = '/cartPage';
         },
-        purchaseOrder(){
-          localStorage.setItem("cart", JSON.stringify([]))
+        async purchaseOrder(){
+          let resp = await fetch(`http://localhost:3000/cart/product/${localStorage.getItem("username")}`, { method: 'DELETE' });
           location.href = '/homePage';
         }
       }

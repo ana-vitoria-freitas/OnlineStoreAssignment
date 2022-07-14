@@ -46,9 +46,20 @@
             <a class="mdc-list-item" href="/homePage/#/alcoholic">
               <span class="mdc-list-item__text">Alcoholic</span>
             </a>
-
             <a v-on:click="goToAccount" id="link-2" class="mdc-list-item">
               <span class="mdc-list-item__text">My Account</span>
+            </a>
+            <a  v-if="user_type == 'user'" v-on:click="goToCart" id="link-1" class="mdc-list-item" aria-selected="true" tabindex="0" href="#">
+              <span class="mdc-list-item__text">My cart</span>
+            </a>
+            <a v-if="user_type == 'admin'" class="mdc-list-item"  href="/userManagementPage">
+              <span class="mdc-list-item__text">Manage Users</span>
+            </a>
+            <a v-if="user_type == 'admin'" class="mdc-list-item" href="/addProductPage">
+              <span class="mdc-list-item__text">Add New Product</span>
+            </a>
+            <a v-on:click="logout" id="link-3" class="mdc-list-item" href="#">
+              <span class="mdc-list-item__text">Logout</span>
             </a>
         </nav>
       </div>
@@ -56,13 +67,15 @@
     <router-view></router-view>
   </div>
 
+
   <template id="home_id">
     <div class="shrine-body-home">
       <button type="submit"><i class="fa fa-search"></i></button>
-      <input type="text" placeholder="Search..">
+      <input type="text" v-model="search_bar" placeholder="Search..">
+
       <ul class="mdc-image-list mdc-image-list--masonry product-list">
-        <div v-for="(item) in products" v-if="!(item.removed)">
-          <router-link :to="{name:product_type,params:{id:item.id} }">
+        <div v-for="(item, key) in filteredProducts()" v-if="item.isAvailable == 'true'">
+          <router-link :to="{name: product_type,params:{id:item.name} }">
             <li class="mdc-image-list__item">
               <img class="mdc-image-list__image" :src="item.image">
               <div id="link-1" class="mdc-image-list__supporting">
@@ -80,20 +93,20 @@
       <div id="div-out">
         <div id="div-left-out">
           <div id="div-left">
-            <h2>{{ products[id].name }}</h2>
+            <h2>{{ product.name }}</h2>
             <div class="div-body">
               <ul id="product_list">
                 <li>
-                  <strong>Fun fact:</strong> {{ products[id].fun_fact }}
+                  <strong>Fun fact:</strong> {{ product.fun_fact }}
                 </li>
                 <li>
-                  <strong>Ingredients:</strong> {{ products[id].ingredients }}
+                  <strong>Ingredients:</strong> {{ product.ingredients }}
                 </li>
                 <li>
-                  <strong>Nutrition: </strong> {{ products[id].nutrition }}
+                  <strong>Nutrition: </strong> {{ product.nutrition }}
                 </li>
                 <li>
-                  <strong>Recipe link: </strong> <a href="#">{{ products[id].recipe_link }}</a>
+                  <strong>Recipe link: </strong> <a href="#">{{ product.recipe_link }}</a>
                 </li>
               </ul>
             </div>
@@ -103,7 +116,7 @@
                   <button type="button" class="mdc-button cancel">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">
-                      US$ {{ products[id].price }}
+                      US$ {{ product.price }}
                     </span>
                   </button>
                   <button v-on:click="addToCart(id)" id="button-1" class="mdc-button mdc-button--raised next">
@@ -118,13 +131,13 @@
           </div>
         </div>
         <div class="image-container">
-          <img id="drink_img" class="mdc-image-list__image" :src="products[id].image">
+          <img id="drink_img" class="mdc-image-list__image" :src="image">
         </div>
       </div>
     </div>
   </template>
 
-  <template id="admin_product_template">
+  <template id="admin">
     <div class="shrine-body-admin-product">
       <div id="div-out">
         <div id="div-left-out">
@@ -133,40 +146,40 @@
               <form name="product_form" action="#" method="post">
                 <div class="campo">
                   <label for="fun-fact">Name:</label>
-                  <input type="text" id="name" :value="products[id].name">
+                  <input type="text" id="name" :value="product.name">
                 </div>
                 <div class="campo">
                   <label for="fun-fact">Fun fact:</label>
-                  <textarea maxlength="200" id="fun-fact" :value="products[id].fun_fact"></textarea>
+                  <textarea maxlength="200" id="fun-fact" :value="product.fun_fact"></textarea>
                 </div>
                 <div class="campo">
                   <label for="ingredients">Ingredients:</label>
-                  <textarea maxlength="500" id="ingredients" :value="products[id].ingredients"></textarea>
+                  <textarea maxlength="500" id="ingredients" :value="product.ingredients"></textarea>
                 </div>
                 <div class="campo">
                   <label for="nutrition">Nutrition:</label>
-                  <textarea maxlength="500" id="nutrition" :value="products[id].nutrition"></textarea>
+                  <textarea maxlength="500" id="nutrition" :value="product.nutrition"></textarea>
                 </div>
                 <div class="campo">
                   <label for="recipe">Recipe link:</label>
-                  <input type="text" id="recipe" :value="products[id].recipe_link">
+                  <input type="text" id="recipe" :value="product.recipe_link">
                 </div>
                 <div class="campo">
                   <label for="price">US$:</label>
-                  <input type="text" id="price" :value="products[id].price">
+                  <input type="text" id="price" :value="product.price">
                 </div>
               </form>
             </div>
             <div class="mdc-card__actions">
               <div class="mdc-card__action-buttons">
                 <div class="button-container">
-                  <button v-on:click="removeProduct(id)" type="button" class="mdc-button cancel">
+                  <button v-on:click="removeProduct(product.name)" type="button" class="mdc-button cancel">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">
                       Remove product
                     </span>
                   </button>
-                  <button v-on:click="updateProduct(id)" class="mdc-button mdc-button--raised next">
+                  <button v-on:click="updateProduct(product.name)" class="mdc-button mdc-button--raised next">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">
                       Save
@@ -178,7 +191,7 @@
           </div>
         </div>
         <div class="image-container">
-          <img class="mdc-image-list__image" :src="products[id].image">
+          <img class="mdc-image-list__image" :src="image">
           <div id="edit-image">EDIT IMAGE</div>
         </div>
       </div>
@@ -192,56 +205,156 @@
 
   <script type="module">
 
-    var products = JSON.parse(localStorage.getItem("products"))
 
     const Client_product = Vue.component('client_product_component', {
       props: ['id'],
       template: '#client_product_template',
       data() {
         return {
-          products
+          products: [],
+          pictures: [],
+          product: {
+            name: null,
+            fun_fact: null,
+            ingredients: null,
+            nutrition: null,
+            recipe_link: null,
+            price: null,
+          },
+          image: null,
         }
       },
       methods: {
-        addToCart(id) {
+        async addToCart(id) {
+          console.log(id)
 
           if (localStorage.getItem("username") == null) {
             location.href = '../loginPage';
+            return
           }
-          else {
-            var cart = JSON.parse(localStorage.getItem("cart"))
-            cart.push(products[id])
-            localStorage.setItem("cart", JSON.stringify(cart))
-            location.href = '/cartPage';
+
+          let cart = await fetch(`http://localhost:3000/cart/${localStorage.getItem("username")}`, { method: 'GET' });
+
+          if (cart.status == 404) { //SE O CARRINHO NÃO EXISTE VAMOS CRIAR UM
+            let resp = await fetch("http://localhost:3000/cart", {
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              method: 'POST',
+              body: JSON.stringify({
+                'username': `${localStorage.getItem("username")}`,
+                'products': [
+                  {
+                    "name": `${id}`,
+                    "quantity": 1
+                  }
+                ]
+              })
+            });
+            location.href ='../cartPage';
+
+          }else{ //SE ELE EXISTE, VAMOS INCREMENTAR A QUANTIDADE DE CADA PRODUTO NELE E ADICIONAR MAIS PRODUTOS
+            let resp = await fetch(`http://localhost:3000/cart/product`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        'username': `${localStorage.getItem("username")}`,
+                        'product_id': `${id}`
+                    })
+                });
+
+                if (resp.status == 200) {
+                    window.location.href = '../cartPage';
+                    console.log("produto adicionado no carrinho");
+                } else {
+                    console.log("nao foi possivel adicionar o produto no carrinho");
+                }
           }
+
+
         }
+      },
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/products/one/${String(this.id).replace("/\s/g", "9")}`, { method: 'GET' });
+        this.product = await products.json();
+        this.image = `./assets/${this.product.name.replace(/\s/g, '').toLowerCase()}.jpg`
+
+        this.isMounted = true;
+        localStorage.setItem("products", this.products)
       }
     });
 
-    const Admin_product = Vue.component('admin_product_component', {
+    const Admin_product = Vue.component('admin', {
       props: ['id'],
-      template: '#admin_product_template',
+      template: '#admin',
       data() {
         return {
-          products
+          products: [],
+          pictures: [],
+          product: {
+            name: null,
+            fun_fact: null,
+            ingredients: null,
+            nutrition: null,
+            recipe_link: null,
+            price: null,
+          },
+          image: null,
         }
       },
       methods: {
-        updateProduct(id) {
-          products[id].name = document.product_form.elements.item(0).value
-          products[id].fun_fact = document.product_form.elements.item(1).value
-          products[id].ingredients = document.product_form.elements.item(2).value
-          products[id].nutrition = document.product_form.elements.item(3).value
-          products[id].recipe_link = document.product_form.elements.item(4).value
-          products[id].price = document.product_form.elements.item(5).value
-          localStorage.setItem("products", JSON.stringify(products))
+        async updateProduct(id) {
+          let resp = await fetch(`http://localhost:3000/product/${id}`, {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            method: 'PUT',
+            body: JSON.stringify({
+              'name': `${document.product_form.elements.item(0).value}`,
+              'fun_fact': `${document.product_form.elements.item(1).value}`,
+              'ingredients': `${document.product_form.elements.item(2).value}`,
+              'nutrition': `${document.product_form.elements.item(3).value}`,
+              'recipe_link': `${document.product_form.elements.item(4).value}`,
+              'isAvailable': 'true',
+              'price': `${document.product_form.elements.item(5).value}`,
+              'username': `${localStorage.getItem("username")}`
+            })
+          });
+
+
           location.href = '/homePage';
         },
-        removeProduct(id) {
-          products[id].removed = true
-          localStorage.setItem("products", JSON.stringify(products))
+        async removeProduct(id) {
+          let resp = await fetch(`http://localhost:3000/product/remove/${id}`, {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            method: 'PUT',
+            body: JSON.stringify({
+              'isAvailable': 'false',
+              'username': `${localStorage.getItem("username")}`
+            })
+          });
           location.href = '/homePage';
         }
+      },
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, { method: 'GET' });
+        this.products = await products.json();
+
+        for (let i = 0; i < this.products.length; i++) {
+          let name = String(this.products[i].name);
+          if (name == this.id) {
+            this.product = this.products[i]
+            name = name.replace(/\s/g, '').toLowerCase();
+            this.image = `./assets/${name}.jpg`
+          }
+        }
+
+        this.isMounted = true;
+        localStorage.setItem("products", this.products)
       }
     });
 
@@ -249,44 +362,149 @@
       template: '#home_id',
       data() {
         return {
-          products,
-          product_type: localStorage.getItem("product_type")
+          products: [], 
+          product_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
+          isMounted: false,
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
+          search_bar: "",
         }
       },
+      methods: {
+        filteredProducts(){
+          if(this.search_bar.length == 0){
+            return this.products
+          }
+          return this.products.filter((product) => 
+            product.name.toLowerCase().includes(this.search_bar.toLowerCase()))
+        }
+      },
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product`, { method: 'GET' });
+        this.products = await products.json();
+        console.log(this.product_type);
+
+        for (let i = 0; i < this.products.length; i++) {
+          let name = String(this.products[i].name);
+          name = name.replace(/\s/g, '').toLowerCase();
+          this.products[i].image = `./assets/${name}.jpg`
+        }
+
+        this.isMounted = true;
+      }
     });
+
     const Home_hot_drinks = Vue.component('home_component', {
       template: '#home_id',
       data() {
         return {
-          products: products.filter(p => (p.types.includes('hot'))),
-          product_type: localStorage.getItem("product_type")
+          products: [],
+          product_type: localStorage.getItem("user_type"),
+          isMounted: false,
+          pictures: [],
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
+          search_bar: "",
         }
       },
+      methods: {
+        filteredProducts(){
+          if(this.search_bar.length == 0){
+            return this.products
+          }
+          return this.products.filter((product) => 
+            product.name.toLowerCase().includes(this.search_bar.toLowerCase()))
+        }
+      },
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/hot`, { method: 'GET' });
+        this.products = await products.json();
+        console.log(this.products);
+
+        for (let i = 0; i < this.products.length; i++) {
+          let name = String(this.products[i].name);
+          name = name.replace(/\s/g, '').toLowerCase();
+          this.products[i].image = `./assets/${name}.jpg`
+        }
+
+        this.isMounted = true;
+      }
+
     });
     const Home_cold_drinks = Vue.component('home_component', {
       template: '#home_id',
       data() {
         return {
-          products: products.filter(p => (p.types.includes("cold"))),
-          product_type: localStorage.getItem("product_type")
+          products: [],
+          product_type: localStorage.getItem("user_type"),
+          isMounted: false,
+          pictures: [],
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
+          search_bar: "",
         }
       },
+      methods: {
+        filteredProducts(){
+          if(this.search_bar.length == 0){
+            return this.products
+          }
+          return this.products.filter((product) => 
+            product.name.toLowerCase().includes(this.search_bar.toLowerCase()))
+        }
+      },
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/cold`, { method: 'GET' });
+        this.products = await products.json();
+        console.log(this.products);
+
+        for (let i = 0; i < this.products.length; i++) {
+          let name = String(this.products[i].name);
+          name = name.replace(/\s/g, '').toLowerCase();
+          this.products[i].image = `./assets/${name}.jpg`
+        }
+
+        this.isMounted = true;
+      }
     });
     const Home_alcoholic = Vue.component('home_component', {
       template: '#home_id',
       data() {
         return {
-          products: products.filter(p => (p.types.includes("alcoholic"))),
-          product_type: localStorage.getItem("product_type")
+          products: [],
+          product_type: localStorage.getItem("user_type"),
+          isMounted: false,
+          pictures: [],
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
+          search_bar: "",
         }
       },
+      methods: {
+        filteredProducts(){
+          if(this.search_bar.length == 0){
+            return this.products
+          }
+          return this.products.filter((product) => 
+            product.name.toLowerCase().includes(this.search_bar.toLowerCase()))
+        }
+      },
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/alcoholic`, { method: 'GET' });
+        this.products = await products.json();
+        console.log(this.products);
+
+        for (let i = 0; i < this.products.length; i++) {
+          let name = String(this.products[i].name);
+          name = name.replace(/\s/g, '').toLowerCase();
+          this.products[i].image = `./assets/${name}.jpg`
+        }
+
+        this.isMounted = true;
+      }
     });
 
 
     var router = new VueRouter({
       routes: [
-        { path: 'product/:id', name: 'client_product', component: Client_product, props: true },
-        { path: 'product/:id', name: 'admin_product', component: Admin_product, props: true },
+        { path: 'product/:id/', name: 'user', component: Client_product, props: true },
+        { path: 'product/:id/', name: 'admin', component: Admin_product, props: true },
         { path: '/', component: Home_featured },
         { path: '/hot', component: Home_hot_drinks },
         { path: '/cold', component: Home_cold_drinks },
@@ -298,9 +516,11 @@
     var products_list = new Vue({
       el: "#list",
       router,
-      data: {
-        products,
-        user_admin: (localStorage.getItem("username") == "admin"),
+      data() {
+         return {
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
+          search_bar: "",
+         }
       },
       methods: {
         goToAccount: function () {
@@ -312,7 +532,20 @@
               location.href = '../clientAccountPage';
             }
           }
-        }
+        },
+        logout: () => {
+            localStorage.removeItem("username");
+            localStorage.setItem("user_type", 'user')
+            window.location.href = '../homePage';
+        },
+        goToCart: () => {
+            if (localStorage.getItem("username") == null) {
+                location.href = '../loginPage';
+            }
+            else {
+                location.href = '/cartPage';
+            }
+        },
       }
     });
   </script>

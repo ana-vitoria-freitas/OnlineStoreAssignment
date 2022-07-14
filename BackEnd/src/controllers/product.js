@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
 
     destination: function (req, file, cb) {
  
-       cb(null, path.join(__dirname, '../../img'));
+       cb(null, path.join(__dirname, '../../../MockUp/homePage/assets'));
  
     },
 
@@ -21,14 +21,57 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-//ROTA QUE EXTRAI OS PRODUTOS DE UM DETERMINADO CLIENTE
-router.get('/product/:username', (req, res, next) => {
+//ROTA PARA SALVAR IMAGEM DE PRODUTO
+router.post('/product/upload/:fileName', upload.single('foto'), (req, res) =>{
+    return res.sendFile(`${path.join(__dirname, '../../../MockUp/homePage/assets')}/${req.params.fileName}`);
+      
+})
+
+//ROTA QUE RETORNA TODOS OS PRODUTOS HOT
+router.get('/product/hot', (req, res, next) => {
 
     const dbConnect = dbo.getDb();
 
     dbConnect
         .collection('products')
-        .findAll({ username: req.params.username }, function (err, result) {
+        .find({ types: "hot" })
+        .toArray(function (err, result) {
+            console.log(result)
+            if (result.length == 0) {
+                res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+//ROTA QUE RETORNA TODOS OS PRODUTOS COLD
+router.get('/product/cold', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection('products')
+        .find({ types: "cold" })
+        .toArray(function (err, result) {
+            console.log(result)
+            if (result.length == 0) {
+                res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+//ROTA QUE RETORNA TODOS OS PRODUTOS ALCOHOLIC
+router.get('/product/alcoholic', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection('products')
+        .find({ types: "alcoholic" })
+        .toArray(function (err, result) {
             console.log(result)
             if (result.length == 0) {
                 res.status(400).send('Error fetching products!');
@@ -39,10 +82,80 @@ router.get('/product/:username', (req, res, next) => {
 });
 
 
-router.post('/product/upload/:fileName', upload.single('foto'), (req, res) =>{
-    return res.sendFile(`${path.join(__dirname, '../../img')}/${req.params.fileName}`);
-      
-})
+//ROTA QUE RETORNA TODOS OS PRODUTOS
+router.get('/product', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection('products')
+        .find({})
+        .toArray(function (err, result) {
+            console.log(result)
+            if (result.length == 0) {
+                res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+
+//ROTA QUE EXTRAI OS PRODUTOS DE UM DETERMINADO CLIENTE
+router.get('/product/:username', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection('products')
+        .find({ username: req.params.username })
+        .toArray(function (err, result) {
+            console.log(result)
+            if (result.length == 0) {
+                res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+//ROTA QUE EXTRAI UM PRODUTO PELO NOME E USERNAME
+router.get('/product/:name/:username', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection('products')
+        .find({$and: [{ name: req.params.name }, {username: req.params.username}]})
+        .toArray(function (err, result) {
+            console.log(result)
+            if (result.length == 0) {
+                console.log("AAAAAAAAA")
+                res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+//ROTA QUE EXTRAI UM PRODUTO PELO NOME
+router.get('/products/one/:name', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+    let newName = String(req.params.name).replace("9", " ");
+
+    dbConnect
+        .collection('products')
+        .findOne({ name: newName }, function (err, result) {
+            if (err) {
+                res.status(400).send('ERRRROOOOO');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+
 
 //ROTA QUE CRIA UM PRODUTO
 router.post('/product', (req, res, next) => {
@@ -54,7 +167,8 @@ router.post('/product', (req, res, next) => {
         nutrition: req.body.nutrition,
         recipe_link: req.body.recipe_link,
         username: req.body.username,
-        isAvailable: 'true'
+        isAvailable: 'true',
+        price: req.body.price
     };
 
 
@@ -73,7 +187,7 @@ router.post('/product', (req, res, next) => {
 
 
 //ROTA QUE EDITA UM PRODUTO
-router.put('/product', (req, res, next) => {
+router.put('/product/:name', (req, res, next) => {
     const dbConnect = dbo.getDb();
     const matchDocument = {
         name: req.body.name,
@@ -82,11 +196,13 @@ router.put('/product', (req, res, next) => {
         nutrition: req.body.nutrition,
         recipe_link: req.body.recipe_link,
         username: req.body.username,
+        isAvailable: req.body.isAvailable,
+        price: req.body.price
     };
 
     dbConnect
     .collection('products')
-    .updateOne({$and: [{ name: req.body.name }, {username: req.body.username}]}, {$set: matchDocument}, function (err, result) {
+    .updateOne({$and: [{ name: req.params.name }, {username: req.body.username}]}, {$set: matchDocument}, function (err, result) {
       if (err) {
         res.status(400).send('Error updating product!');
       } else {
@@ -96,6 +212,48 @@ router.put('/product', (req, res, next) => {
 
 
 });
+
+
+//ROTA QUE REMOVE UM PRODUTO
+router.put('/product/remove/:name', (req, res, next) => {
+    const dbConnect = dbo.getDb();
+    const matchDocument = {
+        username: req.body.username,
+        isAvailable: "false",
+    };
+
+    dbConnect
+    .collection('products')
+    .updateOne({$and: [{ name: req.params.name }, {username: req.body.username}]}, {$set: matchDocument}, function (err, result) {
+      if (err) {
+        res.status(400).send('Error updating product!');
+      } else {
+        res.status(200).send();
+      }
+    });
+
+
+});
+
+
+//ROTA QUE BUSCA PRODUTOS EM TEMPO REAL
+router.get('/product/partial/:name', (req, res, next) =>{
+    const dbConnect = dbo.getDb();
+    console.log(req.params.name)
+    let re = `^.*${req.params.name}.*$`;
+    console.log(re);
+
+    dbConnect
+        .collection('products')
+        .find({name: { $regex: re, $options : 'i'}})
+        .toArray(function (err, result) {
+            console.log(result)
+        })
+});
+
+
+
+
 
 
 

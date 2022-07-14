@@ -34,8 +34,9 @@ Vue.createApp({
 
       let formData = new FormData();
       formData.append('foto', photo);
+      console.log(`${String(this.name).replace(/\s/g,'').toLowerCase()}.${extension.replace(/(.*)\//g, '')}`);
 
-      fetch(`http://localhost:3000/product/upload/${this.name}_${localStorage.getItem("username")}.${extension.replace(/(.*)\//g, '')}`, { method: "POST", body: formData });
+      fetch(`http://localhost:3000/product/upload/${String(this.name).replace(/\s/g,'').toLowerCase()}.${extension.replace(/(.*)\//g, '')}`, { method: "POST", body: formData });
     },
     addProduct: async function () {
       try {
@@ -68,7 +69,8 @@ Vue.createApp({
     },
     logout: () => {
       localStorage.removeItem("username");
-      location.href = "../homePage";
-    },
+      localStorage.setItem("user_type", 'user')
+      window.location.href = '../homePage';
+  },
   }
 }).mount("#add-product-app");

@@ -42,16 +42,16 @@
           <a class="mdc-list-item mdc-list-item" tabindex="0" href="/homePage">
             <span class="mdc-list-item__text">Home</span>
           </a>
+          <a class="mdc-list-item" href="/clientAccountPage">
+            <span class="mdc-list-item__text">My Account</span>
+          </a>
           <a class="mdc-list-item mdc-list-item--activated"  aria-selected="true" href="/userManagementPage">
             <span class="mdc-list-item__text">Manage Users</span>
           </a>
           <a class="mdc-list-item" href="/addProductPage">
             <span class="mdc-list-item__text">Add New Product</span>
           </a>
-          <a class="mdc-list-item" href="/clientAccountPage">
-            <span class="mdc-list-item__text">My Account</span>
-          </a>
-          <a v-on:click="logout" class="mdc-list-item" >
+          <a v-on:click="logout" class="mdc-list-item" href="#" >
             <span class="mdc-list-item__text">Logout</span>
           </a>
           
@@ -66,20 +66,20 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Username</th>
-              <th scope="col">Senha</th>
-              <th scope="col">Função</th>
-              <th scope="col">Ação</th>
+              <th scope="col">Password</th>
+              <th scope="col">Role</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in list">
-              <th scope="row">{{ item.id }}</th>
+              <th scope="row">{{ item._id }}</th>
               <td>{{ item.username }}</td>
               <td>{{ item.password }}</td>
-              <td>{{ item.role }}</td>
+              <td>{{ item.user_type }}</td>
               <td>
-                <button @click="edit(item)" class="btn btn-info">Editar</button>
-                <button @click="remove(item)" class="btn btn-danger">Excluir</button>
+                <button @click="edit(item)" class="btn btn-info">Edit Role</button>
+                <button @click="remove(item)" class="btn btn-danger">Delete</button>
               </td>
             </tr>
           </tbody>

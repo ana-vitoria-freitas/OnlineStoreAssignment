@@ -66,9 +66,9 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Username</th>
-              <th scope="col">Senha</th>
-              <th scope="col">Função</th>
-              <th scope="col">Ação</th>
+              <th scope="col">Password</th>
+              <th scope="col">Role</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -78,8 +78,8 @@
               <td>{{ item.password }}</td>
               <td>{{ item.user_type }}</td>
               <td>
-                <button @click="edit(item)" class="btn btn-info">Editar</button>
-                <button @click="remove(item)" class="btn btn-danger">Excluir</button>
+                <button @click="edit(item)" class="btn btn-info">Edit Role</button>
+                <button @click="remove(item)" class="btn btn-danger">Delete</button>
               </td>
             </tr>
           </tbody>

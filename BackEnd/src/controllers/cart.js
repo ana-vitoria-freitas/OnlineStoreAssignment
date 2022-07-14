@@ -42,6 +42,22 @@ router.put('/cart/product/:product_name/:username', (req, res, next) => {
     });
 })
 
+
+//ROTA QUE REMOVE TUDO DO CARRINHO
+router.delete('/cart/product/:username', (req, res, next) => {
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+    .collection('carts')
+    .deleteOne({username: req.params.username}, function (err, result) {
+      if (err) {
+        res.status(400).send('Error updating user!');
+      } else {
+        res.status(200).send();
+      }
+    });
+})
+
 //ROTA QUE CRIA CARRINHO DE USUÁRIO
 router.post('/cart', (req, res, next) => {
 

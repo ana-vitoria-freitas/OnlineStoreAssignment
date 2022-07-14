@@ -77,25 +77,25 @@
     </div>
   </template>
 
-  <!-- <template id="client_product_template">
+  <template id="client_product_template">
     <div class="shrine-body-client-product">
       <div id="div-out">
         <div id="div-left-out">
           <div id="div-left">
-            <h2>{{ products[id].name }}</h2>
+            <h2>{{ product.name }}</h2>
             <div class="div-body">
               <ul id="product_list">
                 <li>
-                  <strong>Fun fact:</strong> {{ products[id].fun_fact }}
+                  <strong>Fun fact:</strong> {{ product.fun_fact }}
                 </li>
                 <li>
-                  <strong>Ingredients:</strong> {{ products[id].ingredients }}
+                  <strong>Ingredients:</strong> {{ product.ingredients }}
                 </li>
                 <li>
-                  <strong>Nutrition: </strong> {{ products[id].nutrition }}
+                  <strong>Nutrition: </strong> {{ product.nutrition }}
                 </li>
                 <li>
-                  <strong>Recipe link: </strong> <a href="#">{{ products[id].recipe_link }}</a>
+                  <strong>Recipe link: </strong> <a href="#">{{ product.recipe_link }}</a>
                 </li>
               </ul>
             </div>
@@ -105,7 +105,7 @@
                   <button type="button" class="mdc-button cancel">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">
-                      US$ {{ products[id].price }}
+                      US$ {{ product.price }}
                     </span>
                   </button>
                   <button v-on:click="addToCart(id)" id="button-1" class="mdc-button mdc-button--raised next">
@@ -120,11 +120,11 @@
           </div>
         </div>
         <div class="image-container">
-          <img id="drink_img" class="mdc-image-list__image" :src="products[id].image">
+          <img id="drink_img" class="mdc-image-list__image" :src="image">
         </div>
       </div>
     </div>
-  </template> -->
+  </template>
 
   <template id="admin">
     <div class="shrine-body-admin-product">
@@ -180,7 +180,7 @@
           </div>
         </div>
         <div class="image-container">
-          <img class="mdc-image-list__image" :src="products[id].image">
+          <img class="mdc-image-list__image" :src="image">
           <div id="edit-image">EDIT IMAGE</div>
         </div>
       </div>
@@ -195,14 +195,22 @@
   <script type="module">
 
 
-    var products = JSON.parse(localStorage.getItem("products"))
-
     const Client_product = Vue.component('client_product_component', {
       props: ['id'],
       template: '#client_product_template',
       data() {
         return {
-          products
+          products: [],
+          pictures: [],
+          product: {
+            name: null,
+            fun_fact: null,
+            ingredients: null,
+            nutrition: null,
+            recipe_link: null,
+            price: null,
+          },
+          image: null,
         }
       },
       methods: {
@@ -218,6 +226,22 @@
             location.href = '/cartPage';
           }
         }
+      },
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, {method: 'GET'});
+        this.products = await products.json();
+
+        for(let i = 0; i < this.products.length; i++){
+          let name = String(this.products[i].name);
+          if(name == this.id){
+            this.product = this.products[i]
+            name = name.replace(/\s/g,'').toLowerCase();
+            this.image = `./assets/${name}.jpg`
+          }
+        }
+
+        this.isMounted = true;
+        localStorage.setItem("products", this.products)
       }
     });
 
@@ -226,7 +250,17 @@
       template: '#admin',
       data() {
         return {
-          product: []
+          products: [],
+          pictures: [],
+          product: {
+            name: null,
+            fun_fact: null,
+            ingredients: null,
+            nutrition: null,
+            recipe_link: null,
+            price: null,
+          },
+          image: null,
         }
       },
       methods: {
@@ -256,10 +290,20 @@
         }
       },
       async mounted() {
-        let resp = await fetch(`http://localhost:3000/product/${String(id).replace(/\s/g,'').toLowerCase()}/${localStorage.getItem("username")}`, { method: 'GET' });
+        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, {method: 'GET'});
+        this.products = await products.json();
 
-        resp = await resp.json();
-        this.product = resp;
+        for(let i = 0; i < this.products.length; i++){
+          let name = String(this.products[i].name);
+          if(name == this.id){
+            this.product = this.products[i]
+            name = name.replace(/\s/g,'').toLowerCase();
+            this.image = `./assets/${name}.jpg`
+          }
+        }
+
+        this.isMounted = true;
+        localStorage.setItem("products", this.products)
       }
     });
 
@@ -267,36 +311,93 @@
       template: '#home_id',
       data() {
         return {
-          product_type: localStorage.getItem("user_type")
+          products: [], 
+          product_type: localStorage.getItem("user_type"),
+          isMounted: false,
+          pictures: [],
         }
       },
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, {method: 'GET'});
+        this.products = await products.json();
+
+        for(let i = 0; i < this.products.length; i++){
+          let name = String(this.products[i].name);
+          name = name.replace(/\s/g,'').toLowerCase();
+          this.pictures.push(`./assets/${name}.jpg`);
+        }
+
+        this.isMounted = true;
+      }
     });
     const Home_hot_drinks = Vue.component('home_component', {
       template: '#home_id',
       data() {
         return {
-          products: products.filter(p => (p.types.includes('hot'))),
-          product_type: localStorage.getItem("product_type")
+          products: [], 
+          product_type: localStorage.getItem("user_type"),
+          isMounted: false,
+          pictures: [],
         }
       },
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, {method: 'GET'});
+        this.products = (await products.json()).filter(p => (p.types.includes('hot')));
+
+        for(let i = 0; i < this.products.length; i++){
+          let name = String(this.products[i].name);
+          name = name.replace(/\s/g,'').toLowerCase();
+          this.pictures.push(`./assets/${name}.jpg`);
+        }
+
+        this.isMounted = true;
+      }
     });
     const Home_cold_drinks = Vue.component('home_component', {
       template: '#home_id',
       data() {
         return {
-          products: products.filter(p => (p.types.includes("cold"))),
-          product_type: localStorage.getItem("product_type")
+          products: [], 
+          product_type: localStorage.getItem("user_type"),
+          isMounted: false,
+          pictures: [],
         }
       },
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, {method: 'GET'});
+        this.products = (await products.json()).filter(p => (p.types.includes('cold')));
+
+        for(let i = 0; i < this.products.length; i++){
+          let name = String(this.products[i].name);
+          name = name.replace(/\s/g,'').toLowerCase();
+          this.pictures.push(`./assets/${name}.jpg`);
+        }
+
+        this.isMounted = true;
+      }
     });
     const Home_alcoholic = Vue.component('home_component', {
       template: '#home_id',
       data() {
         return {
-          products: products.filter(p => (p.types.includes("alcoholic"))),
-          product_type: localStorage.getItem("product_type")
+          products: [], 
+          product_type: localStorage.getItem("user_type"),
+          isMounted: false,
+          pictures: [],
         }
       },
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, {method: 'GET'});
+        this.products = (await products.json()).filter(p => (p.types.includes('alcoholic')));
+
+        for(let i = 0; i < this.products.length; i++){
+          let name = String(this.products[i].name);
+          name = name.replace(/\s/g,'').toLowerCase();
+          this.pictures.push(`./assets/${name}.jpg`);
+        }
+
+        this.isMounted = true;
+      }
     });
 
 
@@ -316,8 +417,6 @@
       el: "#list",
       router,
       data: {
-        products,
-        user_admin: (localStorage.getItem("username") == "admin"),
       },
       methods: {
         goToAccount: function () {

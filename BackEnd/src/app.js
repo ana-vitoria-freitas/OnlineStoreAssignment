@@ -19,6 +19,7 @@ dotenv.config();
 app.use('/', user);
 app.use('/', product);
 app.use('/', index);
+app.use('/', cart);
 
 
 module.exports = app;

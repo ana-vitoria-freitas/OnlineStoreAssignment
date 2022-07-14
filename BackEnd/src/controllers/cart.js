@@ -12,7 +12,12 @@ router.get('/cart/:username', (req, res, next) => {
     dbConnect
         .collection('carts')
         .findOne({ username: req.params.username }, function (err, result) {
-            res.status(200).send(result);
+            if(result.length == 0){
+                res.status(404).send();
+            }else{
+
+                res.status(200).send(result);
+            }
         });
 });
 
@@ -21,10 +26,10 @@ router.post('/cart', (req, res, next) => {
 
     const dbConnect = dbo.getDb();
     const matchDocument = {
-        username: req.body.name,
-        quantity: 0,
-        products: []
+        username: req.body.username,
+        products: req.body.products
     };
+
 
     dbConnect
         .collection('carts')
@@ -40,19 +45,31 @@ router.post('/cart', (req, res, next) => {
 //ROTA QUE ADICIONA PRODUTO NO CARRINHO
 router.put('/cart/product', (req, res, next) => {
 
+        /*
+        products: [
+            {
+                "Name": "Ginger Scarf",
+                "quantity": 1
+            }
+        ]
+    */
+
     const dbConnect = dbo.getDb();
     const product_id = req.body.product_id;
     const owner_username = req.body.username;
-
+    
     dbConnect
-        .collection('carts')
-        .updateOne({username: owner_username}, {$push: {products: product_id}}, function (err, result) {
-            if (err) {
-                res.status(400).send({ result: "error" });
-            } else {
-                res.status(200).send({ result: "success" });
-            }
-        });
+    .collection('carts')
+    .findOne({$and: [{ "products.$.name": product_id }, {username: owner_username}]}, function (err, result) {
+        if(err){
+            res.status(404).send();
+        }else{
+            console.log(result);
+            res.status(200).send(result);
+        }
+    });
+    
+
 });
 
 

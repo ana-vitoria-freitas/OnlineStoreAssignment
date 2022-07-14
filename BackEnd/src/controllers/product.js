@@ -236,6 +236,24 @@ router.put('/product/remove/:name', (req, res, next) => {
 });
 
 
+//ROTA QUE BUSCA PRODUTOS EM TEMPO REAL
+router.get('/product/partial/:name', (req, res, next) =>{
+    const dbConnect = dbo.getDb();
+    console.log(req.params.name)
+    let re = `^.*${req.params.name}.*$`;
+    console.log(re);
+
+    dbConnect
+        .collection('products')
+        .find({name: { $regex: re, $options : 'i'}})
+        .toArray(function (err, result) {
+            console.log(result)
+        })
+});
+
+
+
+
 
 
 

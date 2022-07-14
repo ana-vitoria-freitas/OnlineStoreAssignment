@@ -1,6 +1,7 @@
 'use strict';
 const dbo = require('../db/connection');
 const express = require('express');
+const { ObjectId } = require('mongodb');
 const router = express.Router();
 
 
@@ -11,7 +12,7 @@ router.get('/cart/:username', (req, res, next) => {
 
     dbConnect
         .collection('carts')
-        .findOne({ username: req.params.username }, function (err, result) {
+        .findOne({username: req.params.username}, function (err, result) {
             if(result.length == 0){
                 res.status(404).send();
             }else{
@@ -45,14 +46,6 @@ router.post('/cart', (req, res, next) => {
 //ROTA QUE ADICIONA PRODUTO NO CARRINHO
 router.put('/cart/product', (req, res, next) => {
 
-        /*
-        products: [
-            {
-                "Name": "Ginger Scarf",
-                "quantity": 1
-            }
-        ]
-    */
 
     const dbConnect = dbo.getDb();
     const product_id = req.body.product_id;
@@ -60,12 +53,35 @@ router.put('/cart/product', (req, res, next) => {
     
     dbConnect
     .collection('carts')
-    .findOne({$and: [{ "products.$.name": product_id }, {username: owner_username}]}, function (err, result) {
-        if(err){
-            res.status(404).send();
-        }else{
-            console.log(result);
-            res.status(200).send(result);
+    .findOne({$and: [{username: owner_username}, {products: {$elemMatch: {name: product_id}}}]}, function (err, result) {
+        if(result == null){ //PRIMEIRA VEZ QUE O PRODUTO ESTÁ SENDO INSERIDO
+            const document = {
+                "name": product_id,
+                "quantity": 1
+            };
+
+            dbConnect
+            .collection('carts')
+            .updateOne({username: owner_username}, {$push: {products: document}}, function (err, result) {
+                console.log(result)
+              if (err) {
+                res.status(400).send('Error updating user!');
+              } else {
+                res.status(200).send();
+              }
+            });
+
+        }else{ //O PRODUTO JÁ ESTÁ INSERIDO
+            dbConnect
+            .collection('carts')
+            .updateOne({$and: [{username: owner_username}, {products: {$elemMatch: {name: product_id}}}]}, {$inc: {"products.$.quantity" : 1}}, function (err, result) {
+                console.log(result)
+              if (err) {
+                res.status(400).send('Error updating user!');
+              } else {
+                res.status(200).send();
+              }
+            });
         }
     });
     

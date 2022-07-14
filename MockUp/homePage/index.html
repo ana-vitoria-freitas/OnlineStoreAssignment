@@ -63,7 +63,7 @@
       <input type="text" placeholder="Search..">
       
       <ul class="mdc-image-list mdc-image-list--masonry product-list">
-        <div v-for="(item, key) in products" v-if="isMounted">
+        <div v-for="(item, key) in products" v-if="item.isAvailable == 'true'">
           <router-link :to="{name: product_type,params:{id:item.name} }">
             <li class="mdc-image-list__item">
               <img class="mdc-image-list__image" :src="pictures[key]">
@@ -286,9 +286,17 @@
 
           location.href = '/homePage';
         },
-        removeProduct(id) {
-          products[id].removed = true
-          localStorage.setItem("products", JSON.stringify(products))
+        async removeProduct(id) {
+          let resp = await fetch(`http://localhost:3000/product/remove/${id}`, {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            method: 'PUT',
+            body: JSON.stringify({
+              'isAvailable': 'false',
+              'username': `${localStorage.getItem("username")}`
+            })
+          });
           location.href = '/homePage';
         }
       },

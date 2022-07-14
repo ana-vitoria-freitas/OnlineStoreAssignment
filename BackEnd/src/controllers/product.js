@@ -149,7 +149,7 @@ router.post('/product', (req, res, next) => {
         nutrition: req.body.nutrition,
         recipe_link: req.body.recipe_link,
         username: req.body.username,
-        isAvailable: req.body.isAvailable,
+        isAvailable: 'true',
         price: req.body.price
     };
 
@@ -180,6 +180,28 @@ router.put('/product/:name', (req, res, next) => {
         username: req.body.username,
         isAvailable: req.body.isAvailable,
         price: req.body.price
+    };
+
+    dbConnect
+    .collection('products')
+    .updateOne({$and: [{ name: req.params.name }, {username: req.body.username}]}, {$set: matchDocument}, function (err, result) {
+      if (err) {
+        res.status(400).send('Error updating product!');
+      } else {
+        res.status(200).send();
+      }
+    });
+
+
+});
+
+
+//ROTA QUE REMOVE UM PRODUTO
+router.put('/product/remove/:name', (req, res, next) => {
+    const dbConnect = dbo.getDb();
+    const matchDocument = {
+        username: req.body.username,
+        isAvailable: "false",
     };
 
     dbConnect

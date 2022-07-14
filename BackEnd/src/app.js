@@ -9,6 +9,7 @@ const app = express();
 const user = require('./controllers/user');
 const product = require('./controllers/product');
 const cart = require('./controllers/cart');
+const management = require('./controllers/management');
 const index = require('./routes/index');
 
 app.use(bodyParser.json());
@@ -20,6 +21,7 @@ app.use('/', user);
 app.use('/', product);
 app.use('/', index);
 app.use('/', cart);
+app.use('/', management);
 
 
 module.exports = app;

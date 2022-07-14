@@ -3,6 +3,8 @@ const dbo = require('../db/connection');
 const express = require('express');
 const router = express.Router();
 
+
+
 //ROTA QUE RETORNA OS DADOS DO USUARIO COM O USERNAME ESPECIFICADO  
 router.get('/user/:username', (req, res, next) => {
 

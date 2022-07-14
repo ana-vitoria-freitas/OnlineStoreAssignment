@@ -73,10 +73,10 @@
           </thead>
           <tbody>
             <tr v-for="item in list">
-              <th scope="row">{{ item.id }}</th>
+              <th scope="row">{{ item._id }}</th>
               <td>{{ item.username }}</td>
               <td>{{ item.password }}</td>
-              <td>{{ item.role }}</td>
+              <td>{{ item.user_type }}</td>
               <td>
                 <button @click="edit(item)" class="btn btn-info">Editar</button>
                 <button @click="remove(item)" class="btn btn-danger">Excluir</button>

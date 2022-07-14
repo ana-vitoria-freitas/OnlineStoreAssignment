@@ -13,12 +13,11 @@ Vue.createApp({
             location.href = '/checkoutPage';
         },
         async removeFromCart(product_name) {
-            product_name = product_name.replace(/\s/g, '9').toLowerCase()
-            console.log(product_name)
+            product_name = product_name.replace(/\s/g, '9')
             let resp = await fetch(`http://localhost:3000/cart/product/${product_name}/${localStorage.getItem("username")}`, { method: 'PUT' });
             console.log(resp)
 
-            location.href = '/cartPage';
+            window.location.reload();
         },
         logout: () => {
             localStorage.removeItem("username");
@@ -26,7 +25,7 @@ Vue.createApp({
             window.location.href = '../homePage';
         },  
         async updateQuantity(quantity, product_name){
-            product_name = product_name.replace(/\s/g, '9').toLowerCase()
+            product_name = product_name.replace(/\s/g, '9')
             let resp = await fetch(`http://localhost:3000/cart/product/${product_name}/${localStorage.getItem("username")}/${quantity}`, { method: 'PUT' });
             console.log(resp)
         },
@@ -45,7 +44,7 @@ Vue.createApp({
 
         this.cart_products = this.products.filter(product => cart_product_names.includes(product.name))
 
-        for(i in this.cart.products){
+        for(let i in this.cart.products){
             index = this.cart_products.findIndex(product => product.name === this.cart.products[i].name)
             if(index != -1){
                 this.cart_products[index].quantity = this.cart.products[i].quantity

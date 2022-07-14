@@ -127,6 +127,25 @@ router.put('/cart/product', (req, res, next) => {
 
 });
 
+//ROTA QUE ADICIONA X PRODUTOS NO CARRINHO
+router.put('/cart/product/:product_name/:username/:quantity', (req, res, next) => {
+    const dbConnect = dbo.getDb();
+
+    const owner_username = req.params.username;
+    const product_id = String(req.params.product_name).replace(/[0-9]/g, ' ');
+    console.log("PRODUCT " + product_id);
+
+    dbConnect
+    .collection('carts')
+    .updateOne({$and: [{username: owner_username}, {products: {$elemMatch: {name: product_id}}}]}, {$inc: {"products.$.quantity" : parseInt(req.params.quantity)}} ,function (err, result) {
+        console.log(result)
+      if (err) {
+        res.status(400).send('Error updating user!');
+      } else {
+        res.status(200).send();
+      }
+    });
+})
 
 
 

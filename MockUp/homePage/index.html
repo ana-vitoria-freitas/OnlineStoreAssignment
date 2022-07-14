@@ -77,7 +77,7 @@
     </div>
   </template>
 
-  <!-- <template id="client_product_template">
+  <template id="client_product_template">
     <div class="shrine-body-client-product">
       <div id="div-out">
         <div id="div-left-out">
@@ -124,7 +124,7 @@
         </div>
       </div>
     </div>
-  </template> -->
+  </template>
 
   <template id="admin">
     <div class="shrine-body-admin-product">
@@ -353,6 +353,20 @@
           pictures: [],
         }
       },
+      async mounted(){
+        let products = await fetch(`http://localhost:3000/product/hot`, {method: 'GET'});
+        this.products = await products.json();
+        console.log(this.products);
+
+        for(let i = 0; i < this.products.length; i++){
+          let name = String(this.products[i].name);
+          name = name.replace(/\s/g,'').toLowerCase();
+          this.pictures.push(`./assets/${name}.jpg`);
+        }
+
+        this.isMounted = true;
+      }
+
     });
     const Home_cold_drinks = Vue.component('home_component', {
       template: '#home_id',
@@ -364,9 +378,10 @@
           pictures: [],
         }
       },
-      async mounted() {
-        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, {method: 'GET'});
-        this.products = (await products.json()).filter(p => (p.types.includes('cold')));
+      async mounted(){
+        let products = await fetch(`http://localhost:3000/product/cold`, {method: 'GET'});
+        this.products = await products.json();
+        console.log(this.products);
 
         for(let i = 0; i < this.products.length; i++){
           let name = String(this.products[i].name);
@@ -387,9 +402,10 @@
           pictures: [],
         }
       },
-      async mounted() {
-        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, {method: 'GET'});
-        this.products = (await products.json()).filter(p => (p.types.includes('alcoholic')));
+      async mounted(){
+        let products = await fetch(`http://localhost:3000/product/alcoholic`, {method: 'GET'});
+        this.products = await products.json();
+        console.log(this.products);
 
         for(let i = 0; i < this.products.length; i++){
           let name = String(this.products[i].name);

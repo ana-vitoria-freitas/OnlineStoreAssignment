@@ -2,12 +2,13 @@ Vue.createApp({
     el: "#app",
     data() {
         return {
-            username: null,
-            password: null,
+            username: '',
+            password: '',
         }
     },
     methods: {
         validate: async function (e) {
+            e.preventDefault();
             
             try {
                 let resp = await fetch("http://localhost:3000/findUser", {
@@ -21,16 +22,17 @@ Vue.createApp({
                     })
                 });
 
-                resp = await resp.json();
-
-                if (resp.length > 0) {
-                    localStorage.setItem("username", resp[0].username);
-                    localStorage.setItem("user_type", resp[0].user_type);
+                
+                if (resp.status == 200) {
+                    resp = await resp.json();
+                    console.log(resp);
+                    localStorage.setItem("username", resp.username);
+                    localStorage.setItem("user_type", resp.user_type);
                     window.location.href = '../homePage/index.html';
-                    console.log("usuario existe");
-                } else {
-                    alert("User or password invalid.");
-                    console.log("usuario nao existe");
+                } else if(resp.status == 404){
+                    alert("User doesn't exist.");
+                }else{
+                    alert("User or password are incorrect!")
                 }
 
             }

@@ -29,11 +29,15 @@ router.post('/findUser', (req, res, next) => {
     password: req.body.password,
   };
 
+  console.log(matchDocument);
+
   dbConnect
     .collection('users')
-    .find({$and: [{ username: matchDocument.username}, {password: matchDocument.password}]})
-    .toArray(function (err, result) {
-      if (result.length == 0) {
+    .findOne({$and: [{ username: matchDocument.username}, {password: matchDocument.password}]}, function (err, result) {
+      if(result == null){
+        res.status(404).send("user doesn't exists")
+      }
+      else if (result.length == 0) {
         res.status(400).send('Error fetching user!');
       } else {
         console.log(result)
@@ -56,7 +60,7 @@ router.post('/user', (req, res, next) => {
     address2: req.body.address2,
     city: req.body.city,
     postal_code: req.body.postal_code,
-    user_type: "user"
+    user_type: "client"
   };
   console.log(matchDocument)
 

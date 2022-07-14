@@ -71,13 +71,13 @@
   <template id="home_id">
     <div class="shrine-body-home">
       <button type="submit"><i class="fa fa-search"></i></button>
-      <input type="text" placeholder="Search..">
+      <input type="text" v-model="search_bar" placeholder="Search..">
 
       <ul class="mdc-image-list mdc-image-list--masonry product-list">
-        <div v-for="(item, key) in products" v-if="item.isAvailable == 'true'">
+        <div v-for="(item, key) in filteredProducts()" v-if="item.isAvailable == 'true'">
           <router-link :to="{name: product_type,params:{id:item.name} }">
             <li class="mdc-image-list__item">
-              <img class="mdc-image-list__image" :src="pictures[key]">
+              <img class="mdc-image-list__image" :src="item.image">
               <div id="link-1" class="mdc-image-list__supporting">
                 <span class="mdc-image-list__label">{{ item.name }}</span>
               </div>
@@ -301,7 +301,6 @@
       },
       methods: {
         async updateProduct(id) {
-          console.log(id)
           let resp = await fetch(`http://localhost:3000/product/${id}`, {
             headers: {
               'Content-Type': 'application/json'
@@ -361,8 +360,17 @@
           products: [], 
           product_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
           isMounted: false,
-          pictures: [],
           user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+          search_bar: "",
+        }
+      },
+      methods: {
+        filteredProducts(){
+          if(this.search_bar.length == 0){
+            return this.products
+          }
+          return this.products.filter((product) => 
+            product.name.toLowerCase().includes(this.search_bar.toLowerCase()))
         }
       },
       async mounted() {
@@ -373,7 +381,7 @@
         for (let i = 0; i < this.products.length; i++) {
           let name = String(this.products[i].name);
           name = name.replace(/\s/g, '').toLowerCase();
-          this.pictures.push(`./assets/${name}.jpg`);
+          this.products[i].image = `./assets/${name}.jpg`
         }
 
         this.isMounted = true;
@@ -389,6 +397,16 @@
           isMounted: false,
           pictures: [],
           user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+          search_bar: "",
+        }
+      },
+      methods: {
+        filteredProducts(){
+          if(this.search_bar.length == 0){
+            return this.products
+          }
+          return this.products.filter((product) => 
+            product.name.toLowerCase().includes(this.search_bar.toLowerCase()))
         }
       },
       async mounted() {
@@ -399,7 +417,7 @@
         for (let i = 0; i < this.products.length; i++) {
           let name = String(this.products[i].name);
           name = name.replace(/\s/g, '').toLowerCase();
-          this.pictures.push(`./assets/${name}.jpg`);
+          this.products[i].image = `./assets/${name}.jpg`
         }
 
         this.isMounted = true;
@@ -415,6 +433,16 @@
           isMounted: false,
           pictures: [],
           user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+          search_bar: "",
+        }
+      },
+      methods: {
+        filteredProducts(){
+          if(this.search_bar.length == 0){
+            return this.products
+          }
+          return this.products.filter((product) => 
+            product.name.toLowerCase().includes(this.search_bar.toLowerCase()))
         }
       },
       async mounted() {
@@ -425,7 +453,7 @@
         for (let i = 0; i < this.products.length; i++) {
           let name = String(this.products[i].name);
           name = name.replace(/\s/g, '').toLowerCase();
-          this.pictures.push(`./assets/${name}.jpg`);
+          this.products[i].image = `./assets/${name}.jpg`
         }
 
         this.isMounted = true;
@@ -440,6 +468,16 @@
           isMounted: false,
           pictures: [],
           user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+          search_bar: "",
+        }
+      },
+      methods: {
+        filteredProducts(){
+          if(this.search_bar.length == 0){
+            return this.products
+          }
+          return this.products.filter((product) => 
+            product.name.toLowerCase().includes(this.search_bar.toLowerCase()))
         }
       },
       async mounted() {
@@ -450,7 +488,7 @@
         for (let i = 0; i < this.products.length; i++) {
           let name = String(this.products[i].name);
           name = name.replace(/\s/g, '').toLowerCase();
-          this.pictures.push(`./assets/${name}.jpg`);
+          this.products[i].image = `./assets/${name}.jpg`
         }
 
         this.isMounted = true;
@@ -476,6 +514,7 @@
       data() {
          return {
           user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+          search_bar: "",
          }
       },
       methods: {

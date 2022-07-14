@@ -25,6 +25,7 @@ Vue.createApp({
             window.location.href = '../homePage';
         },  
         async updateQuantity(quantity, product_name){
+            console.log(quantity);
             product_name = product_name.replace(/\s/g, '9')
             let resp = await fetch(`http://localhost:3000/cart/product/${product_name}/${localStorage.getItem("username")}/${quantity}`, { method: 'PUT' });
             console.log(resp)

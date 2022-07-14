@@ -137,7 +137,7 @@ router.put('/cart/product/:product_name/:username/:quantity', (req, res, next) =
 
     dbConnect
     .collection('carts')
-    .updateOne({$and: [{username: owner_username}, {products: {$elemMatch: {name: product_id}}}]}, {$inc: {"products.$.quantity" : parseInt(req.params.quantity)}} ,function (err, result) {
+    .updateOne({$and: [{username: owner_username}, {products: {$elemMatch: {name: product_id}}}]}, {$set: {"products.$.quantity" : parseInt(req.params.quantity)}} ,function (err, result) {
         console.log(result)
       if (err) {
         res.status(400).send('Error updating user!');

@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
 
     destination: function (req, file, cb) {
  
-       cb(null, path.join(__dirname, '../../../Mockup/homePage/assets'));
+       cb(null, path.join(__dirname, '../../../MockUp/homePage/assets'));
  
     },
 
@@ -23,7 +23,7 @@ const upload = multer({ storage: storage });
 
 //ROTA PARA SALVAR IMAGEM DE PRODUTO
 router.post('/product/upload/:fileName', upload.single('foto'), (req, res) =>{
-    return res.sendFile(`${path.join(__dirname, '../../img')}/${req.params.fileName}`);
+    return res.sendFile(`${path.join(__dirname, '../../../MockUp/homePage/assets')}/${req.params.fileName}`);
       
 })
 

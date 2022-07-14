@@ -13,7 +13,8 @@ router.get('/cart/:username', (req, res, next) => {
     dbConnect
         .collection('carts')
         .findOne({username: req.params.username}, function (err, result) {
-            if(result == null){
+            console.log(err, result)
+            if(err || !result || result.length == 0){
                 res.status(404).send();
             }else{
 

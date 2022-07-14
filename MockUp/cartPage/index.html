@@ -50,7 +50,7 @@
     </aside>
     <div class="shrine-body">
       
-      <div v-if="cart.length == 0">
+      <div v-if="cart_products.length == 0">
         <div class="mdc-card demo-card demo-basic-with-text-over-media">
           <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
             <div class="mdc-card__media mdc-card__media demo-card__media mdc-card__media--square">
@@ -65,22 +65,22 @@
       </div>
       
       <ul class="mdc-image-list ">
-        <div v-for="(item, index) in cart">
+        <div v-for="(item, index) in cart_products">
           <div class="mdc-card demo-card demo-basic-with-text-over-media">
             <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
               <div class="mdc-card__media mdc-card__media demo-card__media mdc-card__media--square">
                 <li class="mdc-image-list__item">
-                  <img class="mdc-image-list__image" :src="products[item.id].image">
+                  <img class="mdc-image-list__image" :src="item.image">
                   
                 </li>
                 <div class="mdc-card__media-content demo-card__media-content">
                   <div class="demo-card__primary">
-                    <h2 class="demo-card__title mdc-typography mdc-typography--headline6">{{ products[item.id].name }}</h2>
+                    <h2 class="demo-card__title mdc-typography mdc-typography--headline6">{{ item.name }}</h2>
                   </div>
                 </div>
               </div>
               
-              <div class="demo-card__secondary mdc-typography mdc-typography--body2">{{ products[item.id].fun_fact }}</div>
+              <div class="demo-card__secondary mdc-typography mdc-typography--body2">{{ item.fun_fact }}</div>
             </div>
             <div class="mdc-card__actions">
               <div class="mdc-card__action-buttons">
@@ -91,7 +91,7 @@
                       Remove
                     </span>
                   </button>
-                  <input type="number" id="quantity" min="1" max="10">
+                  <input type="number" id="quantity" min="1" max="10" v-model="item.quantity">
                 </div>
                 
               </div>
@@ -99,7 +99,7 @@
             </div>
           </div>
         </div>
-        <div id="checkout-button" v-if="cart.length !== 0">
+        <div id="checkout-button" v-if="cart_products.length !== 0">
         <button v-on:click="goToCheckout" class="mdc-button mdc-button--raised next">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">

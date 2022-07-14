@@ -20,5 +20,22 @@ router.get('/management', (req, res, next) => {
         });
 });
 
+router.delete('/management/:username', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+
+
+    dbConnect
+        .collection('users')
+        .deleteOne({username: req.params.username}, function (err, result) {
+            if (err) {
+                res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+
 
 module.exports = router;

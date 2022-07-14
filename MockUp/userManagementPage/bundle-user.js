@@ -24,7 +24,8 @@ Vue.createApp({
             this.user = {id: 0, username: null, password: null}
         },
         
-        remove(item) {
+        async remove(item) {
+            let users = await fetch(`http://localhost:3000/management/${item.username}`, { method: 'DELETE' });
             const idx = this.list.indexOf(item)
             this.list.splice(idx, 1)
             localStorage.setItem('users', JSON.stringify(this.list))
@@ -37,7 +38,7 @@ Vue.createApp({
         },
         logout: () => {
             localStorage.removeItem("username");
-            localStorage.setItem("user_type", 'client')
+            localStorage.setItem("user_type", 'user')
             window.location.href = '../homePage';
         },  
     },

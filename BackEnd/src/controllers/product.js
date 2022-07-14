@@ -27,6 +27,61 @@ router.post('/product/upload/:fileName', upload.single('foto'), (req, res) =>{
       
 })
 
+//ROTA QUE RETORNA TODOS OS PRODUTOS HOT
+router.get('/product/hot', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection('products')
+        .find({ types: "hot" })
+        .toArray(function (err, result) {
+            console.log(result)
+            if (result.length == 0) {
+                res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+//ROTA QUE RETORNA TODOS OS PRODUTOS COLD
+router.get('/product/cold', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection('products')
+        .find({ types: "cold" })
+        .toArray(function (err, result) {
+            console.log(result)
+            if (result.length == 0) {
+                res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+//ROTA QUE RETORNA TODOS OS PRODUTOS ALCOHOLIC
+router.get('/product/alcoholic', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection('products')
+        .find({ types: "alcoholic" })
+        .toArray(function (err, result) {
+            console.log(result)
+            if (result.length == 0) {
+                res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+
 //ROTA QUE RETORNA TODOS OS PRODUTOS
 router.get('/product', (req, res, next) => {
 
@@ -114,7 +169,7 @@ router.post('/product', (req, res, next) => {
 
 
 //ROTA QUE EDITA UM PRODUTO
-router.put('/product', (req, res, next) => {
+router.put('/product/:name', (req, res, next) => {
     const dbConnect = dbo.getDb();
     const matchDocument = {
         name: req.body.name,
@@ -129,7 +184,7 @@ router.put('/product', (req, res, next) => {
 
     dbConnect
     .collection('products')
-    .updateOne({$and: [{ name: req.body.name }, {username: req.body.username}]}, {$set: matchDocument}, function (err, result) {
+    .updateOne({$and: [{ name: req.params.name }, {username: req.body.username}]}, {$set: matchDocument}, function (err, result) {
       if (err) {
         res.status(400).send('Error updating product!');
       } else {

@@ -21,9 +21,11 @@ Vue.createApp({
                     })
                 });
 
+                resp = await resp.json();
 
-                if (resp.status == 200) {
-                    localStorage.setItem("username", this.username);
+                if (resp.length > 0) {
+                    localStorage.setItem("username", resp[0].username);
+                    localStorage.setItem("user_type", resp[0].user_type);
                     window.location.href = '../homePage/index.html';
                     console.log("usuario existe");
                 } else {

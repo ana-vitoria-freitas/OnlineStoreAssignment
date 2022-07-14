@@ -228,17 +228,16 @@
         }
       },
       async mounted() {
-        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, {method: 'GET'});
-        this.products = await products.json();
+        let products = await fetch(`http://localhost:3000/products/one/${String(this.id).replace("/\s/g", "9")}`, {method: 'GET'});
+        this.product = await products.json();
+        this.image = `./assets/${this.product.name.replace(/\s/g,'').toLowerCase()}.jpg`
 
-        for(let i = 0; i < this.products.length; i++){
-          let name = String(this.products[i].name);
-          if(name == this.id){
-            this.product = this.products[i]
-            name = name.replace(/\s/g,'').toLowerCase();
-            this.image = `./assets/${name}.jpg`
-          }
-        }
+        // for(let i = 0; i < this.products.length; i++){
+        //   let name = String(this.products[i].name);
+        //   if(name == this.id){
+        //     this.product = this.products[i]
+        //   }
+        // }
 
         this.isMounted = true;
         localStorage.setItem("products", this.products)
@@ -420,7 +419,7 @@
 
     var router = new VueRouter({
       routes: [
-        // { path: 'product/:id/', name: 'client_product', component: Client_product, props: true },
+        { path: 'product/:id/', name: 'user', component: Client_product, props: true },
         { path: 'product/:id/', name: 'admin', component: Admin_product, props: true },
         { path: '/', component: Home_featured },
         { path: '/hot', component: Home_hot_drinks },

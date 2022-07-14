@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 //ROTA QUE RETORNA CARRINHO DE UM USUÁRIO
-router.get('/cart', (req, res, next) => {
+router.get('/cart/:username', (req, res, next) => {
 
     const dbConnect = dbo.getDb();
 

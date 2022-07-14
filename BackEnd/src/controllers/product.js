@@ -130,7 +130,25 @@ router.get('/product/:name/:username', (req, res, next) => {
         .toArray(function (err, result) {
             console.log(result)
             if (result.length == 0) {
+                console.log("AAAAAAAAA")
                 res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+//ROTA QUE EXTRAI UM PRODUTO PELO NOME
+router.get('/products/one/:name', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+    let newName = String(req.params.name).replace("9", " ");
+
+    dbConnect
+        .collection('products')
+        .findOne({ name: newName }, function (err, result) {
+            if (err) {
+                res.status(400).send('ERRRROOOOO');
             } else {
                 res.send(result);
             }
@@ -216,6 +234,8 @@ router.put('/product/remove/:name', (req, res, next) => {
 
 
 });
+
+
 
 
 

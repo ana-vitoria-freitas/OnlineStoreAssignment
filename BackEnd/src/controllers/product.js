@@ -27,6 +27,24 @@ router.post('/product/upload/:fileName', upload.single('foto'), (req, res) =>{
       
 })
 
+//ROTA QUE RETORNA TODOS OS PRODUTOS
+router.get('/product', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection('products')
+        .find({})
+        .toArray(function (err, result) {
+            console.log(result)
+            if (result.length == 0) {
+                res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
 
 //ROTA QUE EXTRAI OS PRODUTOS DE UM DETERMINADO CLIENTE
 router.get('/product/:username', (req, res, next) => {

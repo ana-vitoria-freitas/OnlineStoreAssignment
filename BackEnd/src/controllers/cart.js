@@ -13,7 +13,7 @@ router.get('/cart/:username', (req, res, next) => {
     dbConnect
         .collection('carts')
         .findOne({username: req.params.username}, function (err, result) {
-            if(result.length == 0){
+            if(result == null){
                 res.status(404).send();
             }else{
 
@@ -50,6 +50,9 @@ router.put('/cart/product', (req, res, next) => {
     const dbConnect = dbo.getDb();
     const product_id = req.body.product_id;
     const owner_username = req.body.username;
+
+    console.log(product_id);
+    console.log(owner_username);
     
     dbConnect
     .collection('carts')

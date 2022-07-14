@@ -226,6 +226,7 @@
       },
       methods: {
         async addToCart(id) {
+          console.log(id)
 
           if (localStorage.getItem("username") == null) {
             location.href = '../loginPage';
@@ -233,6 +234,7 @@
           }
 
           let cart = await fetch(`http://localhost:3000/cart/${localStorage.getItem("username")}`, { method: 'GET' });
+
           if (cart.status == 404) { //SE O CARRINHO NÃO EXISTE VAMOS CRIAR UM
             let resp = await fetch("http://localhost:3000/cart", {
               headers: {
@@ -241,12 +243,29 @@
               method: 'POST',
               body: JSON.stringify({
                 'username': `${localStorage.getItem("username")}`,
-                'quantity': [1],
-                'products': [`${id}`]
+                'products': [
+                  {
+                    "name": `${id}`,
+                    "quantity": 1
+                  }
+                ]
               })
             });
-          }else{ //SE ELE EXISTE, VAMOS INCREMENTAR A QUANTIDADE DE CADA PRODUTO NELE E ADICIONAR MAIS PRODUTOS
+            location.href ='../cartPage';
 
+          }else{ //SE ELE EXISTE, VAMOS INCREMENTAR A QUANTIDADE DE CADA PRODUTO NELE E ADICIONAR MAIS PRODUTOS
+            let resp = await fetch("http://localhost:3000/cart/product", {
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              method: 'PUT',
+              body: JSON.stringify({
+                'username': `${localStorage.getItem("username")}`,
+                'product_id': `${id}` 
+              })
+            });
+
+            location.href ='../cartPage';
           }
 
 
@@ -441,7 +460,7 @@
 
     var router = new VueRouter({
       routes: [
-        { path: 'product/:id/', name: 'client', component: Client_product, props: true },
+        { path: 'product/:id/', name: 'user', component: Client_product, props: true },
         { path: 'product/:id/', name: 'admin', component: Admin_product, props: true },
         { path: '/', component: Home_featured },
         { path: '/hot', component: Home_hot_drinks },

@@ -26,9 +26,10 @@ Vue.createApp({
             localStorage.setItem("cart", JSON.stringify(cart))
             location.href = '/cartPage';
         },
-        logout: () =>{
-            localStorage.removeItem("username")
-            location.href = "../homePage"
-        }
+        logout: () => {
+            localStorage.removeItem("username");
+            localStorage.setItem("user_type", 'client')
+            window.location.href = '../homePage';
+        },  
     }
 }).mount("#cart-app");

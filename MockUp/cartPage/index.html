@@ -32,15 +32,14 @@
       </div>
       <div class="mdc-drawer__content">
         <nav class="mdc-list">
-          <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" tabindex="0" href="/cartPage">
-            <span class="mdc-list-item__text">My cart</span>
-          </a>
-          <div class="shrine-select-item-divider mdc-list-divider" role="separator"></div>
           <a id="link-1" class="mdc-list-item" href="/homePage">
             <span class="mdc-list-item__text">Home</span>
           </a>
           <a id="link-2" class="mdc-list-item" href="/clientAccountPage">
             <span class="mdc-list-item__text">My Account</span>
+          </a>
+          <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" tabindex="0" href="/cartPage">
+            <span class="mdc-list-item__text">My cart</span>
           </a>
           <a v-on:click="logout" id="link-3" class="mdc-list-item" >
             <span class="mdc-list-item__text">Logout</span>

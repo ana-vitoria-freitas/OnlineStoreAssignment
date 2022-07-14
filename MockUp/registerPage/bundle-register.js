@@ -37,9 +37,6 @@ Vue.createApp({
                         'postal_code': `${this.postal_code}`,
                     })
                 });
-                alert("PASSSSOU");
-                console.log(resp);
-                alert(resp);
 
                 if (resp.status == 200) {
                     window.location.href = '../loginPage/index.html';

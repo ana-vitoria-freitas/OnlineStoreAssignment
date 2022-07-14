@@ -64,7 +64,7 @@
       
       <ul class="mdc-image-list mdc-image-list--masonry product-list">
         <div v-for="(item, key) in products" v-if="isMounted">
-          <router-link :to="{name: localStorage.getItem(`user_type`),params:{id:item.name} }">
+          <router-link :to="{name: product_type,params:{id:item.name} }">
             <li class="mdc-image-list__item">
               <img class="mdc-image-list__image" :src="pictures[key]">
               <div id="link-1" class="mdc-image-list__supporting">
@@ -194,6 +194,7 @@
 
   <script type="module">
 
+
     // var products = JSON.parse(localStorage.getItem("products"))
 
     // const Client_product = Vue.component('client_product_component', {
@@ -262,15 +263,14 @@
       }
     });
 
-    // const Home_featured = Vue.component('home_component', {
-    //   template: '#home_id',
-    //   data() {
-    //     return {
-    //       products,
-    //       product_type: localStorage.getItem("product_type")
-    //     }
-    //   },
-    // });
+    const Home_featured = Vue.component('home_component', {
+      template: '#home_id',
+      data() {
+        return {
+          product_type: localStorage.getItem("user_type")
+        }
+      },
+    });
     const Home_hot_drinks = Vue.component('home_component', {
       template: '#home_id',
       data() {
@@ -304,7 +304,7 @@
       routes: [
         // { path: 'product/:id/', name: 'client_product', component: Client_product, props: true },
         { path: 'product/:id/', name: 'admin', component: Admin_product, props: true },
-        // { path: '/', component: Home_featured },
+        { path: '/', component: Home_featured },
         { path: '/hot', component: Home_hot_drinks },
         { path: '/cold', component: Home_cold_drinks },
         { path: '/alcoholic', component: Home_alcoholic },

@@ -81,6 +81,7 @@
               </div>
               
               <div class="demo-card__secondary mdc-typography mdc-typography--body2">{{ item.fun_fact }}</div>
+              <div id="price-label"class="demo-card__secondary mdc-typography mdc-typography--body2">Total price: U$ {{ item.quantity*item.price }}</div>
             </div>
             <div class="mdc-card__actions">
               <div class="mdc-card__action-buttons">
@@ -100,6 +101,7 @@
           </div>
         </div>
         <div id="checkout-button" v-if="cart_products.length !== 0">
+          <div id="total-price-label"class="demo-card__secondary mdc-typography mdc-typography--body2">Total price: U$ {{ total }}</div>
         <button v-on:click="goToCheckout" class="mdc-button mdc-button--raised next">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">

@@ -6,6 +6,7 @@ Vue.createApp({
             cart: [],
             products: [],
             cart_products: [],
+            total: 0,
         }
     },
     methods: {
@@ -25,10 +26,9 @@ Vue.createApp({
             window.location.href = '../homePage';
         },  
         async updateQuantity(quantity, product_name){
-            console.log(quantity);
             product_name = product_name.replace(/\s/g, '9')
             let resp = await fetch(`http://localhost:3000/cart/product/${product_name}/${localStorage.getItem("username")}/${quantity}`, { method: 'PUT' });
-            console.log(resp)
+            window.location.reload();
         },
     },
     async mounted() {
@@ -52,6 +52,7 @@ Vue.createApp({
                 let name = String(this.cart_products[index].name)
                 name = name.replace(/\s/g, '').toLowerCase()
                 this.cart_products[index].image = `./assets/${name}.jpg`
+                this.total += this.cart_products[index].quantity *this.cart_products[index].price
             }
         }
         console.log(this.cart_products)

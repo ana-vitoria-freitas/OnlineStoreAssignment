@@ -18,7 +18,7 @@ width: 100%;">
 
   <div  id="app" class="shrine-body"> 
     <h4>CREATE NEW ACCOUNT</h4>
-    <form name="register_form" @submit.prevent="validate">
+    <form name="register_form" >
       <div class="campo">
         <input v-model="name" type="text" id="name" minlength="5" placeholder="Name" required>
       </div>
@@ -26,7 +26,7 @@ width: 100%;">
         <input v-model="username" type="text" id="username" minlength="5" placeholder="Username" required>
       </div>
       <div class="campo">
-        <input v-model="password" type="text" id="password" minlength="8" placeholder="Password" required>
+        <input v-model="password" type="password" id="password" minlength="8" placeholder="Password" required>
       </div>
       <div class="campo">
         <input v-model="cpf" type="text" id="cpf" minlength="11" maxlength="11" placeholder="CPF">
@@ -47,7 +47,7 @@ width: 100%;">
         <input v-model="city" type="text" id="city" placeholder="City" required>
       </div>
       <div class="campo">
-        <input v-model="country" type="text" id="country" placeholder="Post Code" required>
+        <input v-model="postal_code" type="text" id="postal_code" placeholder="Post Code" required>
       </div>
       <div class="button-container">
         <button v-on:click="back" type="button" class="mdc-button cancel" >
@@ -56,7 +56,7 @@ width: 100%;">
             Get Back
           </span>
         </button>
-        <button class="mdc-button mdc-button--raised next" type="submit">
+        <button v-on:click="validate" class="mdc-button mdc-button--raised next" type="submit">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">
             Save
@@ -67,6 +67,6 @@ width: 100%;">
   </div>
 
   <script src="https://unpkg.com/vue@3"></script>
-  <script src="bundle-register.js" async></script>
+  <script src="bundle-register.js"></script>
 </body>
 </html>

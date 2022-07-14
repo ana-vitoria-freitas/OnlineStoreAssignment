@@ -47,17 +47,18 @@ router.post('/user', (req, res, next) => {
   const dbConnect = dbo.getDb();
   const matchDocument = {
     name: req.body.name,
-    cpf: req.body.cpf,
-    phone: req.body.phone,
     username: req.body.username,
     password: req.body.password,
+    cpf: req.body.cpf,
+    phone: req.body.phone,
+    email: req.body.email,
     address1: req.body.address1,
     address2: req.body.address2,
     city: req.body.city,
-    country: req.body.country,
     postal_code: req.body.postal_code,
     user_type: "user"
   };
+  console.log(matchDocument)
 
   dbConnect
   .collection('users')

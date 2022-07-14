@@ -33,7 +33,7 @@
         <a v-on:click="goToAccount" id="link-2" class="mdc-list-item mdc-list-item--activated" aria-selected="true">
           <span class="mdc-list-item__text">My Account</span>
         </a>
-        <a  v-if="user_type == 'client'" v-on:click="goToCart" id="link-1" class="mdc-list-item" aria-selected="true" tabindex="0" href="#">
+        <a  v-if="user_type == 'user'" v-on:click="goToCart" id="link-1" class="mdc-list-item" aria-selected="true" tabindex="0" href="#">
           <span class="mdc-list-item__text">My cart</span>
         </a>
         <a v-if="user_type == 'admin'" class="mdc-list-item"  href="/userManagementPage">

@@ -68,7 +68,7 @@ Vue.createApp({
     },
     logout: () => {
       localStorage.removeItem("username");
-      localStorage.setItem("user_type", 'client')
+      localStorage.setItem("user_type", 'user')
       window.location.href = '../homePage';
   },
   }

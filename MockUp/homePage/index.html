@@ -363,9 +363,9 @@
       data() {
         return {
           products: [], 
-          product_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+          product_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
           isMounted: false,
-          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
           search_bar: "",
         }
       },
@@ -401,7 +401,7 @@
           product_type: localStorage.getItem("user_type"),
           isMounted: false,
           pictures: [],
-          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
           search_bar: "",
         }
       },
@@ -437,7 +437,7 @@
           product_type: localStorage.getItem("user_type"),
           isMounted: false,
           pictures: [],
-          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
           search_bar: "",
         }
       },
@@ -472,7 +472,7 @@
           product_type: localStorage.getItem("user_type"),
           isMounted: false,
           pictures: [],
-          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
           search_bar: "",
         }
       },
@@ -518,7 +518,7 @@
       router,
       data() {
          return {
-          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'user',
           search_bar: "",
          }
       },
@@ -535,7 +535,7 @@
         },
         logout: () => {
             localStorage.removeItem("username");
-            localStorage.setItem("user_type", 'client')
+            localStorage.setItem("user_type", 'user')
             window.location.href = '../homePage';
         },
         goToCart: () => {

@@ -22,6 +22,25 @@ router.get('/cart/:username', (req, res, next) => {
         });
 });
 
+//ROTA QUE REMOVE UM PRODUTO DO CARRINHO
+router.put('/cart/product/:product_name/:username', (req, res, next) => {
+    const dbConnect = dbo.getDb();
+
+    const product = String(req.params.product_name).replace("9", " ");
+    console.log(product);
+
+    dbConnect
+    .collection('carts')
+    .updateOne({$and: [{username: req.params.username}, {products: {$elemMatch: {name: product}}}]}, {$pull: {products: {name : product}}}, function (err, result) {
+        console.log(result)
+      if (err) {
+        res.status(400).send('Error updating user!');
+      } else {
+        res.status(200).send();
+      }
+    });
+})
+
 //ROTA QUE CRIA CARRINHO DE USUÁRIO
 router.post('/cart', (req, res, next) => {
 

@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
 
     destination: function (req, file, cb) {
  
-       cb(null, path.join(__dirname, '../../img'));
+       cb(null, path.join(__dirname, '../../../Mockup/homePage/assets'));
  
     },
 
@@ -21,6 +21,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+//ROTA PARA SALVAR IMAGEM DE PRODUTO
+router.post('/product/upload/:fileName', upload.single('foto'), (req, res) =>{
+    return res.sendFile(`${path.join(__dirname, '../../img')}/${req.params.fileName}`);
+      
+})
+
+
 //ROTA QUE EXTRAI OS PRODUTOS DE UM DETERMINADO CLIENTE
 router.get('/product/:username', (req, res, next) => {
 
@@ -28,7 +35,26 @@ router.get('/product/:username', (req, res, next) => {
 
     dbConnect
         .collection('products')
-        .findAll({ username: req.params.username }, function (err, result) {
+        .find({ username: req.params.username })
+        .toArray(function (err, result) {
+            console.log(result)
+            if (result.length == 0) {
+                res.status(400).send('Error fetching products!');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+//ROTA QUE EXTRAI UM PRODUTO PELO NOME E USERNAME
+router.get('/product/:name/:username', (req, res, next) => {
+
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection('products')
+        .find({$and: [{ name: req.params.name }, {username: req.params.username}]})
+        .toArray(function (err, result) {
             console.log(result)
             if (result.length == 0) {
                 res.status(400).send('Error fetching products!');
@@ -39,10 +65,6 @@ router.get('/product/:username', (req, res, next) => {
 });
 
 
-router.post('/product/upload/:fileName', upload.single('foto'), (req, res) =>{
-    return res.sendFile(`${path.join(__dirname, '../../img')}/${req.params.fileName}`);
-      
-})
 
 //ROTA QUE CRIA UM PRODUTO
 router.post('/product', (req, res, next) => {
@@ -54,7 +76,8 @@ router.post('/product', (req, res, next) => {
         nutrition: req.body.nutrition,
         recipe_link: req.body.recipe_link,
         username: req.body.username,
-        isAvailable: 'true'
+        isAvailable: req.body.isAvailable,
+        price: req.body.price
     };
 
 
@@ -82,6 +105,8 @@ router.put('/product', (req, res, next) => {
         nutrition: req.body.nutrition,
         recipe_link: req.body.recipe_link,
         username: req.body.username,
+        isAvailable: req.body.isAvailable,
+        price: req.body.price
     };
 
     dbConnect

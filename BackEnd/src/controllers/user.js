@@ -36,6 +36,7 @@ router.post('/findUser', (req, res, next) => {
       if (result.length == 0) {
         res.status(400).send('Error fetching user!');
       } else {
+        console.log(result)
         res.status(200).json(result);
       }
     });
@@ -55,7 +56,7 @@ router.post('/user', (req, res, next) => {
     city: req.body.city,
     country: req.body.country,
     postal_code: req.body.postal_code,
-    user_type: "client"
+    user_type: "user"
   };
 
   dbConnect

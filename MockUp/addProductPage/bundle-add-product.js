@@ -35,7 +35,7 @@ Vue.createApp({
       let formData = new FormData();
       formData.append('foto', photo);
 
-      fetch(`http://localhost:3000/product/upload/${this.name}_${localStorage.getItem("username")}.${extension.replace(/(.*)\//g, '')}`, { method: "POST", body: formData });
+      fetch(`http://localhost:3000/product/upload/${String(this.name).replace(/\s/g,'').toLowerCase()}.${extension.replace(/(.*)\//g, '')}`, { method: "POST", body: formData });
     },
     addProduct: async function () {
       try {

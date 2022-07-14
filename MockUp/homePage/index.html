@@ -56,15 +56,17 @@
     <router-view></router-view>
   </div>
 
+
   <template id="home_id">
     <div class="shrine-body-home">
       <button type="submit"><i class="fa fa-search"></i></button>
       <input type="text" placeholder="Search..">
+      
       <ul class="mdc-image-list mdc-image-list--masonry product-list">
-        <div v-for="(item) in products" v-if="!(item.removed)">
-          <router-link :to="{name:product_type,params:{id:item.id} }">
+        <div v-for="(item, key) in products" v-if="isMounted">
+          <router-link :to="{name: product_type,params:{id:item.name} }">
             <li class="mdc-image-list__item">
-              <img class="mdc-image-list__image" :src="item.image">
+              <img class="mdc-image-list__image" :src="pictures[key]">
               <div id="link-1" class="mdc-image-list__supporting">
                 <span class="mdc-image-list__label">{{ item.name }}</span>
               </div>
@@ -75,7 +77,7 @@
     </div>
   </template>
 
-  <template id="client_product_template">
+  <!-- <template id="client_product_template">
     <div class="shrine-body-client-product">
       <div id="div-out">
         <div id="div-left-out">
@@ -122,9 +124,9 @@
         </div>
       </div>
     </div>
-  </template>
+  </template> -->
 
-  <template id="admin_product_template">
+  <template id="admin">
     <div class="shrine-body-admin-product">
       <div id="div-out">
         <div id="div-left-out">
@@ -133,27 +135,27 @@
               <form name="product_form" action="#" method="post">
                 <div class="campo">
                   <label for="fun-fact">Name:</label>
-                  <input type="text" id="name" :value="products[id].name">
+                  <input type="text" id="name" :value="product.name">
                 </div>
                 <div class="campo">
                   <label for="fun-fact">Fun fact:</label>
-                  <textarea maxlength="200" id="fun-fact" :value="products[id].fun_fact"></textarea>
+                  <textarea maxlength="200" id="fun-fact" :value="product.fun_fact"></textarea>
                 </div>
                 <div class="campo">
                   <label for="ingredients">Ingredients:</label>
-                  <textarea maxlength="500" id="ingredients" :value="products[id].ingredients"></textarea>
+                  <textarea maxlength="500" id="ingredients" :value="product.ingredients"></textarea>
                 </div>
                 <div class="campo">
                   <label for="nutrition">Nutrition:</label>
-                  <textarea maxlength="500" id="nutrition" :value="products[id].nutrition"></textarea>
+                  <textarea maxlength="500" id="nutrition" :value="product.nutrition"></textarea>
                 </div>
                 <div class="campo">
                   <label for="recipe">Recipe link:</label>
-                  <input type="text" id="recipe" :value="products[id].recipe_link">
+                  <input type="text" id="recipe" :value="product.recipe_link">
                 </div>
                 <div class="campo">
                   <label for="price">US$:</label>
-                  <input type="text" id="price" :value="products[id].price">
+                  <input type="text" id="price" :value="product.price">
                 </div>
               </form>
             </div>
@@ -192,6 +194,7 @@
 
   <script type="module">
 
+
     var products = JSON.parse(localStorage.getItem("products"))
 
     const Client_product = Vue.component('client_product_component', {
@@ -205,7 +208,7 @@
       methods: {
         addToCart(id) {
 
-          if (localStorage.getItem("username") == null) {
+          if (localStorage.getItem("username") != "user") {
             location.href = '../loginPage';
           }
           else {
@@ -218,23 +221,32 @@
       }
     });
 
-    const Admin_product = Vue.component('admin_product_component', {
+    const Admin_product = Vue.component('admin', {
       props: ['id'],
-      template: '#admin_product_template',
+      template: '#admin',
       data() {
         return {
-          products
+          product: []
         }
       },
       methods: {
-        updateProduct(id) {
-          products[id].name = document.product_form.elements.item(0).value
-          products[id].fun_fact = document.product_form.elements.item(1).value
-          products[id].ingredients = document.product_form.elements.item(2).value
-          products[id].nutrition = document.product_form.elements.item(3).value
-          products[id].recipe_link = document.product_form.elements.item(4).value
-          products[id].price = document.product_form.elements.item(5).value
-          localStorage.setItem("products", JSON.stringify(products))
+        async updateProduct(id) {
+          let resp = await fetch(`http://localhost:3000/product`, {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            method: 'PUT',
+            body: JSON.stringify({
+              'name': `${document.product_form.elements.item(0).value}`,
+              'fun_fact': `${document.product_form.elements.item(1).value}`,
+              'ingredients': `${document.product_form.elements.item(2).value}`,
+              'nutrition': `${document.product_form.elements.item(3).value}`,
+              'recipe_link': `${document.product_form.elements.item(4).value}`,
+              'isAvailable': 'true',
+              'price': `${document.product_form.elements.item(5).value}`,
+            })
+          });
+
           location.href = '/homePage';
         },
         removeProduct(id) {
@@ -242,6 +254,12 @@
           localStorage.setItem("products", JSON.stringify(products))
           location.href = '/homePage';
         }
+      },
+      async mounted() {
+        let resp = await fetch(`http://localhost:3000/product/${String(id).replace(/\s/g,'').toLowerCase()}/${localStorage.getItem("username")}`, { method: 'GET' });
+
+        resp = await resp.json();
+        this.product = resp;
       }
     });
 
@@ -249,8 +267,7 @@
       template: '#home_id',
       data() {
         return {
-          products,
-          product_type: localStorage.getItem("product_type")
+          product_type: localStorage.getItem("user_type")
         }
       },
     });
@@ -285,8 +302,8 @@
 
     var router = new VueRouter({
       routes: [
-        { path: 'product/:id', name: 'client_product', component: Client_product, props: true },
-        { path: 'product/:id', name: 'admin_product', component: Admin_product, props: true },
+        // { path: 'product/:id/', name: 'client_product', component: Client_product, props: true },
+        { path: 'product/:id/', name: 'admin', component: Admin_product, props: true },
         { path: '/', component: Home_featured },
         { path: '/hot', component: Home_hot_drinks },
         { path: '/cold', component: Home_cold_drinks },

@@ -8,6 +8,7 @@ const app = express();
 
 const user = require('./controllers/user');
 const product = require('./controllers/product');
+const cart = require('./controllers/cart');
 const index = require('./routes/index');
 
 app.use(bodyParser.json());

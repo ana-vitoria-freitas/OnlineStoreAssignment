@@ -28,14 +28,14 @@ Vue.createApp({
         this.nameCompleted = false;
       }
     },
-    addPicture: function () {
+    addPicture: async function () {
       let photo = document.getElementById("image").files[0];
       var extension = photo.type;
 
       let formData = new FormData();
       formData.append('foto', photo);
 
-      fetch(`http://localhost:3000/product/upload/${String(this.name).replace(/\s/g,'').toLowerCase()}.${extension.replace(/(.*)\//g, '')}`, { method: "POST", body: formData });
+      await fetch(`http://localhost:3000/product/upload/${String(this.name).replace(/\s/g,'').toLowerCase()}.${extension.replace(/(.*)\//g, '')}`, { method: "POST", body: formData });
     },
     addProduct: async function () {
       try {

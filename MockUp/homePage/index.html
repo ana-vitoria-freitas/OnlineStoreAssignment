@@ -72,7 +72,7 @@
     <div class="shrine-body-home">
       <button type="submit"><i class="fa fa-search"></i></button>
       <input type="text" placeholder="Search..">
-      
+
       <ul class="mdc-image-list mdc-image-list--masonry product-list">
         <div v-for="(item, key) in products" v-if="item.isAvailable == 'true'">
           <router-link :to="{name: product_type,params:{id:item.name} }">
@@ -225,30 +225,37 @@
         }
       },
       methods: {
-        addToCart(id) {
+        async addToCart(id) {
 
           if (localStorage.getItem("username") == null) {
             location.href = '../loginPage';
+            return
           }
-          else {
-            var cart = JSON.parse(localStorage.getItem("cart"))
-            cart.push(products[id])
-            localStorage.setItem("cart", JSON.stringify(cart))
-            location.href = '/cartPage';
+
+          let cart = await fetch(`http://localhost:3000/cart/${localStorage.getItem("username")}`, { method: 'GET' });
+          if (cart.status == 404) { //SE O CARRINHO NÃO EXISTE VAMOS CRIAR UM
+            let resp = await fetch("http://localhost:3000/cart", {
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              method: 'POST',
+              body: JSON.stringify({
+                'username': `${localStorage.getItem("username")}`,
+                'quantity': [1],
+                'products': [`${id}`]
+              })
+            });
+          }else{ //SE ELE EXISTE, VAMOS INCREMENTAR A QUANTIDADE DE CADA PRODUTO NELE E ADICIONAR MAIS PRODUTOS
+
           }
+
+
         }
       },
       async mounted() {
-        let products = await fetch(`http://localhost:3000/products/one/${String(this.id).replace("/\s/g", "9")}`, {method: 'GET'});
+        let products = await fetch(`http://localhost:3000/products/one/${String(this.id).replace("/\s/g", "9")}`, { method: 'GET' });
         this.product = await products.json();
-        this.image = `./assets/${this.product.name.replace(/\s/g,'').toLowerCase()}.jpg`
-
-        // for(let i = 0; i < this.products.length; i++){
-        //   let name = String(this.products[i].name);
-        //   if(name == this.id){
-        //     this.product = this.products[i]
-        //   }
-        // }
+        this.image = `./assets/${this.product.name.replace(/\s/g, '').toLowerCase()}.jpg`
 
         this.isMounted = true;
         localStorage.setItem("products", this.products)
@@ -292,7 +299,7 @@
               'username': `${localStorage.getItem("username")}`
             })
           });
-          
+
 
           location.href = '/homePage';
         },
@@ -311,14 +318,14 @@
         }
       },
       async mounted() {
-        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, {method: 'GET'});
+        let products = await fetch(`http://localhost:3000/product/${localStorage.getItem("username")}`, { method: 'GET' });
         this.products = await products.json();
 
-        for(let i = 0; i < this.products.length; i++){
+        for (let i = 0; i < this.products.length; i++) {
           let name = String(this.products[i].name);
-          if(name == this.id){
+          if (name == this.id) {
             this.product = this.products[i]
-            name = name.replace(/\s/g,'').toLowerCase();
+            name = name.replace(/\s/g, '').toLowerCase();
             this.image = `./assets/${name}.jpg`
           }
         }
@@ -340,13 +347,13 @@
         }
       },
       async mounted() {
-        let products = await fetch(`http://localhost:3000/product`, {method: 'GET'});
+        let products = await fetch(`http://localhost:3000/product`, { method: 'GET' });
         this.products = await products.json();
         console.log(this.product_type);
 
-        for(let i = 0; i < this.products.length; i++){
+        for (let i = 0; i < this.products.length; i++) {
           let name = String(this.products[i].name);
-          name = name.replace(/\s/g,'').toLowerCase();
+          name = name.replace(/\s/g, '').toLowerCase();
           this.pictures.push(`./assets/${name}.jpg`);
         }
 
@@ -358,21 +365,21 @@
       template: '#home_id',
       data() {
         return {
-          products: [], 
+          products: [],
           product_type: localStorage.getItem("user_type"),
           isMounted: false,
           pictures: [],
           user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
         }
       },
-      async mounted(){
-        let products = await fetch(`http://localhost:3000/product/hot`, {method: 'GET'});
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/hot`, { method: 'GET' });
         this.products = await products.json();
         console.log(this.products);
 
-        for(let i = 0; i < this.products.length; i++){
+        for (let i = 0; i < this.products.length; i++) {
           let name = String(this.products[i].name);
-          name = name.replace(/\s/g,'').toLowerCase();
+          name = name.replace(/\s/g, '').toLowerCase();
           this.pictures.push(`./assets/${name}.jpg`);
         }
 
@@ -384,21 +391,21 @@
       template: '#home_id',
       data() {
         return {
-          products: [], 
+          products: [],
           product_type: localStorage.getItem("user_type"),
           isMounted: false,
           pictures: [],
           user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
         }
       },
-      async mounted(){
-        let products = await fetch(`http://localhost:3000/product/cold`, {method: 'GET'});
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/cold`, { method: 'GET' });
         this.products = await products.json();
         console.log(this.products);
 
-        for(let i = 0; i < this.products.length; i++){
+        for (let i = 0; i < this.products.length; i++) {
           let name = String(this.products[i].name);
-          name = name.replace(/\s/g,'').toLowerCase();
+          name = name.replace(/\s/g, '').toLowerCase();
           this.pictures.push(`./assets/${name}.jpg`);
         }
 
@@ -409,21 +416,21 @@
       template: '#home_id',
       data() {
         return {
-          products: [], 
+          products: [],
           product_type: localStorage.getItem("user_type"),
           isMounted: false,
           pictures: [],
           user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
         }
       },
-      async mounted(){
-        let products = await fetch(`http://localhost:3000/product/alcoholic`, {method: 'GET'});
+      async mounted() {
+        let products = await fetch(`http://localhost:3000/product/alcoholic`, { method: 'GET' });
         this.products = await products.json();
         console.log(this.products);
 
-        for(let i = 0; i < this.products.length; i++){
+        for (let i = 0; i < this.products.length; i++) {
           let name = String(this.products[i].name);
-          name = name.replace(/\s/g,'').toLowerCase();
+          name = name.replace(/\s/g, '').toLowerCase();
           this.pictures.push(`./assets/${name}.jpg`);
         }
 

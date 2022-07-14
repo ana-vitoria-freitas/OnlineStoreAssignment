@@ -18,7 +18,7 @@ width: 100%;">
 
   <div  id="app" class="shrine-body"> 
     <h4>CREATE NEW ACCOUNT</h4>
-    <form name="register_form" >
+    <form name="register_form" @submit.prevent="validate">
       <div class="campo">
         <input v-model="name" type="text" id="name" minlength="5" placeholder="Name" required>
       </div>

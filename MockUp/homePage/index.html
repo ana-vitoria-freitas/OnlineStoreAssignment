@@ -46,9 +46,20 @@
             <a class="mdc-list-item" href="/homePage/#/alcoholic">
               <span class="mdc-list-item__text">Alcoholic</span>
             </a>
-
             <a v-on:click="goToAccount" id="link-2" class="mdc-list-item">
               <span class="mdc-list-item__text">My Account</span>
+            </a>
+            <a  v-if="user_type == 'client'" v-on:click="goToCart" id="link-1" class="mdc-list-item" aria-selected="true" tabindex="0" href="#">
+              <span class="mdc-list-item__text">My cart</span>
+            </a>
+            <a v-if="user_type == 'admin'" class="mdc-list-item"  href="/userManagementPage">
+              <span class="mdc-list-item__text">Manage Users</span>
+            </a>
+            <a v-if="user_type == 'admin'" class="mdc-list-item" href="/addProductPage">
+              <span class="mdc-list-item__text">Add New Product</span>
+            </a>
+            <a v-on:click="logout" id="link-3" class="mdc-list-item" href="#">
+              <span class="mdc-list-item__text">Logout</span>
             </a>
         </nav>
       </div>
@@ -215,6 +226,12 @@
       },
       methods: {
         async addToCart(id) {
+
+          if (localStorage.getItem("username") == null) {
+            location.href = '../loginPage';
+            return
+          }
+
           let cart = await fetch(`http://localhost:3000/cart/${localStorage.getItem("username")}`, { method: 'GET' });
           if (cart.status == 404) { //SE O CARRINHO NÃO EXISTE VAMOS CRIAR UM
             let resp = await fetch("http://localhost:3000/cart", {
@@ -322,16 +339,17 @@
       template: '#home_id',
       data() {
         return {
-          products: [],
-          product_type: localStorage.getItem("user_type"),
+          products: [], 
+          product_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
           isMounted: false,
           pictures: [],
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
         }
       },
       async mounted() {
         let products = await fetch(`http://localhost:3000/product`, { method: 'GET' });
         this.products = await products.json();
-        console.log(this.products);
+        console.log(this.product_type);
 
         for (let i = 0; i < this.products.length; i++) {
           let name = String(this.products[i].name);
@@ -351,6 +369,7 @@
           product_type: localStorage.getItem("user_type"),
           isMounted: false,
           pictures: [],
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
         }
       },
       async mounted() {
@@ -376,6 +395,7 @@
           product_type: localStorage.getItem("user_type"),
           isMounted: false,
           pictures: [],
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
         }
       },
       async mounted() {
@@ -400,6 +420,7 @@
           product_type: localStorage.getItem("user_type"),
           isMounted: false,
           pictures: [],
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
         }
       },
       async mounted() {
@@ -420,7 +441,7 @@
 
     var router = new VueRouter({
       routes: [
-        { path: 'product/:id/', name: 'user', component: Client_product, props: true },
+        { path: 'product/:id/', name: 'client', component: Client_product, props: true },
         { path: 'product/:id/', name: 'admin', component: Admin_product, props: true },
         { path: '/', component: Home_featured },
         { path: '/hot', component: Home_hot_drinks },
@@ -433,7 +454,10 @@
     var products_list = new Vue({
       el: "#list",
       router,
-      data: {
+      data() {
+         return {
+          user_type: localStorage.getItem("user_type") ? localStorage.getItem("user_type") : 'client',
+         }
       },
       methods: {
         goToAccount: function () {
@@ -445,7 +469,20 @@
               location.href = '../clientAccountPage';
             }
           }
-        }
+        },
+        logout: () => {
+            localStorage.removeItem("username");
+            localStorage.setItem("user_type", 'client')
+            window.location.href = '../homePage';
+        },
+        goToCart: () => {
+            if (localStorage.getItem("username") == null) {
+                location.href = '../loginPage';
+            }
+            else {
+                location.href = '/cartPage';
+            }
+        },
       }
     });
   </script>

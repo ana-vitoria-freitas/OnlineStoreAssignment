@@ -52,6 +52,11 @@ Vue.createApp({
             this.index = this.list.indexOf(item)
             this.contact = Object.assign({}, item);
             localStorage.setItem('users', JSON.stringify(this.list))
-        }  
+        },
+        logout: () => {
+            localStorage.removeItem("username");
+            localStorage.setItem("user_type", 'client')
+            window.location.href = '../homePage';
+        },  
     }
 }).mount("#user-management-app");

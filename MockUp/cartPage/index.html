@@ -85,13 +85,13 @@
             <div class="mdc-card__actions">
               <div class="mdc-card__action-buttons">
                 <div class="button-container">
-                  <button v-on:click="removeFromCart(index)" type="button" class="mdc-button cancel">
+                  <button v-on:click="removeFromCart(item.name)" type="button" class="mdc-button cancel">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">
                       Remove
                     </span>
                   </button>
-                  <input type="number" id="quantity" min="1" max="10" v-model="item.quantity">
+                  <input type="number" id="quantity" min="1" max="10" v-model="item.quantity" v-on:input="updateQuantity(item.quantity, item.name)">
                 </div>
                 
               </div>

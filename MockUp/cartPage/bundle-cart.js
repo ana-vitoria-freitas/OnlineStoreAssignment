@@ -12,9 +12,12 @@ Vue.createApp({
         goToCheckout: () =>{
             location.href = '/checkoutPage';
         },
-        removeFromCart: (index) =>{
-            cart.splice(index, 1)
-            localStorage.setItem("cart", JSON.stringify(cart))
+        async removeFromCart(product_name) {
+            product_name = product_name.replace(/\s/g, '9').toLowerCase()
+            console.log(product_name)
+            let resp = await fetch(`http://localhost:3000/cart/product/${product_name}/${localStorage.getItem("username")}`, { method: 'PUT' });
+            console.log(resp)
+
             location.href = '/cartPage';
         },
         logout: () => {
@@ -22,6 +25,11 @@ Vue.createApp({
             localStorage.setItem("user_type", 'user')
             window.location.href = '../homePage';
         },  
+        async updateQuantity(quantity, product_name){
+            product_name = product_name.replace(/\s/g, '9').toLowerCase()
+            let resp = await fetch(`http://localhost:3000/cart/product/${product_name}/${localStorage.getItem("username")}/${quantity}`, { method: 'PUT' });
+            console.log(resp)
+        },
     },
     async mounted() {
         let resp = await fetch(`http://localhost:3000/cart/${localStorage.getItem("username")}`, {method: 'GET'});

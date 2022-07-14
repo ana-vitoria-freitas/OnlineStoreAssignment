@@ -27,7 +27,7 @@ router.get('/cart/:username', (req, res, next) => {
 router.put('/cart/product/:product_name/:username', (req, res, next) => {
     const dbConnect = dbo.getDb();
 
-    const product = String(req.params.product_name).replace("9", " ");
+    const product = String(req.params.product_name).replace(/[0-9]/g, ' ');
     console.log(product);
 
     dbConnect
